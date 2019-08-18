@@ -8,16 +8,17 @@
 
 import UIKit
 import ACEDrawingView
+import PMAlertController
 
 class ViewController: UIViewController {
 
     // キャンパス
     @IBOutlet weak var drawingView: ACEDrawingView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        drawingView.loadImage(UIImage(named: "津田梅子"))
-        
+
     }
 
     /**
@@ -54,7 +55,16 @@ class ViewController: UIViewController {
         let image = self.getImage(view)
 
         // カメラロールに保存する
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
+        // アラートコントローラー
+        let alertController = PMAlertController(title: "保存しますか？", description: nil, image: image, style: .alert)
+        // アラートアクション
+        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
+            // 「はい」を押した時だけ、画像を保存する
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
+        }))
+        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
+        self.present(alertController, animated: true)
+//        UIImageWriteToSavedPhotosAlbum(image, self, #selector(didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
     }
 
     // 保存を試みた結果を受け取る
@@ -69,10 +79,12 @@ class ViewController: UIViewController {
             message = "保存に失敗しました"
         }
 
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
+        let alertController = PMAlertController(title: title, description: message, image: image, style: .alert)
+
+        alertController.addAction(PMAlertAction(title: "OK", style: .default))
+        self.present(alertController, animated: true)
     }
+
 
     // クリアボタン
     @IBAction func clearButton(_ sender: Any) {

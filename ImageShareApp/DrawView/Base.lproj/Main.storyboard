@@ -18,56 +18,63 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-xJ-CST">
+                                <rect key="frame" x="0.0" y="787" width="414" height="75"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLC-Nk-CMU">
+                                        <rect key="frame" x="0.0" y="0.0" width="83" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="clearButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BT8-o8-kwD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cau-lD-Uuq">
+                                        <rect key="frame" x="83" y="0.0" width="82.5" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="undoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UME-5i-tG8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNk-lv-ktE">
+                                        <rect key="frame" x="165.5" y="0.0" width="83" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="redoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9xM-6k-Tof"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFj-B9-Qth">
+                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="saveButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8U4-2k-fhF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87B-1F-Cwb">
+                                        <rect key="frame" x="331" y="0.0" width="83" height="75"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="changePenButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fdj-6s-wru"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="5co-39-r62"/>
+                                </constraints>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wz6-23-hoD" customClass="ACEDrawingView">
-                                <rect key="frame" x="40" y="74" width="334" height="758"/>
+                                <rect key="frame" x="40" y="74" width="334" height="688"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uLM-ZJ-t3y">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="NWd-dx-Pzj"/>
-                                    <barButtonItem title="Clear" style="plain" id="7R3-UU-XMw">
-                                        <connections>
-                                            <action selector="clearButton:" destination="BYZ-38-t0r" id="2OT-N7-hJw"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cNl-cB-hia"/>
-                                    <barButtonItem systemItem="undo" id="abg-OZ-y3Q">
-                                        <connections>
-                                            <action selector="undoButton:" destination="BYZ-38-t0r" id="u36-0Q-NM3"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="inQ-se-Asv"/>
-                                    <barButtonItem systemItem="redo" id="BNm-00-ERj">
-                                        <connections>
-                                            <action selector="redoButton:" destination="BYZ-38-t0r" id="Pdh-n6-C6i"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="UUW-AA-i9c"/>
-                                    <barButtonItem systemItem="save" id="29v-r9-yMn">
-                                        <connections>
-                                            <action selector="saveButton:" destination="BYZ-38-t0r" id="5KN-o8-d0t"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hdA-80-Cqy"/>
-                                    <barButtonItem title="Pen" id="RAy-EL-wDd">
-                                        <connections>
-                                            <action selector="changePenButton:" destination="BYZ-38-t0r" id="axE-N0-tSy"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mky-mN-xGL"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="GPG-Nw-JmR"/>
-                            <constraint firstItem="uLM-ZJ-t3y" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="V5A-nu-4zl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hFZ-xJ-CST" secondAttribute="bottom" id="HDH-jR-u5K"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" constant="40" id="aFM-CC-gZi"/>
-                            <constraint firstItem="uLM-ZJ-t3y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aZG-4y-Oax"/>
-                            <constraint firstItem="uLM-ZJ-t3y" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bm3-gK-fpV"/>
+                            <constraint firstItem="hFZ-xJ-CST" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fEB-UI-c6h"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hFZ-xJ-CST" secondAttribute="trailing" id="ovD-kb-OkZ"/>
                             <constraint firstItem="Wz6-23-hoD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="si4-Ec-bH4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="30" id="zpI-il-JO9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="100" id="zpI-il-JO9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

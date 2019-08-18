@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8858B792E5206C4FB24C589FF900E1CF"
-               BuildableName = "Pods_ImageShareApp.framework"
-               BlueprintName = "Pods-ImageShareApp"
+               BlueprintIdentifier = "8F2A9C8FB229205694F97ECCB8A634BA"
+               BuildableName = "PMAlertController.bundle"
+               BlueprintName = "PMAlertController-PMAlertController"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8858B792E5206C4FB24C589FF900E1CF"
-            BuildableName = "Pods_ImageShareApp.framework"
-            BlueprintName = "Pods-ImageShareApp"
+            BlueprintIdentifier = "8F2A9C8FB229205694F97ECCB8A634BA"
+            BuildableName = "PMAlertController.bundle"
+            BlueprintName = "PMAlertController-PMAlertController"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

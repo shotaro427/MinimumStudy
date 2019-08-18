@@ -1,16 +1,24 @@
 PODS:
   - ACEDrawingView (2.2.1)
+  - CircleMenu (4.1.0)
+  - PMAlertController (4.0.0)
 
 DEPENDENCIES:
   - ACEDrawingView
+  - CircleMenu
+  - PMAlertController
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ACEDrawingView
+    - CircleMenu
+    - PMAlertController
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
+  CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
+  PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
 
-PODFILE CHECKSUM: 71a22ef5641493a390d5f9fd9daede931f08ddc2
+PODFILE CHECKSUM: 88590dd5496712504bb9a6f00dfb7328195c4418
 
 COCOAPODS: 1.6.1
