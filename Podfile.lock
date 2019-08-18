@@ -1,0 +1,16 @@
+PODS:
+  - ACEDrawingView (2.2.1)
+
+DEPENDENCIES:
+  - ACEDrawingView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ACEDrawingView
+
+SPEC CHECKSUMS:
+  ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
+
+PODFILE CHECKSUM: 71a22ef5641493a390d5f9fd9daede931f08ddc2
+
+COCOAPODS: 1.6.1

@@ -1,0 +1,767 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03576F6877AF3C1CD5D11513B8077758 /* ACEDrawingToolState.h in Headers */ = {isa = PBXBuildFile; fileRef = C6C3A49AEE84CB217D969202AA721DA4 /* ACEDrawingToolState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0531479EF87BF00FF3DACC47251B7CEF /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FA590F3B45D78BAE3A5204B8774FCE /* ACEDrawingTools.m */; };
+		0A0EC43FAE579DF5F1E673C5C50F3D31 /* ACEDrawingLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 360332C9BA8C5D5A39B80E594B8AEDDB /* ACEDrawingLabelView.m */; };
+		0F1B5B34C961E3F63B9922CED2661B17 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CC5787C4D7225262138F10874B1FB4 /* QuartzCore.framework */; };
+		1D314B962A13F184BB2A708322E3EE7C /* ACEDrawingView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E330270A93AB16BE05C7FA36DC2123E2 /* ACEDrawingView-dummy.m */; };
+		2335F034B8FC0E2B2433CD16A5338637 /* sticker_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 797755E98A903E713D9EC6F44668E720 /* sticker_close@3x.png */; };
+		24A8FC3A81440048A363B9992E31F632 /* ACEDraggableText.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88BB428E6A3B57988045064933C32A9B /* ACEDraggableText.bundle */; };
+		26EEE15291E851C8538E90F17F935CAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A87EFC1E3074BF96CE56BFE8D51A20 /* Foundation.framework */; };
+		2943439E356CECE664B7F6DC4EBB2FD3 /* sticker_close.png in Resources */ = {isa = PBXBuildFile; fileRef = C8EF9FE032C4D01D0F5395A4354117A9 /* sticker_close.png */; };
+		2BACBF5E3E26E9F353A86FF18C39C215 /* Pods-ImageShareApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2C68EAA8AA951B4FD5430D3C758ADE /* Pods-ImageShareApp-dummy.m */; };
+		5752C6D4EED5B109103F145006A39303 /* sticker_resize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F891349900DBA3CAE0F01B65133D023 /* sticker_resize@2x.png */; };
+		61ED31463CDD06BE47721AD41FD7E047 /* sticker_resize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 438B8FD3ECF466E073568B182B2FC64C /* sticker_resize@3x.png */; };
+		68164009A702B96D865F0E7E0AC9FBC7 /* sticker_resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B1EAAC63FAD7C3EB4C50E47C8DAD0CA /* sticker_resize.png */; };
+		78A397A01EFDF7FA3171DC4D06900E93 /* sticker_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A1284F336A46BA28DFE79F5DBC5C914A /* sticker_close@2x.png */; };
+		8F03389A010DF55EBE3CB9436596F488 /* ACEDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D95F56AB2FAEFCE7BA6B27E977C25BA /* ACEDrawingView.m */; };
+		9156B0BF372EFBEC0D0B1BAD74CBEBD4 /* ACEDrawingView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA8DDF80CFA4B8A9DADC64A9F95D0CB0 /* ACEDrawingView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9379ED2ABEEE3D1CBDD840A872E18A6C /* ACEDrawingTools.h in Headers */ = {isa = PBXBuildFile; fileRef = DA1E8117C4C0B96C9DE4C4C6E0174C8B /* ACEDrawingTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9AAF0906046533DB0E0AB84BFCC51B00 /* ACEDrawingLabelView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4618ED70BB32E4514F5257F63249CDF4 /* ACEDrawingLabelView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9CE289D76E58486BD9464C7CFBB86ACB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A87EFC1E3074BF96CE56BFE8D51A20 /* Foundation.framework */; };
+		AA11385CC4BE0B682478704D2540CB75 /* ACEDrawingToolState.m in Sources */ = {isa = PBXBuildFile; fileRef = E29BB1D99E59D0DEA16CAF87291ED0B2 /* ACEDrawingToolState.m */; };
+		D1099EC93E56515556EEF8CBCB70BE8E /* Pods-ImageShareApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E0A84ED461C8AE7D456B7B73161319B /* Pods-ImageShareApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4DECE35A39F36381AD897C8AB3C2EA0 /* ACEDrawingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 49435067A4FB846AC026BEA8649EE9BE /* ACEDrawingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9FD555072B6F45D361BAE91E5506EC67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C91EC8A36DDFB2ACF688BDAAA3609ADA;
+			remoteInfo = ACEDrawingView;
+		};
+		FD4159FF52F2E6E657F65E91F9C6CE87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A90456AF0C078C993B3BD8DF58374D8;
+			remoteInfo = "ACEDrawingView-ACEDraggableText";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		10AB1DC02E059AB8708F496464ABC872 /* ACEDrawingView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ACEDrawingView.modulemap; sourceTree = "<group>"; };
+		1142099A135D136BE8711B2F6C069B94 /* Pods-ImageShareApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ImageShareApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		148CC229B6CF37F39A8456BB214288BF /* ACEDrawingView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ACEDrawingView-Info.plist"; sourceTree = "<group>"; };
+		23C6FA031A4F53DD63350B077FE9E24E /* Pods-ImageShareApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ImageShareApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		2B1EAAC63FAD7C3EB4C50E47C8DAD0CA /* sticker_resize.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = sticker_resize.png; path = ACEDrawingView/ACEDraggableText/sticker_resize.png; sourceTree = "<group>"; };
+		2E0A84ED461C8AE7D456B7B73161319B /* Pods-ImageShareApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ImageShareApp-umbrella.h"; sourceTree = "<group>"; };
+		2F891349900DBA3CAE0F01B65133D023 /* sticker_resize@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sticker_resize@2x.png"; path = "ACEDrawingView/ACEDraggableText/sticker_resize@2x.png"; sourceTree = "<group>"; };
+		35D183C2BB2561F8CE6A04393B00BBB7 /* ACEDrawingView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ACEDrawingView.xcconfig; sourceTree = "<group>"; };
+		360332C9BA8C5D5A39B80E594B8AEDDB /* ACEDrawingLabelView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ACEDrawingLabelView.m; path = ACEDrawingView/ACEDrawingLabelView.m; sourceTree = "<group>"; };
+		438B8FD3ECF466E073568B182B2FC64C /* sticker_resize@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sticker_resize@3x.png"; path = "ACEDrawingView/ACEDraggableText/sticker_resize@3x.png"; sourceTree = "<group>"; };
+		4618ED70BB32E4514F5257F63249CDF4 /* ACEDrawingLabelView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ACEDrawingLabelView.h; path = ACEDrawingView/ACEDrawingLabelView.h; sourceTree = "<group>"; };
+		49435067A4FB846AC026BEA8649EE9BE /* ACEDrawingView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ACEDrawingView.h; path = ACEDrawingView/ACEDrawingView.h; sourceTree = "<group>"; };
+		4963D8B1DCBCA420E7017C4C7DABB2F8 /* ACEDrawingView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ACEDrawingView.framework; path = ACEDrawingView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C2C68EAA8AA951B4FD5430D3C758ADE /* Pods-ImageShareApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ImageShareApp-dummy.m"; sourceTree = "<group>"; };
+		6022C5629F0DF808D7E72510D1D549C8 /* Pods_ImageShareApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ImageShareApp.framework; path = "Pods-ImageShareApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73A87EFC1E3074BF96CE56BFE8D51A20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		797755E98A903E713D9EC6F44668E720 /* sticker_close@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sticker_close@3x.png"; path = "ACEDrawingView/ACEDraggableText/sticker_close@3x.png"; sourceTree = "<group>"; };
+		801CD2E589AF7518B7823B7EE6BBF53F /* ResourceBundle-ACEDraggableText-ACEDrawingView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-ACEDraggableText-ACEDrawingView-Info.plist"; sourceTree = "<group>"; };
+		88BB428E6A3B57988045064933C32A9B /* ACEDraggableText.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = ACEDraggableText.bundle; path = "ACEDrawingView-ACEDraggableText.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93CC5787C4D7225262138F10874B1FB4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D95F56AB2FAEFCE7BA6B27E977C25BA /* ACEDrawingView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ACEDrawingView.m; path = ACEDrawingView/ACEDrawingView.m; sourceTree = "<group>"; };
+		A1284F336A46BA28DFE79F5DBC5C914A /* sticker_close@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sticker_close@2x.png"; path = "ACEDrawingView/ACEDraggableText/sticker_close@2x.png"; sourceTree = "<group>"; };
+		A3FA590F3B45D78BAE3A5204B8774FCE /* ACEDrawingTools.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ACEDrawingTools.m; path = ACEDrawingView/ACEDrawingTools.m; sourceTree = "<group>"; };
+		B7BE93964F7583EBA8AEAA37F6CB1C5C /* Pods-ImageShareApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ImageShareApp-Info.plist"; sourceTree = "<group>"; };
+		BA8DDF80CFA4B8A9DADC64A9F95D0CB0 /* ACEDrawingView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ACEDrawingView-umbrella.h"; sourceTree = "<group>"; };
+		BF66A78D71DFEA6496A504C88DD840FE /* ACEDrawingView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ACEDrawingView-prefix.pch"; sourceTree = "<group>"; };
+		C6C3A49AEE84CB217D969202AA721DA4 /* ACEDrawingToolState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ACEDrawingToolState.h; path = ACEDrawingView/ACEDrawingToolState.h; sourceTree = "<group>"; };
+		C8056C48891944501EA7C5EF704AE78D /* Pods-ImageShareApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ImageShareApp.modulemap"; sourceTree = "<group>"; };
+		C8EF9FE032C4D01D0F5395A4354117A9 /* sticker_close.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = sticker_close.png; path = ACEDrawingView/ACEDraggableText/sticker_close.png; sourceTree = "<group>"; };
+		CB04B04807D2E528C697922AA7AD7C9A /* Pods-ImageShareApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ImageShareApp.release.xcconfig"; sourceTree = "<group>"; };
+		DA1E8117C4C0B96C9DE4C4C6E0174C8B /* ACEDrawingTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ACEDrawingTools.h; path = ACEDrawingView/ACEDrawingTools.h; sourceTree = "<group>"; };
+		DE681472558D8AF50E6A80C60728B68D /* Pods-ImageShareApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ImageShareApp-frameworks.sh"; sourceTree = "<group>"; };
+		E29BB1D99E59D0DEA16CAF87291ED0B2 /* ACEDrawingToolState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ACEDrawingToolState.m; path = ACEDrawingView/ACEDrawingToolState.m; sourceTree = "<group>"; };
+		E330270A93AB16BE05C7FA36DC2123E2 /* ACEDrawingView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ACEDrawingView-dummy.m"; sourceTree = "<group>"; };
+		F2D485EFB4579E6DDC6EBE97CCF6374D /* Pods-ImageShareApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ImageShareApp.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		151AF6C85C7332552C76E7B413A435C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CE289D76E58486BD9464C7CFBB86ACB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C54E5DAA8EC25F7AD406E96F4BE9CE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26EEE15291E851C8538E90F17F935CAF /* Foundation.framework in Frameworks */,
+				0F1B5B34C961E3F63B9922CED2661B17 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6EDF599E90D60CCA2B97D36661A8E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				882A293BD79D4DA49D52A901C0171109 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4456818815149D4514105FD14061FDAF /* Pods-ImageShareApp */ = {
+			isa = PBXGroup;
+			children = (
+				C8056C48891944501EA7C5EF704AE78D /* Pods-ImageShareApp.modulemap */,
+				1142099A135D136BE8711B2F6C069B94 /* Pods-ImageShareApp-acknowledgements.markdown */,
+				23C6FA031A4F53DD63350B077FE9E24E /* Pods-ImageShareApp-acknowledgements.plist */,
+				5C2C68EAA8AA951B4FD5430D3C758ADE /* Pods-ImageShareApp-dummy.m */,
+				DE681472558D8AF50E6A80C60728B68D /* Pods-ImageShareApp-frameworks.sh */,
+				B7BE93964F7583EBA8AEAA37F6CB1C5C /* Pods-ImageShareApp-Info.plist */,
+				2E0A84ED461C8AE7D456B7B73161319B /* Pods-ImageShareApp-umbrella.h */,
+				F2D485EFB4579E6DDC6EBE97CCF6374D /* Pods-ImageShareApp.debug.xcconfig */,
+				CB04B04807D2E528C697922AA7AD7C9A /* Pods-ImageShareApp.release.xcconfig */,
+			);
+			name = "Pods-ImageShareApp";
+			path = "Target Support Files/Pods-ImageShareApp";
+			sourceTree = "<group>";
+		};
+		511C9B29409CABC072D5889D8AFC3F60 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C8EF9FE032C4D01D0F5395A4354117A9 /* sticker_close.png */,
+				A1284F336A46BA28DFE79F5DBC5C914A /* sticker_close@2x.png */,
+				797755E98A903E713D9EC6F44668E720 /* sticker_close@3x.png */,
+				2B1EAAC63FAD7C3EB4C50E47C8DAD0CA /* sticker_resize.png */,
+				2F891349900DBA3CAE0F01B65133D023 /* sticker_resize@2x.png */,
+				438B8FD3ECF466E073568B182B2FC64C /* sticker_resize@3x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		882A293BD79D4DA49D52A901C0171109 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73A87EFC1E3074BF96CE56BFE8D51A20 /* Foundation.framework */,
+				93CC5787C4D7225262138F10874B1FB4 /* QuartzCore.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		8C49298F3C707613E8D11D747AA4C410 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4456818815149D4514105FD14061FDAF /* Pods-ImageShareApp */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		B1475BB94AE3921CF1D9409E8E3598B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEDE88AB9C4E71F210F39BF476E71CB3 /* ACEDrawingView */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CC948F4C5A04AA10DDE0F542AD4090DE /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				10AB1DC02E059AB8708F496464ABC872 /* ACEDrawingView.modulemap */,
+				35D183C2BB2561F8CE6A04393B00BBB7 /* ACEDrawingView.xcconfig */,
+				E330270A93AB16BE05C7FA36DC2123E2 /* ACEDrawingView-dummy.m */,
+				148CC229B6CF37F39A8456BB214288BF /* ACEDrawingView-Info.plist */,
+				BF66A78D71DFEA6496A504C88DD840FE /* ACEDrawingView-prefix.pch */,
+				BA8DDF80CFA4B8A9DADC64A9F95D0CB0 /* ACEDrawingView-umbrella.h */,
+				801CD2E589AF7518B7823B7EE6BBF53F /* ResourceBundle-ACEDraggableText-ACEDrawingView-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ACEDrawingView";
+			sourceTree = "<group>";
+		};
+		CEDE88AB9C4E71F210F39BF476E71CB3 /* ACEDrawingView */ = {
+			isa = PBXGroup;
+			children = (
+				4618ED70BB32E4514F5257F63249CDF4 /* ACEDrawingLabelView.h */,
+				360332C9BA8C5D5A39B80E594B8AEDDB /* ACEDrawingLabelView.m */,
+				DA1E8117C4C0B96C9DE4C4C6E0174C8B /* ACEDrawingTools.h */,
+				A3FA590F3B45D78BAE3A5204B8774FCE /* ACEDrawingTools.m */,
+				C6C3A49AEE84CB217D969202AA721DA4 /* ACEDrawingToolState.h */,
+				E29BB1D99E59D0DEA16CAF87291ED0B2 /* ACEDrawingToolState.m */,
+				49435067A4FB846AC026BEA8649EE9BE /* ACEDrawingView.h */,
+				9D95F56AB2FAEFCE7BA6B27E977C25BA /* ACEDrawingView.m */,
+				511C9B29409CABC072D5889D8AFC3F60 /* Resources */,
+				CC948F4C5A04AA10DDE0F542AD4090DE /* Support Files */,
+			);
+			name = ACEDrawingView;
+			path = ACEDrawingView;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				B1475BB94AE3921CF1D9409E8E3598B1 /* Pods */,
+				DA55398DDFA05A5C299FE5913898DA0C /* Products */,
+				8C49298F3C707613E8D11D747AA4C410 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		DA55398DDFA05A5C299FE5913898DA0C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88BB428E6A3B57988045064933C32A9B /* ACEDraggableText.bundle */,
+				4963D8B1DCBCA420E7017C4C7DABB2F8 /* ACEDrawingView.framework */,
+				6022C5629F0DF808D7E72510D1D549C8 /* Pods_ImageShareApp.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0357E4034D5DA75E31C490246B9212B3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAF0906046533DB0E0AB84BFCC51B00 /* ACEDrawingLabelView.h in Headers */,
+				9379ED2ABEEE3D1CBDD840A872E18A6C /* ACEDrawingTools.h in Headers */,
+				03576F6877AF3C1CD5D11513B8077758 /* ACEDrawingToolState.h in Headers */,
+				9156B0BF372EFBEC0D0B1BAD74CBEBD4 /* ACEDrawingView-umbrella.h in Headers */,
+				F4DECE35A39F36381AD897C8AB3C2EA0 /* ACEDrawingView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2143F938B5BD8CAF29B4558F91FBED54 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1099EC93E56515556EEF8CBCB70BE8E /* Pods-ImageShareApp-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1A90456AF0C078C993B3BD8DF58374D8 /* ACEDrawingView-ACEDraggableText */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D45543972408CA9E4616E6B13D048B4 /* Build configuration list for PBXNativeTarget "ACEDrawingView-ACEDraggableText" */;
+			buildPhases = (
+				E3283B8897B9F743A634CC8D15C1A92E /* Sources */,
+				DC6EDF599E90D60CCA2B97D36661A8E3 /* Frameworks */,
+				0B18E25CE059F8ABAE4A2C93C0A41684 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ACEDrawingView-ACEDraggableText";
+			productName = "ACEDrawingView-ACEDraggableText";
+			productReference = 88BB428E6A3B57988045064933C32A9B /* ACEDraggableText.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		C91EC8A36DDFB2ACF688BDAAA3609ADA /* ACEDrawingView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D42801B85BBBE6CC8445E875218E02A /* Build configuration list for PBXNativeTarget "ACEDrawingView" */;
+			buildPhases = (
+				0357E4034D5DA75E31C490246B9212B3 /* Headers */,
+				FCE0315E7E43276D5692036ECDD82625 /* Sources */,
+				C54E5DAA8EC25F7AD406E96F4BE9CE94 /* Frameworks */,
+				D9816A5EB59562F26C49D3C8EC2388DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D084C96EE245C86F5D894136002525CF /* PBXTargetDependency */,
+			);
+			name = ACEDrawingView;
+			productName = ACEDrawingView;
+			productReference = 4963D8B1DCBCA420E7017C4C7DABB2F8 /* ACEDrawingView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C9CE5CA3B0AEEB6136950AFAB3122988 /* Pods-ImageShareApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F332EE7AD55D411A99B6689FA5CC85A /* Build configuration list for PBXNativeTarget "Pods-ImageShareApp" */;
+			buildPhases = (
+				2143F938B5BD8CAF29B4558F91FBED54 /* Headers */,
+				1C44F2AF9D5D93B08EBB9D2249ED73C5 /* Sources */,
+				151AF6C85C7332552C76E7B413A435C9 /* Frameworks */,
+				D4FEF6D65ACC402F6E19215B27561918 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73B590A8F1EAEF28B8160A1AD70FEA24 /* PBXTargetDependency */,
+			);
+			name = "Pods-ImageShareApp";
+			productName = "Pods-ImageShareApp";
+			productReference = 6022C5629F0DF808D7E72510D1D549C8 /* Pods_ImageShareApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = DA55398DDFA05A5C299FE5913898DA0C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C91EC8A36DDFB2ACF688BDAAA3609ADA /* ACEDrawingView */,
+				1A90456AF0C078C993B3BD8DF58374D8 /* ACEDrawingView-ACEDraggableText */,
+				C9CE5CA3B0AEEB6136950AFAB3122988 /* Pods-ImageShareApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0B18E25CE059F8ABAE4A2C93C0A41684 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2943439E356CECE664B7F6DC4EBB2FD3 /* sticker_close.png in Resources */,
+				78A397A01EFDF7FA3171DC4D06900E93 /* sticker_close@2x.png in Resources */,
+				2335F034B8FC0E2B2433CD16A5338637 /* sticker_close@3x.png in Resources */,
+				68164009A702B96D865F0E7E0AC9FBC7 /* sticker_resize.png in Resources */,
+				5752C6D4EED5B109103F145006A39303 /* sticker_resize@2x.png in Resources */,
+				61ED31463CDD06BE47721AD41FD7E047 /* sticker_resize@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4FEF6D65ACC402F6E19215B27561918 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9816A5EB59562F26C49D3C8EC2388DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24A8FC3A81440048A363B9992E31F632 /* ACEDraggableText.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1C44F2AF9D5D93B08EBB9D2249ED73C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BACBF5E3E26E9F353A86FF18C39C215 /* Pods-ImageShareApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3283B8897B9F743A634CC8D15C1A92E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCE0315E7E43276D5692036ECDD82625 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A0EC43FAE579DF5F1E673C5C50F3D31 /* ACEDrawingLabelView.m in Sources */,
+				0531479EF87BF00FF3DACC47251B7CEF /* ACEDrawingTools.m in Sources */,
+				AA11385CC4BE0B682478704D2540CB75 /* ACEDrawingToolState.m in Sources */,
+				1D314B962A13F184BB2A708322E3EE7C /* ACEDrawingView-dummy.m in Sources */,
+				8F03389A010DF55EBE3CB9436596F488 /* ACEDrawingView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		73B590A8F1EAEF28B8160A1AD70FEA24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ACEDrawingView;
+			target = C91EC8A36DDFB2ACF688BDAAA3609ADA /* ACEDrawingView */;
+			targetProxy = 9FD555072B6F45D361BAE91E5506EC67 /* PBXContainerItemProxy */;
+		};
+		D084C96EE245C86F5D894136002525CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ACEDrawingView-ACEDraggableText";
+			target = 1A90456AF0C078C993B3BD8DF58374D8 /* ACEDrawingView-ACEDraggableText */;
+			targetProxy = FD4159FF52F2E6E657F65E91F9C6CE87 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		28BC87758072102050F6EF5F1C627DB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35D183C2BB2561F8CE6A04393B00BBB7 /* ACEDrawingView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ACEDrawingView/ACEDrawingView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ACEDrawingView/ACEDrawingView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ACEDrawingView/ACEDrawingView.modulemap";
+				PRODUCT_MODULE_NAME = ACEDrawingView;
+				PRODUCT_NAME = ACEDrawingView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3A6DDC8A58844FDFF447669FB289C40A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB04B04807D2E528C697922AA7AD7C9A /* Pods-ImageShareApp.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		53460E22BDDAF1B215A5EFC1DC92EC0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		A4E704E99D32B43F3DA54354785DE313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		F6993BD9D38E2271ED5150B391FC2A32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2D485EFB4579E6DDC6EBE97CCF6374D /* Pods-ImageShareApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F6C6135FE5A0E1CDD8700E3BBFB8920E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35D183C2BB2561F8CE6A04393B00BBB7 /* ACEDrawingView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ACEDrawingView";
+				INFOPLIST_FILE = "Target Support Files/ACEDrawingView/ResourceBundle-ACEDraggableText-ACEDrawingView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = ACEDraggableText;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		FB190D9282228AEC04D95BEB43FAA7F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35D183C2BB2561F8CE6A04393B00BBB7 /* ACEDrawingView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ACEDrawingView/ACEDrawingView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ACEDrawingView/ACEDrawingView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ACEDrawingView/ACEDrawingView.modulemap";
+				PRODUCT_MODULE_NAME = ACEDrawingView;
+				PRODUCT_NAME = ACEDrawingView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FE9449F9E5FE1DB7E0CA49472B1BDAC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35D183C2BB2561F8CE6A04393B00BBB7 /* ACEDrawingView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ACEDrawingView";
+				INFOPLIST_FILE = "Target Support Files/ACEDrawingView/ResourceBundle-ACEDraggableText-ACEDrawingView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = ACEDraggableText;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3D42801B85BBBE6CC8445E875218E02A /* Build configuration list for PBXNativeTarget "ACEDrawingView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28BC87758072102050F6EF5F1C627DB5 /* Debug */,
+				FB190D9282228AEC04D95BEB43FAA7F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53460E22BDDAF1B215A5EFC1DC92EC0A /* Debug */,
+				A4E704E99D32B43F3DA54354785DE313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D45543972408CA9E4616E6B13D048B4 /* Build configuration list for PBXNativeTarget "ACEDrawingView-ACEDraggableText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6C6135FE5A0E1CDD8700E3BBFB8920E /* Debug */,
+				FE9449F9E5FE1DB7E0CA49472B1BDAC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F332EE7AD55D411A99B6689FA5CC85A /* Build configuration list for PBXNativeTarget "Pods-ImageShareApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6993BD9D38E2271ED5150B391FC2A32 /* Debug */,
+				3A6DDC8A58844FDFF447669FB289C40A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

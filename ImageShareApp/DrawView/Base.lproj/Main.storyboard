@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wz6-23-hoD" customClass="ACEDrawingView">
+                                <rect key="frame" x="40" y="74" width="334" height="758"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uLM-ZJ-t3y">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="NWd-dx-Pzj"/>
+                                    <barButtonItem title="Clear" style="plain" id="7R3-UU-XMw">
+                                        <connections>
+                                            <action selector="clearButton:" destination="BYZ-38-t0r" id="2OT-N7-hJw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cNl-cB-hia"/>
+                                    <barButtonItem systemItem="cancel" id="abg-OZ-y3Q">
+                                        <connections>
+                                            <action selector="cancelButoon:" destination="BYZ-38-t0r" id="FAB-dV-scM"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="UUW-AA-i9c"/>
+                                    <barButtonItem systemItem="save" id="29v-r9-yMn">
+                                        <connections>
+                                            <action selector="saveButton:" destination="BYZ-38-t0r" id="5KN-o8-d0t"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hdA-80-Cqy"/>
+                                    <barButtonItem title="Pen" id="RAy-EL-wDd">
+                                        <connections>
+                                            <action selector="changePenButton:" destination="BYZ-38-t0r" id="axE-N0-tSy"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mky-mN-xGL"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="GPG-Nw-JmR"/>
+                            <constraint firstItem="uLM-ZJ-t3y" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="V5A-nu-4zl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" constant="40" id="aFM-CC-gZi"/>
+                            <constraint firstItem="uLM-ZJ-t3y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aZG-4y-Oax"/>
+                            <constraint firstItem="uLM-ZJ-t3y" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bm3-gK-fpV"/>
+                            <constraint firstItem="Wz6-23-hoD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="si4-Ec-bH4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="30" id="zpI-il-JO9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="drawingView" destination="Wz6-23-hoD" id="yf8-5a-QEn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
