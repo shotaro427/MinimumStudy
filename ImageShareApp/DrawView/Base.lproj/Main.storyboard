@@ -32,9 +32,15 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="cNl-cB-hia"/>
-                                    <barButtonItem systemItem="cancel" id="abg-OZ-y3Q">
+                                    <barButtonItem systemItem="undo" id="abg-OZ-y3Q">
                                         <connections>
-                                            <action selector="cancelButoon:" destination="BYZ-38-t0r" id="FAB-dV-scM"/>
+                                            <action selector="undoButton:" destination="BYZ-38-t0r" id="u36-0Q-NM3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="inQ-se-Asv"/>
+                                    <barButtonItem systemItem="redo" id="BNm-00-ERj">
+                                        <connections>
+                                            <action selector="redoButton:" destination="BYZ-38-t0r" id="Pdh-n6-C6i"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="UUW-AA-i9c"/>
