@@ -9,5 +9,7 @@ target 'ImageShareApp' do
  pod 'ACEDrawingView'
  pod 'PMAlertController'
  pod 'Material', '~> 3.1.0'
-
+ pod 'Firebase'
+ pod 'Firebase/Auth'
+ pod 'Firebase/Firestore'
 end

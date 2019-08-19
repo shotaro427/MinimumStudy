@@ -16,6 +16,7 @@
 		E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933B802309420100F68A87 /* PenMenuViewController.swift */; };
 		E2933BAE230A8E0500F68A87 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BAD230A8E0500F68A87 /* Login.storyboard */; };
 		E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BAF230A8E1600F68A87 /* LoginViewController.swift */; };
+		E2933BB3230A9D3F00F68A87 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BB2230A9D3F00F68A87 /* TextFieldExtension.swift */; };
 		FF7B436E961FE13A19A58309 /* Pods_ImageShareApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DAF47CDEED64D4EDF8A8F2 /* Pods_ImageShareApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		E2933B802309420100F68A87 /* PenMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenMenuViewController.swift; sourceTree = "<group>"; };
 		E2933BAD230A8E0500F68A87 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		E2933BAF230A8E1600F68A87 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E2933BB2230A9D3F00F68A87 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		E2933B6A2309171E00F68A87 /* ImageShareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E2933BB1230A9D1800F68A87 /* extensions */,
 				E2933BAC230A8DF400F68A87 /* Login */,
 				E2933B7F23091DAC00F68A87 /* DrawView */,
 				E2933B6B2309171E00F68A87 /* AppDelegate.swift */,
@@ -114,6 +117,14 @@
 				E2933BAF230A8E1600F68A87 /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		E2933BB1230A9D1800F68A87 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E2933BB2230A9D3F00F68A87 /* TextFieldExtension.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,18 +230,34 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACEDrawingView/ACEDrawingView.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/PMAlertController/PMAlertController.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACEDrawingView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMAlertController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -247,6 +274,7 @@
 				E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */,
 				E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */,
 				E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */,
+				E2933BB3230A9D3F00F68A87 /* TextFieldExtension.swift in Sources */,
 				E2933B6C2309171E00F68A87 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
