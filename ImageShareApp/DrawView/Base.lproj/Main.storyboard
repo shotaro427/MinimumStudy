@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mAi-fl-89m">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -62,30 +62,52 @@
                                     <constraint firstAttribute="height" constant="75" id="5co-39-r62"/>
                                 </constraints>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VIM-8K-Ar1">
+                                <rect key="frame" x="10" y="94" width="355" height="473"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wz6-23-hoD" customClass="ACEDrawingView">
-                                <rect key="frame" x="40" y="50" width="295" height="517"/>
+                                <rect key="frame" x="10" y="94" width="355" height="473"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="GPG-Nw-JmR"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="top" id="86f-Hm-m0J"/>
+                            <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="GPG-Nw-JmR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hFZ-xJ-CST" secondAttribute="bottom" id="HDH-jR-u5K"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" constant="40" id="aFM-CC-gZi"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" id="Ncm-2S-VYO"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="leading" secondItem="Wz6-23-hoD" secondAttribute="leading" id="YCT-bN-zUC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" constant="10" id="aFM-CC-gZi"/>
+                            <constraint firstItem="hFZ-xJ-CST" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="25" id="eu6-lN-jY4"/>
                             <constraint firstItem="hFZ-xJ-CST" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fEB-UI-c6h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hFZ-xJ-CST" secondAttribute="trailing" id="ovD-kb-OkZ"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" id="raT-Sy-VAX"/>
                             <constraint firstItem="Wz6-23-hoD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="si4-Ec-bH4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="100" id="zpI-il-JO9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="5iV-rW-hmP">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="UIf-47-2IV">
+                                <connections>
+                                    <action selector="addImageButton:" destination="BYZ-38-t0r" id="fqG-sY-hQt"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="camera" id="o00-Cl-yPn">
+                                <connections>
+                                    <action selector="cameraButton:" destination="BYZ-38-t0r" id="Kgt-hK-pfb"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="drawingView" destination="Wz6-23-hoD" id="yf8-5a-QEn"/>
+                        <outlet property="imageView" destination="VIM-8K-Ar1" id="k8P-xR-xo6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23" y="123"/>
+            <point key="canvasLocation" x="804" y="123"/>
         </scene>
         <!--Pen Menu View Controller-->
         <scene sceneID="0cs-zr-EX2">
@@ -99,26 +121,32 @@
                                 <rect key="frame" x="0.0" y="20" width="225" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-Bo-Ni2">
-                                        <rect key="frame" x="30" y="537" width="165" height="100"/>
+                                        <rect key="frame" x="30" y="582" width="165" height="55"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-t6-yp9">
-                                                <rect key="frame" x="0.0" y="0.0" width="49.5" height="100"/>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-t6-yp9" customClass="IconButton" customModule="Material">
+                                                <rect key="frame" x="0.0" y="0.0" width="49.5" height="55"/>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" title="pen" image="蛍光ペン"/>
+                                                <state key="selected">
+                                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="highlighted" image="蛍光ペン">
+                                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="Or3-5R-ee2"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-iu-zCu">
-                                                <rect key="frame" x="57.5" y="0.0" width="50" height="100"/>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-iu-zCu" customClass="IconButton" customModule="Material">
+                                                <rect key="frame" x="57.5" y="0.0" width="50" height="55"/>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" title="line" image="シャープペンシル"/>
                                                 <connections>
                                                     <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="5V5-k3-YM2"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55d-4j-zTb">
-                                                <rect key="frame" x="115.5" y="0.0" width="49.5" height="100"/>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55d-4j-zTb" customClass="IconButton" customModule="Material">
+                                                <rect key="frame" x="115.5" y="0.0" width="49.5" height="55"/>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" title="eraser" image="消しゴム"/>
                                                 <connections>
@@ -127,7 +155,7 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="T7d-zj-ggZ"/>
+                                            <constraint firstAttribute="width" secondItem="vq9-Bo-Ni2" secondAttribute="height" multiplier="3:1" id="CZQ-Ce-Zqs"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -154,7 +182,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hev-Rc-nam" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="702" y="123"/>
+            <point key="canvasLocation" x="1640.8" y="122.78860569715144"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PrR-ne-s9l">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mAi-fl-89m" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="C6M-sz-f8L">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="tdg-N8-ypX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1l-tc-aCo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23.199999999999999" y="122.78860569715144"/>
         </scene>
     </scenes>
     <resources>

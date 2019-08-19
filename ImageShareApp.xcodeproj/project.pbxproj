@@ -14,6 +14,8 @@
 		E2933B762309171F00F68A87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933B742309171F00F68A87 /* LaunchScreen.storyboard */; };
 		E2933B7E23091A3600F68A87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2933B7D23091A3600F68A87 /* GoogleService-Info.plist */; };
 		E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933B802309420100F68A87 /* PenMenuViewController.swift */; };
+		E2933BAE230A8E0500F68A87 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BAD230A8E0500F68A87 /* Login.storyboard */; };
+		E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BAF230A8E1600F68A87 /* LoginViewController.swift */; };
 		FF7B436E961FE13A19A58309 /* Pods_ImageShareApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DAF47CDEED64D4EDF8A8F2 /* Pods_ImageShareApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		E2933B772309171F00F68A87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2933B7D23091A3600F68A87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2933B802309420100F68A87 /* PenMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenMenuViewController.swift; sourceTree = "<group>"; };
+		E2933BAD230A8E0500F68A87 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		E2933BAF230A8E1600F68A87 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 		E2933B6A2309171E00F68A87 /* ImageShareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E2933BAC230A8DF400F68A87 /* Login */,
 				E2933B7F23091DAC00F68A87 /* DrawView */,
 				E2933B6B2309171E00F68A87 /* AppDelegate.swift */,
 				E2933B722309171F00F68A87 /* Assets.xcassets */,
@@ -100,6 +105,15 @@
 				E2933B802309420100F68A87 /* PenMenuViewController.swift */,
 			);
 			path = DrawView;
+			sourceTree = "<group>";
+		};
+		E2933BAC230A8DF400F68A87 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E2933BAD230A8E0500F68A87 /* Login.storyboard */,
+				E2933BAF230A8E1600F68A87 /* LoginViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +179,7 @@
 				E2933B762309171F00F68A87 /* LaunchScreen.storyboard in Resources */,
 				E2933B732309171F00F68A87 /* Assets.xcassets in Resources */,
 				E2933B712309171E00F68A87 /* Main.storyboard in Resources */,
+				E2933BAE230A8E0500F68A87 /* Login.storyboard in Resources */,
 				E2933B7E23091A3600F68A87 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,7 +219,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACEDrawingView/ACEDrawingView.framework",
-				"${BUILT_PRODUCTS_DIR}/CircleMenu/CircleMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/PMAlertController/PMAlertController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -212,7 +228,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACEDrawingView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMAlertController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */,
 				E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */,
 				E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */,
 				E2933B6C2309171E00F68A87 /* AppDelegate.swift in Sources */,

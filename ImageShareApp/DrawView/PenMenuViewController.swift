@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Material
 
 class PenMenuViewController: UIViewController {
 
@@ -58,6 +59,7 @@ class PenMenuViewController: UIViewController {
                         self.penMenuView.layer.position.x = -self.penMenuView.frame.width
                 },completion: { bool in
                         self.dismiss(animated: true, completion: nil)
+//                    self.navigationController?.popViewController(animated: true)
                 })
             }
         }
@@ -65,11 +67,15 @@ class PenMenuViewController: UIViewController {
 
     /// 遷移前の画面を取得する関数
     func getPresentView() {
-        if let presentVC = self.presentingViewController as? ViewController {
-            // 値の受け渡し
-            presentVC.setDetailPen(toolTypeNumber: tempToolType)
+        if self.presentingViewController is UINavigationController {
+            let nc = self.presentingViewController as! UINavigationController
+            let vc = nc.topViewController as! ViewController
+            vc.setDetailPen(toolTypeNumber: tempToolType)
         }
-    }
+//        if let presentVC = self.navigationController?.popViewController(animated: true) as? ViewController{
+//            presentVC.setDetailPen(toolTypeNumber: tempToolType)
+//        }
+     }
 
     @IBAction func tappedToolTypeButton(_ sender: UIButton) {
         tempToolType = sender.tag

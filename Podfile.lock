@@ -1,24 +1,32 @@
 PODS:
   - ACEDrawingView (2.2.1)
-  - CircleMenu (4.1.0)
+  - Material (3.1.6):
+    - Material/Core (= 3.1.6)
+  - Material/Core (3.1.6):
+    - Motion (~> 3.1.1)
+  - Motion (3.1.1):
+    - Motion/Core (= 3.1.1)
+  - Motion/Core (3.1.1)
   - PMAlertController (4.0.0)
 
 DEPENDENCIES:
   - ACEDrawingView
-  - CircleMenu
+  - Material (~> 3.1.0)
   - PMAlertController
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ACEDrawingView
-    - CircleMenu
+    - Material
+    - Motion
     - PMAlertController
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
-  CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
+  Material: 9b30613deb1b79487eeede5e4f90cbff084311ea
+  Motion: f115b33f36cc52472a25a965daa89b3859817de0
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
 
-PODFILE CHECKSUM: 88590dd5496712504bb9a6f00dfb7328195c4418
+PODFILE CHECKSUM: da26445f67f1130596d30935015e3584f7a6cefc
 
 COCOAPODS: 1.6.1

@@ -10,16 +10,23 @@ import UIKit
 import ACEDrawingView
 import PMAlertController
 
-class ViewController: UIViewController, ACEDrawingViewDelegate {
+class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var image: UIImage!
+    // 背景画像
+    @IBOutlet weak var imageView: UIImageView!
     // キャンパス
     @IBOutlet weak var drawingView: ACEDrawingView!
 
-    // ペンの種類の番号
-//    var toolTypeNumber: Int = 1
-
     // 設定画面の中心
     var centerOfSettingView: CGPoint!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // 画像の読み込み
+        self.imageView.image = image
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -27,13 +34,12 @@ class ViewController: UIViewController, ACEDrawingViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        drawingView.loadImage(#imageLiteral(resourceName: "津田梅子"))
 
         drawingView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         drawingView.layer.borderWidth = 5.0
         drawingView.layer.cornerRadius = 10
-        drawingView.layer.masksToBounds = true
+        
+        drawingView.lineWidth = 5
     }
 
     /**
@@ -45,7 +51,7 @@ class ViewController: UIViewController, ACEDrawingViewDelegate {
     func getImage(_ view: UIView) -> UIImage {
 
         /// キャプチャする範囲 = 渡したviewの大きさ
-        let rect = view.bounds
+        let rect = drawingView.bounds
 
         // ビットマップ画像のcontextを作成する
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
@@ -71,6 +77,16 @@ class ViewController: UIViewController, ACEDrawingViewDelegate {
             drawingView.drawTool = ACEDrawingToolTypeEraser
         } else {
             drawingView.drawTool = ACEDrawingToolTypePen
+            // 蛍光ペンが選択された時
+            if toolTypeNumber == 1 {
+                drawingView.lineColor = UIColor.yellow
+                drawingView.lineAlpha = 0.4
+                drawingView.lineWidth = 10
+            } else {
+                drawingView.lineColor = UIColor.black
+                drawingView.lineAlpha = 1
+                drawingView.lineWidth = 5
+            }
         }
     }
 
@@ -90,6 +106,32 @@ class ViewController: UIViewController, ACEDrawingViewDelegate {
         }))
         alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
         self.present(alertController, animated: true)
+    }
+
+    // カメラ・フォトライブラリへの遷移処理
+    func cameraAction(sourceType: UIImagePickerController.SourceType) {
+        // カメラ・フォトライブラリが使用可能かチェック
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+
+            // インスタンス化
+            let cameraPicker = UIImagePickerController()
+            // ソースタイプの代入
+            cameraPicker.sourceType = sourceType
+            // デリゲートの接続
+            cameraPicker.delegate = self
+            // 画面遷移
+            self.present(cameraPicker, animated: true)
+        }
+    }
+
+    // 写真が選択された時に呼ばれる
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // 取得できた画像情報の存在確認とUIImage型へキャスト。pickedImageという定数に格納
+        if let pickedImage = info[.originalImage] as? UIImage {
+            // ①投稿画面への遷移処理
+            self.image = pickedImage
+            picker.dismiss(animated: true, completion: nil)
+        }
     }
 
     // 保存を試みた結果を受け取る
@@ -114,8 +156,6 @@ class ViewController: UIViewController, ACEDrawingViewDelegate {
     // クリアボタン
     @IBAction func clearButton(_ sender: Any) {
         drawingView.clear()
-        drawingView.loadImage(UIImage(named: "津田梅子"))
-
     }
 
     // 戻るボタン
@@ -137,7 +177,16 @@ class ViewController: UIViewController, ACEDrawingViewDelegate {
 
     // ペンの変更ボタン
     @IBAction func changePenButton(_ sender: Any) {
+    }
 
+    // カメラボタン
+    @IBAction func cameraButton(_ sender: Any) {
+        cameraAction(sourceType: .camera)
+    }
+
+    // 画像追加ボタン
+    @IBAction func addImageButton(_ sender: Any) {
+        cameraAction(sourceType: .photoLibrary)
     }
 }
 
