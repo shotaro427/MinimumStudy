@@ -10,27 +10,19 @@ import UIKit
 import ACEDrawingView
 import PMAlertController
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ACEDrawingViewDelegate {
 
     // キャンパス
     @IBOutlet weak var drawingView: ACEDrawingView!
 
-
-    // 設定画面
-//    @IBOutlet weak var settingContainerView: UIView!
+    // ペンの種類の番号
+//    var toolTypeNumber: Int = 1
 
     // 設定画面の中心
     var centerOfSettingView: CGPoint!
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        // 設定画面の中心を保存
-//        settingContainerView.center = CGPoint(x: self.view.center.x * 0.6, y: self.view.center.y)
-//        centerOfSettingView = settingContainerView.center
-
-        // ペンの設定背景をずらす
-//        settingContainerView.center = CGPoint(x: centerOfSettingView.x - settingContainerView.frame.width, y: centerOfSettingView.y)
     }
     
     override func viewDidLoad() {
@@ -42,7 +34,6 @@ class ViewController: UIViewController {
         drawingView.layer.borderWidth = 5.0
         drawingView.layer.cornerRadius = 10
         drawingView.layer.masksToBounds = true
-
     }
 
     /**
@@ -70,6 +61,17 @@ class ViewController: UIViewController {
         UIGraphicsEndImageContext()
 
         return image
+    }
+
+
+    /// ペンの詳細設定をする関数
+    func setDetailPen(toolTypeNumber: Int) {
+        // 消しゴムが選択された時
+        if toolTypeNumber == 3 {
+            drawingView.drawTool = ACEDrawingToolTypeEraser
+        } else {
+            drawingView.drawTool = ACEDrawingToolTypePen
+        }
     }
 
     /// viewをimageに変換してカメラロールに保存する

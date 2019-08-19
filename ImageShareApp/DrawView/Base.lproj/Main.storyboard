@@ -97,7 +97,46 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7l-Ao-DEe">
                                 <rect key="frame" x="0.0" y="20" width="225" height="647"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-Bo-Ni2">
+                                        <rect key="frame" x="30" y="537" width="165" height="100"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-t6-yp9">
+                                                <rect key="frame" x="0.0" y="0.0" width="49.5" height="100"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="pen" image="蛍光ペン"/>
+                                                <connections>
+                                                    <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="Or3-5R-ee2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-iu-zCu">
+                                                <rect key="frame" x="57.5" y="0.0" width="50" height="100"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="line" image="シャープペンシル"/>
+                                                <connections>
+                                                    <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="5V5-k3-YM2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55d-4j-zTb">
+                                                <rect key="frame" x="115.5" y="0.0" width="49.5" height="100"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" title="eraser" image="消しゴム"/>
+                                                <connections>
+                                                    <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="HNj-tU-ZiE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="T7d-zj-ggZ"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.99193829300000003" blue="0.92703398989999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vq9-Bo-Ni2" secondAttribute="trailing" constant="30" id="7UB-2m-C1e"/>
+                                    <constraint firstItem="vq9-Bo-Ni2" firstAttribute="leading" secondItem="i7l-Ao-DEe" secondAttribute="leading" constant="30" id="NUN-3m-swc"/>
+                                    <constraint firstAttribute="bottom" secondItem="vq9-Bo-Ni2" secondAttribute="bottom" constant="10" id="zeS-jr-x3u"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -118,4 +157,9 @@
             <point key="canvasLocation" x="702" y="123"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="シャープペンシル" width="256" height="256"/>
+        <image name="消しゴム" width="2733" height="2733"/>
+        <image name="蛍光ペン" width="2149" height="2770"/>
+    </resources>
 </document>

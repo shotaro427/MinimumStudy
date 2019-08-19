@@ -12,13 +12,11 @@ class PenMenuViewController: UIViewController {
 
     var sliderVal: CGFloat!
 
-    @IBOutlet weak var textField: UITextField!
+    // ペンの種類を一時的に保管
+    var tempToolType: Int = 1
+
     // ペンの一覧
     @IBOutlet weak var penMenuView: UIView!
-
-    // 透明度のスライダー
-//    @IBOutlet weak var opacitySlider: UISlider!
-//    @IBOutlet weak var opacityLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +44,9 @@ class PenMenuViewController: UIViewController {
 
     // メニューエリア以外タップ時の処理
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 遷移前の画面に値を渡す
+        getPresentView()
+
         super.touchesEnded(touches, with: event)
         for touch in touches {
             if touch.view?.tag == 1 {
@@ -62,10 +63,15 @@ class PenMenuViewController: UIViewController {
         }
     }
 
-//    // 透明度スライダーの処理
-//    @IBAction func opacityMoveSlider(_ sender: UISlider) {
-//        opacityLabel.text = String(Int(opacitySlider.value))
-//        sliderVal = CGFloat(opacitySlider.value)
-//    }
+    /// 遷移前の画面を取得する関数
+    func getPresentView() {
+        if let presentVC = self.presentingViewController as? ViewController {
+            // 値の受け渡し
+            presentVC.setDetailPen(toolTypeNumber: tempToolType)
+        }
+    }
 
+    @IBAction func tappedToolTypeButton(_ sender: UIButton) {
+        tempToolType = sender.tag
+    }
 }

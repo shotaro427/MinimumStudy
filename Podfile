@@ -8,6 +8,6 @@ target 'ImageShareApp' do
   # Pods for ImageShareApp
  pod 'ACEDrawingView'
  pod 'PMAlertController'
- pod 'CircleMenu'
+ pod 
 
 end
