@@ -15,9 +15,33 @@ class ViewController: UIViewController {
     // キャンパス
     @IBOutlet weak var drawingView: ACEDrawingView!
 
+
+    // 設定画面
+//    @IBOutlet weak var settingContainerView: UIView!
+
+    // 設定画面の中心
+    var centerOfSettingView: CGPoint!
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        // 設定画面の中心を保存
+//        settingContainerView.center = CGPoint(x: self.view.center.x * 0.6, y: self.view.center.y)
+//        centerOfSettingView = settingContainerView.center
+
+        // ペンの設定背景をずらす
+//        settingContainerView.center = CGPoint(x: centerOfSettingView.x - settingContainerView.frame.width, y: centerOfSettingView.y)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        drawingView.loadImage(#imageLiteral(resourceName: "津田梅子"))
+
+        drawingView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        drawingView.layer.borderWidth = 5.0
+        drawingView.layer.cornerRadius = 10
+        drawingView.layer.masksToBounds = true
 
     }
 
@@ -64,7 +88,6 @@ class ViewController: UIViewController {
         }))
         alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
         self.present(alertController, animated: true)
-//        UIImageWriteToSavedPhotosAlbum(image, self, #selector(didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
     }
 
     // 保存を試みた結果を受け取る
@@ -112,6 +135,7 @@ class ViewController: UIViewController {
 
     // ペンの変更ボタン
     @IBAction func changePenButton(_ sender: Any) {
+
     }
 }
 

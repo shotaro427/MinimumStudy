@@ -13,6 +13,7 @@
 		E2933B732309171F00F68A87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2933B722309171F00F68A87 /* Assets.xcassets */; };
 		E2933B762309171F00F68A87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933B742309171F00F68A87 /* LaunchScreen.storyboard */; };
 		E2933B7E23091A3600F68A87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E2933B7D23091A3600F68A87 /* GoogleService-Info.plist */; };
+		E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933B802309420100F68A87 /* PenMenuViewController.swift */; };
 		FF7B436E961FE13A19A58309 /* Pods_ImageShareApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DAF47CDEED64D4EDF8A8F2 /* Pods_ImageShareApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		E2933B752309171F00F68A87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2933B772309171F00F68A87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2933B7D23091A3600F68A87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E2933B802309420100F68A87 /* PenMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			children = (
 				E2933B6D2309171E00F68A87 /* ViewController.swift */,
 				E2933B6F2309171E00F68A87 /* Main.storyboard */,
+				E2933B802309420100F68A87 /* PenMenuViewController.swift */,
 			);
 			path = DrawView;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */,
+				E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */,
 				E2933B6C2309171E00F68A87 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

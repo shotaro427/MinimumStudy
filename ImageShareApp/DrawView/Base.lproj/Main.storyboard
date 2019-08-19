@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -13,47 +13,48 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Edit" id="BYZ-38-t0r" customClass="ViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hFZ-xJ-CST">
-                                <rect key="frame" x="0.0" y="787" width="414" height="75"/>
+                                <rect key="frame" x="0.0" y="592" width="375" height="75"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLC-Nk-CMU">
-                                        <rect key="frame" x="0.0" y="0.0" width="83" height="75"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                        <state key="normal" title="Clear"/>
                                         <connections>
                                             <action selector="clearButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BT8-o8-kwD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cau-lD-Uuq">
-                                        <rect key="frame" x="83" y="0.0" width="82.5" height="75"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="75" y="0.0" width="75" height="75"/>
+                                        <state key="normal" title="Undo"/>
                                         <connections>
                                             <action selector="undoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UME-5i-tG8"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNk-lv-ktE">
-                                        <rect key="frame" x="165.5" y="0.0" width="83" height="75"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="150" y="0.0" width="75" height="75"/>
+                                        <state key="normal" title="Redo"/>
                                         <connections>
                                             <action selector="redoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9xM-6k-Tof"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFj-B9-Qth">
-                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="75"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="225" y="0.0" width="75" height="75"/>
+                                        <state key="normal" title="Save"/>
                                         <connections>
                                             <action selector="saveButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8U4-2k-fhF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87B-1F-Cwb">
-                                        <rect key="frame" x="331" y="0.0" width="83" height="75"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="300" y="0.0" width="75" height="75"/>
+                                        <state key="normal" title="Pen"/>
                                         <connections>
                                             <action selector="changePenButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fdj-6s-wru"/>
+                                            <segue destination="gbZ-eC-YUR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="JfY-pZ-MdY"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -62,7 +63,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wz6-23-hoD" customClass="ACEDrawingView">
-                                <rect key="frame" x="40" y="74" width="334" height="688"/>
+                                <rect key="frame" x="40" y="50" width="295" height="517"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -84,6 +85,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-23" y="123"/>
+        </scene>
+        <!--Pen Menu View Controller-->
+        <scene sceneID="0cs-zr-EX2">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="gbZ-eC-YUR" customClass="PenMenuViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="1" contentMode="scaleToFill" id="GFf-Dw-vjJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7l-Ao-DEe">
+                                <rect key="frame" x="0.0" y="20" width="225" height="647"/>
+                                <color key="backgroundColor" red="0.0" green="0.99193829300000003" blue="0.92703398989999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="i7l-Ao-DEe" firstAttribute="width" secondItem="GFf-Dw-vjJ" secondAttribute="width" multiplier="0.6" id="3Qr-yn-1wo"/>
+                            <constraint firstItem="i7l-Ao-DEe" firstAttribute="top" secondItem="3sr-Nq-Km6" secondAttribute="top" id="UBk-IY-z4J"/>
+                            <constraint firstItem="i7l-Ao-DEe" firstAttribute="leading" secondItem="3sr-Nq-Km6" secondAttribute="leading" id="gdz-1Z-Pem"/>
+                            <constraint firstItem="3sr-Nq-Km6" firstAttribute="bottom" secondItem="i7l-Ao-DEe" secondAttribute="bottom" id="s2C-7m-tWh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3sr-Nq-Km6"/>
+                    </view>
+                    <connections>
+                        <outlet property="penMenuView" destination="i7l-Ao-DEe" id="SAD-dq-oYg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hev-Rc-nam" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702" y="123"/>
         </scene>
     </scenes>
 </document>
