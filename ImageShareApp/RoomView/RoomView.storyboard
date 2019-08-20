@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yZ8-pn-BtI">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="ncM-0N-IUs">
+            <objects>
+                <navigationController id="yZ8-pn-BtI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cK7-Xg-QzN">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="qKQ-Sh-kgO" kind="relationship" relationship="rootViewController" id="dn8-Wf-abf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lbt-us-CpJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-693" y="9"/>
+        </scene>
+        <!--Select Room Table View Controller-->
+        <scene sceneID="SFW-Jb-10f">
+            <objects>
+                <tableViewController id="qKQ-Sh-kgO" customClass="SelectRoomTableViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VVU-NR-Xsu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="gKN-3d-dXe">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gKN-3d-dXe" id="2zD-5f-qxg">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qKQ-Sh-kgO" id="7JA-vX-y3K"/>
+                            <outlet property="delegate" destination="qKQ-Sh-kgO" id="Y7W-Hh-3iy"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="O3G-U4-e2u">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gm8-Ks-RNR">
+                            <connections>
+                                <segue destination="bdy-Nf-pnc" kind="presentation" id="TmV-tl-AGw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UWX-dL-krN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="9"/>
+        </scene>
+        <!--Room View Controller-->
+        <scene sceneID="wKD-Q8-Xzj">
+            <objects>
+                <viewController storyboardIdentifier="RoomView" id="bdy-Nf-pnc" customClass="RoomViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xzK-3v-KwM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0js-ap-Xf7">
+                                <rect key="frame" x="126.5" y="433" width="161" height="30"/>
+                                <state key="normal" title="Create New Chat Room"/>
+                                <connections>
+                                    <action selector="creatRoomButton:" destination="bdy-Nf-pnc" eventType="touchUpInside" id="LJm-MT-nDS"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gk1-0e-XA8">
+                                <rect key="frame" x="103.5" y="395" width="207" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gk1-0e-XA8" firstAttribute="width" secondItem="xzK-3v-KwM" secondAttribute="width" multiplier="0.5" id="GMh-3d-nd8"/>
+                            <constraint firstItem="gk1-0e-XA8" firstAttribute="centerX" secondItem="xzK-3v-KwM" secondAttribute="centerX" id="KZ9-dH-NtA"/>
+                            <constraint firstItem="0js-ap-Xf7" firstAttribute="top" secondItem="gk1-0e-XA8" secondAttribute="bottom" constant="8" id="bjT-CC-dVK"/>
+                            <constraint firstItem="0js-ap-Xf7" firstAttribute="centerY" secondItem="xzK-3v-KwM" secondAttribute="centerY" id="mpY-Z9-8V0"/>
+                            <constraint firstItem="0js-ap-Xf7" firstAttribute="centerX" secondItem="xzK-3v-KwM" secondAttribute="centerX" id="ocv-8E-Fl4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JnD-bB-Bu0"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cCl-SM-h61"/>
+                    <connections>
+                        <outlet property="roomNameTextField" destination="gk1-0e-XA8" id="TC0-7V-9WM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H6c-4c-Oxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="9"/>
+        </scene>
+    </scenes>
+</document>

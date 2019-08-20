@@ -89,7 +89,7 @@
                                         <rect key="frame" x="0.0" y="155" width="228" height="39"/>
                                         <color key="backgroundColor" red="0.4988710784" green="1" blue="0.81963629810000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" title="ログイン">
                                             <color key="titleColor" red="0.24770790340000001" green="0.31771972780000002" blue="0.30980414150000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
