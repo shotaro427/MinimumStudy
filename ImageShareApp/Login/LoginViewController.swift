@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 import PMAlertController
+import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
 
@@ -28,10 +29,26 @@ class LoginViewController: UIViewController {
     var room: [String] = []
 
     let db = Firestore.firestore()
+
+    // インジケータの追加
+    var activityIndicatorView: NVActivityIndicatorView!
+    var activityIndicatorBackgroundView: UIView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
 
         //textFieldの下線を追加
         emailTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
@@ -132,10 +149,14 @@ class LoginViewController: UIViewController {
                 UserDefaults.standard.set(password, forKey: "password")
                 // 成功した時
                 self.searchRoom()
+                // インジケータの描画
+                self.activityIndicatorView.startAnimating()
+                self.activityIndicatorBackgroundView.alpha = 1
                 // ユーザーの所属部屋を検索
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-
                     self.toRoomView()
+                    self.activityIndicatorView.stopAnimating()
+                    self.activityIndicatorBackgroundView.removeFromSuperview()
                 }
             }
         })
@@ -157,10 +178,16 @@ class LoginViewController: UIViewController {
                 self.showErrorAlert(error: err)
             } else {
                 // 成功した時
+                self.searchRoom()
+                // インジケータの描画
+                self.activityIndicatorView.startAnimating()
+                self.activityIndicatorBackgroundView.alpha = 1
                 // ユーザーの所属部屋を検索
-//                self.searchRoom(completion: {
-//                    self.toRoomView()
-//                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    self.toRoomView()
+                    self.activityIndicatorView.stopAnimating()
+                    self.activityIndicatorBackgroundView.removeFromSuperview()
+                }
             }
         })
     }

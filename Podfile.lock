@@ -123,6 +123,9 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NVActivityIndicatorView (4.7.0):
+    - NVActivityIndicatorView/Presenter (= 4.7.0)
+  - NVActivityIndicatorView/Presenter (4.7.0)
   - PMAlertController (4.0.0)
   - Protobuf (3.9.0)
 
@@ -132,6 +135,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - Material (~> 3.1.0)
+  - NVActivityIndicatorView
   - PMAlertController
 
 SPEC REPOS:
@@ -158,6 +162,7 @@ SPEC REPOS:
     - Material
     - Motion
     - nanopb
+    - NVActivityIndicatorView
     - PMAlertController
     - Protobuf
 
@@ -184,9 +189,10 @@ SPEC CHECKSUMS:
   Material: 9b30613deb1b79487eeede5e4f90cbff084311ea
   Motion: f115b33f36cc52472a25a965daa89b3859817de0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
 
-PODFILE CHECKSUM: e2f9c61f2e32216c90a4f62fd7a7389306191cfb
+PODFILE CHECKSUM: 48093ca17cc3723ba1cea2b2c0537aef8bf133a9
 
 COCOAPODS: 1.6.1
