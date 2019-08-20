@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ncM-0N-IUs">
             <objects>
-                <navigationController id="yZ8-pn-BtI" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RoomNavi" id="yZ8-pn-BtI" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cK7-Xg-QzN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-693" y="9"/>
         </scene>
-        <!--Select Room Table View Controller-->
+        <!--ルームセレクト-->
         <scene sceneID="SFW-Jb-10f">
             <objects>
-                <tableViewController id="qKQ-Sh-kgO" customClass="SelectRoomTableViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SelectRoom" id="qKQ-Sh-kgO" customClass="SelectRoomTableViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VVU-NR-Xsu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,10 +49,10 @@
                             <outlet property="delegate" destination="qKQ-Sh-kgO" id="Y7W-Hh-3iy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="O3G-U4-e2u">
+                    <navigationItem key="navigationItem" title="ルームセレクト" id="O3G-U4-e2u">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gm8-Ks-RNR">
                             <connections>
-                                <segue destination="bdy-Nf-pnc" kind="presentation" id="TmV-tl-AGw"/>
+                                <segue destination="bdy-Nf-pnc" kind="show" id="TmV-tl-AGw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

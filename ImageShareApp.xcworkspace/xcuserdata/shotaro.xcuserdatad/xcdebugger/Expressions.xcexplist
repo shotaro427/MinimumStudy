@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #1 in SelectRoomTableViewController.searchRoom():SelectRoomTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SelectRoomTableViewController.tableView(_:numberOfRowsInSection:):SelectRoomTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "room.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SelectRoomTableViewController.tableView(_:cellForRowAt:):SelectRoomTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SelectRoomTableViewController.viewDidLoad():SelectRoomTableViewController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

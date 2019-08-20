@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 import PMAlertController
 
 class LoginViewController: UIViewController {
@@ -22,6 +23,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
 
     @IBOutlet weak var createAccuntButton: UIButton!
+
+    // 所属している部屋を格納する
+    var room: [String] = []
+
+    let db = Firestore.firestore()
     
 
     override func viewDidLoad() {
@@ -40,6 +46,39 @@ class LoginViewController: UIViewController {
         passwordTextField.text = "123456"
     }
 
+    // ユーザーが所属している部屋を探す関数
+    func searchRoom() {
+        // ユーザーid(email)を取得
+        let userID = UserDefaults.standard.string(forKey: "email")
+        db.collection("chat-room").getDocuments() { (QuerySnapshot, err) in
+            if let err = err { // エラー時
+                print("SelectRoomTableViewController-29: \(err.localizedDescription)")
+            } else { // 成功時
+                // ドキュメントを取得
+                for document in QuerySnapshot!.documents {
+                    // ドキュメント内のuserIDとこのユーザーのuserIDと一致するかを見る
+                    self.db.collection("chat-room").document("\(document.documentID)").collection("users").getDocuments() {(QuerySnapshot2, err2) in
+                        if let err2 = err2 {
+                            print("SelectRoomTableViewController-29: \(err2.localizedDescription)")
+                        } else {
+                            // ドキュメントの取得
+                            for document2 in QuerySnapshot2!.documents {
+                                // IDの照合
+                                if document2.documentID == userID {
+                                    // 部屋のIDを配列に追加
+                                    let roomName = document.data()["room-name"] as! String
+                                    self.room.append(roomName)
+                                    print("**room.count = \(self.room.count)")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     // エラーが帰ってきた場合のアラート
     func showErrorAlert(error: Error?) {
 
@@ -53,9 +92,12 @@ class LoginViewController: UIViewController {
     // 遷移処理
     func toRoomView() {
         let storyboard = UIStoryboard(name: "RoomView", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "RoomView")
+        let nc = storyboard.instantiateViewController(withIdentifier: "RoomNavi") as! UINavigationController
+        let vc = nc.topViewController as! SelectRoomTableViewController
 
-        self.present(vc, animated: true)
+        vc.room = room
+
+        self.present(nc, animated: true)
     }
 
     // キーボードを閉じる処理
@@ -88,8 +130,13 @@ class LoginViewController: UIViewController {
                 // ユーザー情報を保管
                 UserDefaults.standard.set(email, forKey: "email")
                 UserDefaults.standard.set(password, forKey: "password")
-                // ログインに成功した時
-                self.toRoomView()
+                // 成功した時
+                self.searchRoom()
+                // ユーザーの所属部屋を検索
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+
+                    self.toRoomView()
+                }
             }
         })
     }
@@ -110,7 +157,10 @@ class LoginViewController: UIViewController {
                 self.showErrorAlert(error: err)
             } else {
                 // 成功した時
-                self.toRoomView()
+                // ユーザーの所属部屋を検索
+//                self.searchRoom(completion: {
+//                    self.toRoomView()
+//                })
             }
         })
     }
