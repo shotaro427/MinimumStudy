@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -14,6 +15,8 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var groupImage: UIImageView!
 
     @IBOutlet weak var groupTableView: UITableView!
+    
+    @IBOutlet weak var addMenber: UIButton!
 
     // 部屋のID
     var roomID: String = ""
@@ -25,6 +28,8 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         groupTableView.delegate = self
         groupTableView.dataSource = self
+
+        addMenber.layer.cornerRadius = addMenber.frame.width / 2
     }
 
     // セル数
@@ -41,6 +46,30 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
 
-    @IBAction func allowAddMenberButton(_ sender: Any) {
+    // Section数
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
+    // Sectioのタイトル
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "メンバー"
+    }
+
+    // ログアウトボタン
+    @IBAction func logoutButton(_ sender: Any) {
+        // ログアウト処理
+        try! Auth.auth().signOut()
+        // storyboardのfileの特定
+        let storyboard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        // 移動先のvcをインスタンス化
+        let vc = storyboard.instantiateViewController(withIdentifier: "Login")
+        // 遷移処理
+        self.present(vc, animated: true)
+
+    }
+
+    // メンバー追加ボタン
+    @IBAction func addMenberButton(_ sender: Any) {
+    }
+
 }

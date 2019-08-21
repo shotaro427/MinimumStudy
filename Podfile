@@ -13,4 +13,5 @@ target 'ImageShareApp' do
  pod 'Firebase/Auth'
  pod 'Firebase/Firestore'
  pod 'NVActivityIndicatorView'
+ pod "BAFluidView"
 end

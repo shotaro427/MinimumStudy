@@ -1,5 +1,6 @@
 PODS:
   - ACEDrawingView (2.2.1)
+  - BAFluidView (0.2.4)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
     - BoringSSL-GRPC/Interface (= 0.0.3)
@@ -131,6 +132,7 @@ PODS:
 
 DEPENDENCIES:
   - ACEDrawingView
+  - BAFluidView
   - Firebase
   - Firebase/Auth
   - Firebase/Firestore
@@ -141,6 +143,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ACEDrawingView
+    - BAFluidView
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
@@ -168,6 +171,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
+  BAFluidView: 8769b8c92afa37a5299c551e07126d350854df95
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Firebase: a2b5951f30ff38fd3b3bdae9c7d340f940fd3c51
   FirebaseAnalytics: 48414ae5cbf6976d8a2f7177e0466540e5ab33ce
@@ -193,6 +197,6 @@ SPEC CHECKSUMS:
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
 
-PODFILE CHECKSUM: 48093ca17cc3723ba1cea2b2c0537aef8bf133a9
+PODFILE CHECKSUM: 5a19f5b3d5ed7011786acac58dec9f6b222d002c
 
 COCOAPODS: 1.6.1

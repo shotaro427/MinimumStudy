@@ -9,9 +9,17 @@
 import UIKit
 import ACEDrawingView
 import PMAlertController
+import FirebaseFirestore
 
 class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    // textfield
+    var textfield: UITextField!
+    // DB
+    let db = Firestore.firestore()
+    // roomID
+    var roomID: String = ""
+    // 背景画像
     var image: UIImage!
     // 背景画像
     @IBOutlet weak var imageView: UIImageView!
@@ -151,7 +159,44 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         alertController.addAction(PMAlertAction(title: "OK", style: .default))
         self.present(alertController, animated: true)
     }
+    // 投稿ボタン
+    @IBAction func postImageButton(_ sender: Any) {
 
+        // 投稿処理
+        // 画像のタイトル
+        var imageTitle: String = ""
+        // 画像情報
+        var postImageData: NSData = NSData()
+        // viewをimageとして取得
+        let postImage = self.getImage(view)
+        // クオリティを1/10まで下げる
+        postImageData = postImage.jpegData(compressionQuality: 0.1)! as NSData
+        // base64Stringに変換
+        let base64PostImage = postImageData.base64EncodedString(options: .lineLength64Characters) as String
+        // firebaseに渡す情報(画像、タイトル、ユーザーID)
+
+        // 投稿確認
+        // アラートコントローラー
+        let alertController = PMAlertController(title: "投稿しますか？", description: nil, image: postImage, style: .alert)
+        // アラートアクション
+        // textFieldの追加
+        alertController.addTextField({ ( textfield ) in
+            textfield?.placeholder = "タイトル"
+            self.textfield = textfield
+        })
+        // アクションの追加
+        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
+            if self.textfield.text != nil {
+                imageTitle = (self.textfield.text)!
+            } else {
+                imageTitle = "無名"
+            }
+            let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage]
+            self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any])
+        }))
+        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
+        self.present(alertController, animated: true)
+    }
 
     // クリアボタン
     @IBAction func clearButton(_ sender: Any) {

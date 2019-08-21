@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class SelectRoomTableViewController: UITableViewController {
 
@@ -15,8 +16,14 @@ class SelectRoomTableViewController: UITableViewController {
     var room: [String] = []
     var roomIDs: [String] = []
 
+    // DB
+    let db = Firestore.firestore()
+
     // 選択した部屋のIDを保管する変数
     let selectedRoomId: String = ""
+
+    // トップ画面へ送る情報
+    var messageInfo: [String: Any] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +44,7 @@ class SelectRoomTableViewController: UITableViewController {
     // セルのタップ時
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Top", bundle: nil)
-        let nc = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nc.topViewController as! TopViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
 
         vc.roomID = roomIDs[indexPath.row]
 

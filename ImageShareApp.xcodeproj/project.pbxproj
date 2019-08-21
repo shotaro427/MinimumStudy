@@ -21,10 +21,11 @@
 		E2933BB9230B8B9800F68A87 /* RoomView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BB8230B8B9800F68A87 /* RoomView.storyboard */; };
 		E2933BBB230B8C1600F68A87 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BBA230B8C1600F68A87 /* RoomViewController.swift */; };
 		E2933BBD230B9CA900F68A87 /* SelectRoomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BBC230B9CA900F68A87 /* SelectRoomTableViewController.swift */; };
-		E2933BC3230BEF5200F68A87 /* TopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BC2230BEF5100F68A87 /* TopTableViewController.swift */; };
 		E2933BC6230BF15200F68A87 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BC5230BF15200F68A87 /* Group.storyboard */; };
 		E2933BC8230BF1A200F68A87 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BC7230BF1A200F68A87 /* GroupViewController.swift */; };
 		E2933BCA230CD03400F68A87 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BC9230CD03400F68A87 /* TopViewController.swift */; };
+		E2933BCC230CEE4200F68A87 /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BCB230CEE4200F68A87 /* TopCollectionViewCell.swift */; };
+		E2933BCE230CF7AC00F68A87 /* WaittingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */; };
 		FF7B436E961FE13A19A58309 /* Pods_ImageShareApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DAF47CDEED64D4EDF8A8F2 /* Pods_ImageShareApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,10 +49,11 @@
 		E2933BB8230B8B9800F68A87 /* RoomView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RoomView.storyboard; sourceTree = "<group>"; };
 		E2933BBA230B8C1600F68A87 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		E2933BBC230B9CA900F68A87 /* SelectRoomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTableViewController.swift; sourceTree = "<group>"; };
-		E2933BC2230BEF5100F68A87 /* TopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopTableViewController.swift; path = /Users/shotaro/Documents/SpartaCamp/ImageShareApp/ImageShareApp/TopView/TopTableViewController.swift; sourceTree = "<absolute>"; };
 		E2933BC5230BF15200F68A87 /* Group.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
 		E2933BC7230BF1A200F68A87 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		E2933BC9230CD03400F68A87 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
+		E2933BCB230CEE4200F68A87 /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
+		E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WaittingViewController.swift; path = /Users/shotaro/Documents/SpartaCamp/ImageShareApp/ImageShareApp/TopView/WaittingViewController.swift; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				E2933BB5230B815900F68A87 /* Top.storyboard */,
-				E2933BC2230BEF5100F68A87 /* TopTableViewController.swift */,
+				E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */,
+				E2933BCB230CEE4200F68A87 /* TopCollectionViewCell.swift */,
 				E2933BC9230CD03400F68A87 /* TopViewController.swift */,
 			);
 			path = TopView;
@@ -281,6 +284,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACEDrawingView/ACEDrawingView.framework",
+				"${BUILT_PRODUCTS_DIR}/BAFluidView/BAFluidView.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -299,6 +303,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACEDrawingView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BAFluidView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -326,13 +331,14 @@
 			files = (
 				E2933BC8230BF1A200F68A87 /* GroupViewController.swift in Sources */,
 				E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */,
-				E2933BC3230BEF5200F68A87 /* TopTableViewController.swift in Sources */,
 				E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */,
 				E2933BCA230CD03400F68A87 /* TopViewController.swift in Sources */,
 				E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */,
 				E2933BBB230B8C1600F68A87 /* RoomViewController.swift in Sources */,
 				E2933BB3230A9D3F00F68A87 /* TextFieldExtension.swift in Sources */,
 				E2933BBD230B9CA900F68A87 /* SelectRoomTableViewController.swift in Sources */,
+				E2933BCC230CEE4200F68A87 /* TopCollectionViewCell.swift in Sources */,
+				E2933BCE230CF7AC00F68A87 /* WaittingViewController.swift in Sources */,
 				E2933B6C2309171E00F68A87 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -38,6 +38,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvc-jQ-Hdl" customClass="FlatButton" customModule="Material">
+                                <rect key="frame" x="324" y="772" width="65" height="65"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="OJF-47-TKp"/>
+                                    <constraint firstAttribute="height" constant="65" id="SWp-le-B23"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" image="ユーザー追加"/>
+                                <connections>
+                                    <action selector="addMenberButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="Gs4-HQ-53j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -45,6 +58,8 @@
                             <constraint firstItem="H4Z-vS-l9H" firstAttribute="trailing" secondItem="tkg-76-pwN" secondAttribute="trailing" id="Cdv-8M-jca"/>
                             <constraint firstItem="tkg-76-pwN" firstAttribute="top" secondItem="H4Z-vS-l9H" secondAttribute="top" id="Jyb-Ke-LAu"/>
                             <constraint firstItem="Qya-Ex-IC3" firstAttribute="leading" secondItem="H4Z-vS-l9H" secondAttribute="leading" id="XrW-fw-GVs"/>
+                            <constraint firstItem="H4Z-vS-l9H" firstAttribute="bottom" secondItem="xvc-jQ-Hdl" secondAttribute="bottom" constant="25" id="gvC-IT-l9g"/>
+                            <constraint firstItem="H4Z-vS-l9H" firstAttribute="trailing" secondItem="xvc-jQ-Hdl" secondAttribute="trailing" constant="25" id="gxi-5c-uNE"/>
                             <constraint firstItem="tkg-76-pwN" firstAttribute="leading" secondItem="H4Z-vS-l9H" secondAttribute="leading" id="iNM-8S-2iS"/>
                             <constraint firstItem="Qya-Ex-IC3" firstAttribute="top" secondItem="tkg-76-pwN" secondAttribute="bottom" id="tk3-jP-o5s"/>
                             <constraint firstItem="H4Z-vS-l9H" firstAttribute="bottom" secondItem="Qya-Ex-IC3" secondAttribute="bottom" id="udQ-4F-rbY"/>
@@ -52,13 +67,14 @@
                         <viewLayoutGuide key="safeArea" id="H4Z-vS-l9H"/>
                     </view>
                     <navigationItem key="navigationItem" id="Oob-Bm-m2a">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="cm_bell_white" id="aTC-Oh-761">
+                        <barButtonItem key="rightBarButtonItem" title="ログアウト" id="x7t-Vt-8P3">
                             <connections>
-                                <action selector="allowAddMenberButton:" destination="Mam-lE-NWn" id="AoB-UG-2b1"/>
+                                <action selector="logoutButton:" destination="Mam-lE-NWn" id="iA1-jF-H81"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addMenber" destination="xvc-jQ-Hdl" id="Yli-11-hIR"/>
                         <outlet property="groupImage" destination="tkg-76-pwN" id="mlR-Qx-2BJ"/>
                         <outlet property="groupTableView" destination="Qya-Ex-IC3" id="nCz-dJ-V6q"/>
                     </connections>
@@ -87,7 +103,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cm_bell_white" width="24" height="24"/>
         <image name="グループ画像" width="400" height="300"/>
+        <image name="ユーザー追加" width="256" height="256"/>
     </resources>
 </document>
