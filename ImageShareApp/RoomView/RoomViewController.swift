@@ -8,17 +8,42 @@
 
 import UIKit
 import FirebaseFirestore
+import NVActivityIndicatorView
 
 class RoomViewController: UIViewController {
 
     // インスタンス化
     let db = Firestore.firestore()
 
+    // インジケータの追加
+    var activityIndicatorView: NVActivityIndicatorView!
+    var activityIndicatorBackgroundView: UIView!
+
     //  ルーム名
     @IBOutlet weak var roomNameTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        activityIndicatorView.stopAnimating()
+        activityIndicatorBackgroundView.alpha = 1
     }
 
     // ルームを作成する関数
@@ -67,17 +92,21 @@ class RoomViewController: UIViewController {
     // トップ画面へ遷移する関数
     func toTop() {
         let storyboard = UIStoryboard(name: "Top", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TopView")
+        let nc = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nc.topViewController as! TopViewController
 
-        self.present(vc, animated: true)
-        
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 
     // 作成ボタン
     @IBAction func creatRoomButton(_ sender: Any) {
+        activityIndicatorView.startAnimating()
+        activityIndicatorBackgroundView.alpha = 1
         // 部屋を作成
         createRoom()
-        // 部屋へ遷移
-        toTop()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            self.toTop()
+        })
     }
 }

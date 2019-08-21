@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="f6N-jO-yYP">
             <objects>
-                <viewController id="64M-Sy-Rvk" customClass="LoginViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="64M-Sy-Rvk" customClass="LoginViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9vP-90-yIt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,6 +122,7 @@
                         <outlet property="loginButton" destination="tdm-ee-XSN" id="naA-MC-9Ux"/>
                         <outlet property="loginView" destination="kdW-rG-ufx" id="JFD-KH-IRN"/>
                         <outlet property="passwordTextField" destination="ERg-OM-bWj" id="64U-re-zwk"/>
+                        <outlet property="titleLabel" destination="zBc-LZ-T5o" id="fpB-qI-QrE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hj3-lZ-ueO" userLabel="First Responder" sceneMemberID="firstResponder"/>

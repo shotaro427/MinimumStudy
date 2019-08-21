@@ -50,6 +50,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ルームセレクト" id="O3G-U4-e2u">
+                        <barButtonItem key="leftBarButtonItem" title="ログアウト" id="eJ5-X9-hFa">
+                            <connections>
+                                <action selector="LogOutButton:" destination="qKQ-Sh-kgO" id="Vvh-ys-2rE"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gm8-Ks-RNR">
                             <connections>
                                 <segue destination="bdy-Nf-pnc" kind="show" id="TmV-tl-AGw"/>

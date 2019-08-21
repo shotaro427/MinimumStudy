@@ -12,8 +12,10 @@ import FirebaseFirestore
 import PMAlertController
 import NVActivityIndicatorView
 
+
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
 
     @IBOutlet weak var loginView: UIView!
 
@@ -27,6 +29,7 @@ class LoginViewController: UIViewController {
 
     // 所属している部屋を格納する
     var room: [String] = []
+    var roomIDs: [String] = []
 
     let db = Firestore.firestore()
 
@@ -85,7 +88,7 @@ class LoginViewController: UIViewController {
                                     // 部屋のIDを配列に追加
                                     let roomName = document.data()["room-name"] as! String
                                     self.room.append(roomName)
-                                    print("**room.count = \(self.room.count)")
+                                    self.roomIDs.append(document.documentID)
                                 }
                             }
                         }
@@ -113,6 +116,7 @@ class LoginViewController: UIViewController {
         let vc = nc.topViewController as! SelectRoomTableViewController
 
         vc.room = room
+        vc.roomIDs = roomIDs
 
         self.present(nc, animated: true)
     }
@@ -138,6 +142,7 @@ class LoginViewController: UIViewController {
             return
         }
 
+        // ログインの処理
         Auth.auth().signIn(withEmail: email, password: password, completion: { (user, err) in
 
             if let err = err {
@@ -164,21 +169,19 @@ class LoginViewController: UIViewController {
 
     // 新規作成ボタン
     @IBAction func tappedCeateAccountButton(_ sender: Any) {
+
         // textFieldの中身を確認
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             print("textFieldが入力されていません")
             return
         }
-
         // 新規アカウントの作成
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, err) in
-
             // エラーが発生した時
             if let err = err {
                 self.showErrorAlert(error: err)
             } else {
                 // 成功した時
-                self.searchRoom()
                 // インジケータの描画
                 self.activityIndicatorView.startAnimating()
                 self.activityIndicatorBackgroundView.alpha = 1

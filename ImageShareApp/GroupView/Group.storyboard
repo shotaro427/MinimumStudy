@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ac2-SQ-vXX">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Group View Controller-->
+        <scene sceneID="0Vr-je-zxJ">
+            <objects>
+                <viewController id="Mam-lE-NWn" customClass="GroupViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2tn-HA-tDo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="グループ画像" translatesAutoresizingMaskIntoConstraints="NO" id="tkg-76-pwN">
+                                <rect key="frame" x="0.0" y="88" width="414" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="g15-Nt-WE3"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qya-Ex-IC3">
+                                <rect key="frame" x="0.0" y="338" width="414" height="524"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" id="Jol-Og-xVG">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jol-Og-xVG" id="MLQ-UD-HMz">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="H4Z-vS-l9H" firstAttribute="trailing" secondItem="Qya-Ex-IC3" secondAttribute="trailing" id="3Ye-7X-JUy"/>
+                            <constraint firstItem="H4Z-vS-l9H" firstAttribute="trailing" secondItem="tkg-76-pwN" secondAttribute="trailing" id="Cdv-8M-jca"/>
+                            <constraint firstItem="tkg-76-pwN" firstAttribute="top" secondItem="H4Z-vS-l9H" secondAttribute="top" id="Jyb-Ke-LAu"/>
+                            <constraint firstItem="Qya-Ex-IC3" firstAttribute="leading" secondItem="H4Z-vS-l9H" secondAttribute="leading" id="XrW-fw-GVs"/>
+                            <constraint firstItem="tkg-76-pwN" firstAttribute="leading" secondItem="H4Z-vS-l9H" secondAttribute="leading" id="iNM-8S-2iS"/>
+                            <constraint firstItem="Qya-Ex-IC3" firstAttribute="top" secondItem="tkg-76-pwN" secondAttribute="bottom" id="tk3-jP-o5s"/>
+                            <constraint firstItem="H4Z-vS-l9H" firstAttribute="bottom" secondItem="Qya-Ex-IC3" secondAttribute="bottom" id="udQ-4F-rbY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="H4Z-vS-l9H"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Oob-Bm-m2a">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="cm_bell_white" id="aTC-Oh-761">
+                            <connections>
+                                <action selector="allowAddMenberButton:" destination="Mam-lE-NWn" id="AoB-UG-2b1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="groupImage" destination="tkg-76-pwN" id="mlR-Qx-2BJ"/>
+                        <outlet property="groupTableView" destination="Qya-Ex-IC3" id="nCz-dJ-V6q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DR0-xA-75x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1384.0579710144928" y="-240.40178571428569"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BIU-BD-Lgq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ac2-SQ-vXX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3c1-6n-DXa">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Mam-lE-NWn" kind="relationship" relationship="rootViewController" id="PqI-En-Okd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jwy-8t-w3B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="473.91304347826093" y="-240.40178571428569"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cm_bell_white" width="24" height="24"/>
+        <image name="グループ画像" width="400" height="300"/>
+    </resources>
+</document>
