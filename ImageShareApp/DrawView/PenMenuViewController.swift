@@ -21,6 +21,8 @@ class PenMenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +61,6 @@ class PenMenuViewController: UIViewController {
                         self.penMenuView.layer.position.x = -self.penMenuView.frame.width
                 },completion: { bool in
                         self.dismiss(animated: true, completion: nil)
-//                    self.navigationController?.popViewController(animated: true)
                 })
             }
         }
@@ -72,9 +73,6 @@ class PenMenuViewController: UIViewController {
             let vc = nc.topViewController as! ViewController
             vc.setDetailPen(toolTypeNumber: tempToolType)
         }
-//        if let presentVC = self.navigationController?.popViewController(animated: true) as? ViewController{
-//            presentVC.setDetailPen(toolTypeNumber: tempToolType)
-//        }
      }
 
     @IBAction func tappedToolTypeButton(_ sender: UIButton) {

@@ -56,26 +56,26 @@
                                     <barButtonItem title="Item" image="マーカーのライトダウンアイコン素材3" id="ONP-b1-6gJ">
                                         <connections>
                                             <action selector="changePenButton:" destination="BYZ-38-t0r" id="mzR-aN-LkE"/>
-                                            <segue destination="gbZ-eC-YUR" kind="show" id="1uX-Om-DCA"/>
+                                            <segue destination="gbZ-eC-YUR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="1uX-Om-DCA"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="gEg-NI-Fr2"/>
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0JB-NO-07N"/>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="30" id="3GY-qi-FtB"/>
-                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="top" id="86f-Hm-m0J"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" id="5mm-cw-9Ao"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="top" id="76s-UU-EzB"/>
                             <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="GPG-Nw-JmR"/>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Kaz-Eg-lzs"/>
-                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" id="Ncm-2S-VYO"/>
                             <constraint firstItem="Wz6-23-hoD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="P6j-xS-bjQ"/>
-                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="leading" secondItem="Wz6-23-hoD" secondAttribute="leading" id="YCT-bN-zUC"/>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZDf-Em-hCa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" constant="10" id="aFM-CC-gZi"/>
-                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" id="raT-Sy-VAX"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="leading" secondItem="Wz6-23-hoD" secondAttribute="leading" id="mbp-my-IdL"/>
+                            <constraint firstItem="VIM-8K-Ar1" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" id="wSN-My-nIz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -117,10 +117,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7l-Ao-DEe">
-                                <rect key="frame" x="0.0" y="64" width="225" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="225" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-Bo-Ni2">
-                                        <rect key="frame" x="30" y="538" width="165" height="55"/>
+                                        <rect key="frame" x="30" y="582" width="165" height="55"/>
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-t6-yp9" customClass="IconButton" customModule="Material">
                                                 <rect key="frame" x="0.0" y="0.0" width="49.5" height="55"/>

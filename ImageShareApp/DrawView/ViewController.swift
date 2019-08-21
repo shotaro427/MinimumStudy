@@ -10,6 +10,7 @@ import UIKit
 import ACEDrawingView
 import PMAlertController
 import FirebaseFirestore
+import NVActivityIndicatorView
 
 class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -29,11 +30,36 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
     // 設定画面の中心
     var centerOfSettingView: CGPoint!
 
+    // インジケータの追加
+    var activityIndicatorView: NVActivityIndicatorView!
+    var activityIndicatorBackgroundView: UIView!
+
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // インジケータの描画
+        self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorBackgroundView.alpha = 0
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         // 画像の読み込み
         self.imageView.image = image
+
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
     }
 
     override func viewDidLayoutSubviews() {
@@ -59,14 +85,17 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
     func getImage(_ view: UIView) -> UIImage {
 
         /// キャプチャする範囲 = 渡したviewの大きさ
-        let rect = drawingView.bounds
+        let rect = drawingView.frame
 
         // ビットマップ画像のcontextを作成する
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        let context: CGContext = UIGraphicsGetCurrentContext()!
+        if let context: CGContext = UIGraphicsGetCurrentContext() {
 
-        // view内の描画をcontextに複写する
-        view.layer.render(in: context)
+            // view内の描画をcontextに複写する
+            imageView.layer.render(in: context)
+
+            drawingView.layer.render(in: context)
+        }
 
         // contextのビットマップをUIImageとして取得する
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -192,10 +221,22 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
                 imageTitle = "無名"
             }
             let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage]
+            self.db.collection("chat-room").document("\(self.roomID)").collection("message")
             self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any])
+            // インジケータの描画
+            self.activityIndicatorView.startAnimating()
+            self.activityIndicatorBackgroundView.alpha = 1
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                let storyboard = UIStoryboard(name: "Top", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
+                vc.roomID = self.roomID
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
         }))
+
         alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
-        self.present(alertController, animated: true)
+        present(alertController, animated: true)
     }
 
     // クリアボタン
