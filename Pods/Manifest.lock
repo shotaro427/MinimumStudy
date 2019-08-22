@@ -130,6 +130,7 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.7.0)
   - PMAlertController (4.0.0)
   - Protobuf (3.9.0)
+  - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
   - ACEDrawingView
@@ -141,6 +142,7 @@ DEPENDENCIES:
   - Material (~> 3.1.0)
   - NVActivityIndicatorView
   - PMAlertController
+  - XLPagerTabStrip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -171,6 +173,7 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - PMAlertController
     - Protobuf
+    - XLPagerTabStrip
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
@@ -200,7 +203,8 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
+  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: daf0ba29bb573c598f4abc009e4d853b2475ae6f
+PODFILE CHECKSUM: 4cbbb63eaa29eba59a69fd59fa9f793af8c902ec
 
 COCOAPODS: 1.6.1

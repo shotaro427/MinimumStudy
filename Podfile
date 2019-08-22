@@ -15,4 +15,5 @@ target 'ImageShareApp' do
  pod 'NVActivityIndicatorView'
  pod "BAFluidView"
  pod 'BetterSegmentedControl', '~> 1.2'
+ pod 'XLPagerTabStrip'
 end

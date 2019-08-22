@@ -12,10 +12,12 @@ import NVActivityIndicatorView
 import BetterSegmentedControl
 import PMAlertController
 
-class RoomViewController: UIViewController {
+class RoomViewController: UIViewController, UIScrollViewDelegate {
 
     // インスタンス化
     let db = Firestore.firestore()
+
+    var roomID: String = ""
 
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
@@ -36,6 +38,9 @@ class RoomViewController: UIViewController {
     // 入力するuiview
     @IBOutlet weak var resuestView: UIView!
     @IBOutlet weak var createView: UIView!
+
+    // スクロールビュー
+    @IBOutlet weak var scrollView: UIScrollView!
 
 
     override func viewDidLoad() {
@@ -83,7 +88,7 @@ class RoomViewController: UIViewController {
         // textFieldから部屋の名前とユーザーIDを取得
         if let roomName = roomNameTextField.text, let userID = UserDefaults.standard.string(forKey: "email") {
             // 部屋IDを割り振り
-            let roomID = Int.random(in: 0..<1000000)
+            let intRoomID = Int.random(in: 0..<1000000)
             // DBから部屋IDを照合
             db.collection("chat-room").getDocuments(completion: { (QuerySnapshot, err) in
                 if let err = err {
@@ -92,26 +97,27 @@ class RoomViewController: UIViewController {
                     // 一番最初に作られた時以外
                     if QuerySnapshot?.documents.count != 0 {
                         for document in QuerySnapshot!.documents {
-                            if document.documentID != String(roomID) && !isCreatedRoom {
-                                self.db.collection("chat-room").document("\(roomID)").setData([
+                            if document.documentID != String(intRoomID) && !isCreatedRoom {
+                                self.db.collection("chat-room").document("\(intRoomID)").setData([
                                     // 名前をdocumentに追加
                                     "room-name": roomName
                                 ])
                                 // 部屋にユーザーIDを登録
-                                self.db.collection("chat-room").document("\(roomID)").collection("users").document("\(userID)").setData(["userID": userID])
+                                self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
                                 isCreatedRoom = true
+                                self.roomID = String(intRoomID)
                             } else if !isCreatedRoom {
                                 // 作り直し(roomIDが被ったため)
                                 self.createRoom()
                             }
                         }
                     } else {
-                        self.db.collection("chat-room").document("\(roomID)").setData([
+                        self.db.collection("chat-room").document("\(intRoomID)").setData([
                             // 名前をdocumentに追加
                             "room-name": roomName
                             ])
                         // 部屋にユーザーIDを登録
-                        self.db.collection("chat-room").document("\(roomID)").collection("users").document("\(userID)").setData(["userID": userID])
+                        self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
                         isCreatedRoom = true
                     }
                 }
@@ -122,8 +128,11 @@ class RoomViewController: UIViewController {
     // トップ画面へ遷移する関数
     func toTop() {
         let storyboard = UIStoryboard(name: "Top", bundle: nil)
-        let nc = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nc.topViewController as! TopViewController
+//        let nc = storyboard.instantiateInitialViewController() as! UINavigationController
+//        let vc = nc.topViewController as! WaittingViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
+
+        vc.roomID = roomID
 
         self.navigationController?.pushViewController(vc, animated: true)
 

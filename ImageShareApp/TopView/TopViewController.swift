@@ -26,6 +26,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // 部屋のユーザーのIDを格納する
     var roomMenbers: [String] = []
+    // 申請待ちのユーザーのIDを格納する
+    var waitingMenber: [String] = []
 
     // DB
     let db = Firestore.firestore()
@@ -68,13 +70,14 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         // 遷移後の初期化
         roomMenbers = []
+        waitingMenber = []
 
         // インジケータを止める
         activityIndicatorView.stopAnimating()
         activityIndicatorBackgroundView.alpha = 0
     }
 
-    // 部屋のメンバーのIDを取ってくる関数
+    // 部屋のメンバーと申請待ちの人のIDを取ってくる関数
     func getUserInfo() {
         db.collection("chat-room").document("\(roomID)").collection("users").getDocuments(completion: { (QuerySnapshot, err) in
             if let err = err {
@@ -82,6 +85,16 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             } else {
                 for document in QuerySnapshot!.documents {
                     self.roomMenbers.append(document.documentID)
+                }
+            }
+        })
+        db.collection("chat-room").document("\(roomID)").collection("waiting-users")
+        db.collection("chat-room").document("\(roomID)").collection("waiting-users").getDocuments(completion: { (QuerySnapshot, err) in
+            if let err = err {
+                print("GroupViewController-35: \(err.localizedDescription)")
+            } else {
+                for document in QuerySnapshot!.documents {
+                    self.waitingMenber.append(document.documentID)
                 }
             }
         })
@@ -144,6 +157,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             // 値を渡す
             vc.roomID = self.roomID
             vc.roomMenbers = self.roomMenbers
+            vc.waitingMenber = self.waitingMenber
             // 遷移
             self.navigationController?.pushViewController(vc, animated: true)
         })
