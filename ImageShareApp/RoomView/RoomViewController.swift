@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseFirestore
 import NVActivityIndicatorView
+import BetterSegmentedControl
+import PMAlertController
 
 class RoomViewController: UIViewController {
 
@@ -21,6 +23,20 @@ class RoomViewController: UIViewController {
 
     //  ルーム名
     @IBOutlet weak var roomNameTextField: UITextField!
+
+    // セグメント
+    @IBOutlet weak var segmentedControl: BetterSegmentedControl!
+
+    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var requestButton: UIButton!
+
+    @IBOutlet weak var createTextField: UITextField!
+    @IBOutlet weak var requestTextField: UITextField!
+
+    // 入力するuiview
+    @IBOutlet weak var resuestView: UIView!
+    @IBOutlet weak var createView: UIView!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +52,20 @@ class RoomViewController: UIViewController {
         activityIndicatorBackgroundView.alpha = 0
         self.view.addSubview(activityIndicatorBackgroundView)
         self.view.addSubview(activityIndicatorView)
+
+        createView.layer.cornerRadius = 10
+        resuestView.layer.cornerRadius = 10
+
+        // セグメントコントロール
+        segmentedControl.segments = LabelSegment.segments(withTitles: ["新規作成", "申請"])
+
+        // ボタン
+        createButton.layer.cornerRadius = 10
+        requestButton.layer.cornerRadius = 10
+
+        // テキストフィールド
+        createTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
+        requestTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
 
     }
 
@@ -99,6 +129,15 @@ class RoomViewController: UIViewController {
 
     }
 
+    @IBAction func selectedSegment(_ sender: BetterSegmentedControl) {
+        // ボタンに対応したviewを表示させる
+        if segmentedControl.index == 0 {
+            self.view.bringSubviewToFront(createView)
+        } else {
+            self.view.bringSubviewToFront(resuestView)
+        }
+    }
+
     // 作成ボタン
     @IBAction func creatRoomButton(_ sender: Any) {
         activityIndicatorView.startAnimating()
@@ -109,4 +148,56 @@ class RoomViewController: UIViewController {
             self.toTop()
         })
     }
+
+    // 申請ボタン
+    @IBAction func tappedRequestButton(_ sender: Any) {
+        // 作られたかどうか
+        var isAdded = false
+        // DBのWaitingというコレクションに追加する処理
+        if let roomID = requestTextField.text {
+            // chat-roomコレクションから該当する部屋を検索
+            db.collection("chat-room").getDocuments(completion: { (QuerySnapshot, err) in
+                if let err = err {
+                    print("RoomViewController: \(err.localizedDescription)")
+                } else {
+                    print("roomID: \(roomID)")
+                    for document in QuerySnapshot!.documents {
+                        print("document.documentID :\(document.documentID)")
+                        if String(document.documentID) == roomID && !isAdded {
+                            self.addWaitingUser(roomID: roomID)
+                            isAdded = true
+                        }
+                    }
+                    if !isAdded {
+                        self.showAlert(title: "エラー", description: "該当するグループIDが存在しませんでした。。\nグループIDをもう一度見直し、半角数字6桁で入力しなおしてください。", image: #imageLiteral(resourceName: "ログインエラー"))
+                    }
+                }
+            })
+        }
+    }
+
+    func showAlert(title: String, description: String, image: UIImage) {
+        // アラートの表示
+        let alertController = PMAlertController(title: title, description: description, image: image, style: .alert)
+        let alertAction = PMAlertAction(title: "はい", style: .default)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true)
+    }
+
+    // DBに申請するユーザーのIDを登録する関数
+    func addWaitingUser(roomID: String) {
+        db.collection("chat-room").document(roomID).getDocument(completion: { (QuerySnapshot, err) in
+            if let err = err {
+                print("RoomViewController-157: \(err.localizedDescription)")
+                // アラートの表示
+                self.showAlert(title: "エラー", description: "グループIDが正しく入力されませんでした。\nグループIDをもう一度見直し、半角数字6桁で入力しなおしてください。", image: #imageLiteral(resourceName: "ログインエラー"))
+            } else {
+                // ユーザーIDをDBに追加
+                self.db.collection("chat-room").document(roomID).collection("waiting-users").document(UserDefaults.standard.string(forKey: "email")!).setData(["userID": UserDefaults.standard.string(forKey: "email")!], completion: { (_) in
+                    self.showAlert(title: "申請完了！", description: "申請が完了しました!!", image: #imageLiteral(resourceName: "津田梅子"))
+                })
+            }
+        })
+    }
+    
 }

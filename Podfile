@@ -14,4 +14,5 @@ target 'ImageShareApp' do
  pod 'Firebase/Firestore'
  pod 'NVActivityIndicatorView'
  pod "BAFluidView"
+ pod 'BetterSegmentedControl', '~> 1.2'
 end
