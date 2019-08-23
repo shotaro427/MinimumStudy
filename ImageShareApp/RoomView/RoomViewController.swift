@@ -114,7 +114,9 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                                     // デフォルトで画像を設定
                                     "room-image": self.base64RoomImage,
                                     // メンバー数の項目を追加
-                                    "menber-count": 1
+                                    "menber-count": 1,
+                                    // 総投稿数の項目の追加
+                                    "post-count": 0
                                 ])
                                 // 部屋にユーザーIDを登録
                                 self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
@@ -132,7 +134,9 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                             // デフォルトで画像を設定
                             "room-image": self.base64RoomImage,
                             // メンバー数の項目を追加
-                            "menber-count": 1
+                            "menber-count": 1,
+                            // 総投稿数の項目の追加
+                            "post-count": 0
                             ])
                         // 部屋にユーザーIDを登録
                         self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
@@ -158,8 +162,12 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         // ボタンに対応したviewを表示させる
         if segmentedControl.index == 0 {
             self.view.bringSubviewToFront(createView)
+            self.view.bringSubviewToFront(activityIndicatorBackgroundView)
+            self.view.bringSubviewToFront(activityIndicatorView)
         } else {
             self.view.bringSubviewToFront(resuestView)
+            self.view.bringSubviewToFront(activityIndicatorBackgroundView)
+            self.view.bringSubviewToFront(activityIndicatorView)
         }
     }
 

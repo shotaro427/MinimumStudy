@@ -45,6 +45,11 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // refreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(TopViewController.refreshControlValueChanged(sender:)), for: .valueChanged)
+        topCollectionView.addSubview(refreshControl)
+
         // roomIDのドキュメントがあるかどうか
         db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
             if let document = document, document.exists {
@@ -78,6 +83,19 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.view.addSubview(activityIndicatorView)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // 情報の初期化
+        postImageInfo = []
+        // 情報の取得
+        getPostInfo(completion: {
+            // リロード
+            topCollectionView.reloadData()
+        })
+
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
@@ -88,6 +106,37 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // インジケータを止める
         activityIndicatorView.stopAnimating()
         activityIndicatorBackgroundView.alpha = 0
+    }
+
+    // refreshControl
+    @objc func refreshControlValueChanged(sender: UIRefreshControl) {
+        // 初期化
+        postImageInfo = []
+        // 情報の取得
+        getPostInfo(completion: {
+            // リロード
+            topCollectionView.reloadData()
+            // refreshの終了
+            sender.endRefreshing()
+        })
+    }
+
+    // 投稿情報を取得する関数
+    func getPostInfo(completion: () -> ()) {
+        // メッセージコレクションを作成
+        db.collection("chat-room").document(roomID).collection("message")
+        // メッセージを取得
+        db.collection("chat-room").document("\(roomID)").collection("message").getDocuments() { (QuerySnapshot, err) in
+            if let err = err {
+                print("WaittingViewController-28: \(err.localizedDescription)")
+            } else {
+                for document in QuerySnapshot!.documents {
+                    self.postImageInfo.append(document.data())
+                }
+                self.topCollectionView.reloadData()
+            }
+        }
+
     }
 
     // 部屋のメンバーと申請待ちの人のIDを取ってくる関数
@@ -275,5 +324,4 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
 }

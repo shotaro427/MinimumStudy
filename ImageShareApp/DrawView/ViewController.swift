@@ -38,10 +38,6 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-
-        // インジケータの描画
-        self.activityIndicatorView.stopAnimating()
-        self.activityIndicatorBackgroundView.alpha = 0
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -230,16 +226,23 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
             self.activityIndicatorView.startAnimating()
             self.activityIndicatorBackgroundView.alpha = 1
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                let storyboard = UIStoryboard(name: "Top", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
-                vc.roomID = self.roomID
-                self.navigationController?.pushViewController(vc, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                // インジケータの描画
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorBackgroundView.alpha = 0
+                self.showAlert()
             })
         }))
 
         alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
         present(alertController, animated: true)
+    }
+
+    func showAlert() {
+        let alertController = PMAlertController(title: "投稿が完了しました", description: "", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
+        let alertAction = PMAlertAction(title: "はい", style: .default)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true)
     }
 
 
@@ -272,11 +275,6 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     // ペンの変更ボタン
     @IBAction func changePenButton(_ sender: Any) {
-//        // カラーピッカーの生成
-//        let colorPicker = AMColorPickerViewController()
-//        colorPicker.selectedColor = UIColor.red
-//        colorPicker.delegate = self
-//        self.present(colorPicker, animated: true)
     }
 
     // カメラボタン

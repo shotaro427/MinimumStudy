@@ -219,8 +219,12 @@ class LoginViewController: UIViewController {
         // ボタンに対応したviewを表示させる
         if segmentedViewButton.index == 0 {
             self.view.bringSubviewToFront(loginView)
+            self.view.bringSubviewToFront(activityIndicatorBackgroundView)
+            self.view.bringSubviewToFront(activityIndicatorView)
         } else {
             self.view.bringSubviewToFront(createAccountView)
+            self.view.bringSubviewToFront(activityIndicatorBackgroundView)
+            self.view.bringSubviewToFront(activityIndicatorView)
         }
     }
 }
