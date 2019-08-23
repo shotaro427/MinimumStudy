@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseFirestore
 import NVActivityIndicatorView
+import PMAlertController
 
 class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -136,6 +137,77 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         let horizontalSpace : CGFloat = 20
         let cellSize : CGFloat = self.view.bounds.width / 2 - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
+    }
+
+    // セルタップ時
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 遷移先の画面のインスタンスを生成
+        let storyboard = UIStoryboard(name: "TopDetails", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "DetailsView") as! DetailsViewController
+
+        // それぞれの値を取得
+        if postImageInfo.count != 0 {
+            let dict = postImageInfo[indexPath.row]
+
+            // 投稿画像を取得
+            // 画像情報
+            let imageInfo = dict["image"]
+            // NSData型に変換
+            let imageData = NSData(base64Encoded: imageInfo as! String, options: .ignoreUnknownCharacters)
+            // UIImage型に変換
+            if let decordedImage: UIImage = UIImage(data: imageData! as Data) {
+
+                // ユーザーIDを表示
+                let user = dict["userID"] as? String
+
+                // タイトルを表示
+                let title = dict["title"] as? String
+
+                // 値を渡す
+                vc.image = decordedImage
+                vc.strTitle = title
+                vc.user = user!
+
+            } else {
+                vc.image = #imageLiteral(resourceName: "イメージ画像のアイコン素材 その3")
+            }
+        }
+        vc.roomID = roomID
+
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    // 保存機能
+    func save(image: UIImage) {
+
+        // カメラロールに保存する
+        // アラートコントローラー
+        let alertController = PMAlertController(title: "保存しますか？", description: nil, image: image, style: .alert)
+        // アラートアクション
+        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
+            // 「はい」を押した時だけ、画像を保存する
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
+        }))
+        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
+        self.present(alertController, animated: true)
+    }
+
+    // 保存を試みた結果を受け取る
+    @objc func didFinishSavingImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
+
+        // 結果によって出すアラートを変更する
+        var title = "保存完了"
+        var message = "カメラロールに保存しました"
+
+        if error != nil {
+            title = "エラー"
+            message = "保存に失敗しました"
+        }
+
+        let alertController = PMAlertController(title: title, description: message, image: image, style: .alert)
+
+        alertController.addAction(PMAlertAction(title: "OK", style: .default))
+        self.present(alertController, animated: true)
     }
 
     // 設定ボタン

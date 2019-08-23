@@ -10,7 +10,6 @@ import UIKit
 import FirebaseAuth
 import PMAlertController
 import FirebaseFirestore
-
 class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // グループ画像
@@ -39,11 +38,14 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // tableViewの設定
         groupTableView.delegate = self
         groupTableView.dataSource = self
 
+        // ボタンの整形
         addMenber.layer.cornerRadius = addMenber.frame.width / 2
 
+        // 値の追加
         Menbers.append(roomMenbers)
         Menbers.append(waitingMenber)
 
@@ -111,6 +113,12 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } else {
                 print("Document successfully removed!")
             }
+
+            // アラートの表示
+            let alertController = PMAlertController(title: "完了!", description: "申請を許可しました。", image: #imageLiteral(resourceName: "津田梅子"), style: .alert)
+            let okAction = PMAlertAction(title: "はい", style: .default)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true)
         }
     }
 

@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VIM-8K-Ar1">
-                                <rect key="frame" x="10" y="94" width="355" height="499"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wz6-23-hoD" customClass="ACEDrawingView">
-                                <rect key="frame" x="10" y="94" width="355" height="499"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLA-yx-1zT">
@@ -66,14 +66,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0JB-NO-07N"/>
-                            <constraint firstItem="GLA-yx-1zT" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="bottom" constant="30" id="3GY-qi-FtB"/>
+                            <constraint firstItem="GLA-yx-1zT" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="bottom" id="3GY-qi-FtB"/>
                             <constraint firstItem="VIM-8K-Ar1" firstAttribute="bottom" secondItem="Wz6-23-hoD" secondAttribute="bottom" id="5mm-cw-9Ao"/>
                             <constraint firstItem="VIM-8K-Ar1" firstAttribute="top" secondItem="Wz6-23-hoD" secondAttribute="top" id="76s-UU-EzB"/>
-                            <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="GPG-Nw-JmR"/>
+                            <constraint firstItem="Wz6-23-hoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GPG-Nw-JmR"/>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Kaz-Eg-lzs"/>
-                            <constraint firstItem="Wz6-23-hoD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="P6j-xS-bjQ"/>
+                            <constraint firstItem="Wz6-23-hoD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="P6j-xS-bjQ"/>
                             <constraint firstItem="GLA-yx-1zT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZDf-Em-hCa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" constant="10" id="aFM-CC-gZi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" id="aFM-CC-gZi"/>
                             <constraint firstItem="VIM-8K-Ar1" firstAttribute="leading" secondItem="Wz6-23-hoD" secondAttribute="leading" id="mbp-my-IdL"/>
                             <constraint firstItem="VIM-8K-Ar1" firstAttribute="trailing" secondItem="Wz6-23-hoD" secondAttribute="trailing" id="wSN-My-nIz"/>
                         </constraints>

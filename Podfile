@@ -16,4 +16,5 @@ target 'ImageShareApp' do
  pod "BAFluidView"
  pod 'BetterSegmentedControl', '~> 1.2'
  pod 'XLPagerTabStrip'
+ pod 'CRRefresh'
 end
