@@ -74,8 +74,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginImage" translatesAutoresizingMaskIntoConstraints="NO" id="lB9-VH-PoC">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1D-CX-mb6">
-                                <rect key="frame" x="83" y="383.5" width="248" height="218.5"/>
+                                <rect key="frame" x="83" y="406" width="248" height="218.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bSt-JC-DOI">
                                         <rect key="frame" x="10" y="10" width="228" height="168.5"/>
@@ -130,7 +133,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgG-rs-S3s">
-                                <rect key="frame" x="83" y="383.5" width="248" height="218.5"/>
+                                <rect key="frame" x="83" y="406" width="248" height="218.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="59d-uV-dIB">
                                         <rect key="frame" x="10" y="10" width="228" height="168.5"/>
@@ -188,7 +191,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IV-c5-9ZJ" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
-                                <rect key="frame" x="83" y="343.5" width="248" height="40"/>
+                                <rect key="frame" x="83" y="366" width="248" height="40"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Cba-j5-HO2"/>
@@ -211,18 +214,22 @@
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="p1D-CX-mb6" firstAttribute="top" secondItem="7IV-c5-9ZJ" secondAttribute="bottom" id="A5y-Ea-vxT"/>
                             <constraint firstItem="7IV-c5-9ZJ" firstAttribute="trailing" secondItem="tgG-rs-S3s" secondAttribute="trailing" id="FIE-49-ipX"/>
                             <constraint firstItem="p1D-CX-mb6" firstAttribute="bottom" secondItem="tgG-rs-S3s" secondAttribute="bottom" id="J9Y-i2-0a9"/>
                             <constraint firstItem="7IV-c5-9ZJ" firstAttribute="leading" secondItem="tgG-rs-S3s" secondAttribute="leading" id="K4h-ai-S9s"/>
-                            <constraint firstItem="tgG-rs-S3s" firstAttribute="centerY" secondItem="xzK-3v-KwM" secondAttribute="centerY" multiplier="1.1" id="Lxw-hE-I6I"/>
+                            <constraint firstItem="tgG-rs-S3s" firstAttribute="centerY" secondItem="xzK-3v-KwM" secondAttribute="centerY" multiplier="1.15" id="Lxw-hE-I6I"/>
                             <constraint firstItem="p1D-CX-mb6" firstAttribute="leading" secondItem="tgG-rs-S3s" secondAttribute="leading" id="Rlg-7f-VYm"/>
                             <constraint firstItem="p1D-CX-mb6" firstAttribute="top" secondItem="tgG-rs-S3s" secondAttribute="top" id="SVy-9g-MQj"/>
+                            <constraint firstItem="lB9-VH-PoC" firstAttribute="leading" secondItem="JnD-bB-Bu0" secondAttribute="leading" id="U2L-Xr-0Zv"/>
+                            <constraint firstItem="JnD-bB-Bu0" firstAttribute="trailing" secondItem="lB9-VH-PoC" secondAttribute="trailing" id="ZCj-og-RoT"/>
                             <constraint firstItem="p1D-CX-mb6" firstAttribute="trailing" secondItem="tgG-rs-S3s" secondAttribute="trailing" id="c5R-6j-q8C"/>
                             <constraint firstItem="tgG-rs-S3s" firstAttribute="width" secondItem="xzK-3v-KwM" secondAttribute="width" multiplier="0.6" id="dQV-i4-ZCG"/>
+                            <constraint firstItem="JnD-bB-Bu0" firstAttribute="bottom" secondItem="lB9-VH-PoC" secondAttribute="bottom" id="drL-1S-JJE"/>
                             <constraint firstItem="tgG-rs-S3s" firstAttribute="centerX" secondItem="xzK-3v-KwM" secondAttribute="centerX" id="mD3-ck-AWL"/>
+                            <constraint firstItem="lB9-VH-PoC" firstAttribute="top" secondItem="JnD-bB-Bu0" secondAttribute="top" id="tJb-Hc-Zxo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JnD-bB-Bu0"/>
                     </view>
@@ -240,7 +247,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H6c-4c-Oxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="993" y="9"/>
+            <point key="canvasLocation" x="992.75362318840587" y="8.7053571428571423"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="loginImage" width="750" height="1000"/>
+    </resources>
 </document>

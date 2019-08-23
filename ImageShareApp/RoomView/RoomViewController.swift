@@ -19,6 +19,9 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
 
     var roomID: String = ""
 
+    // DBに登録するためのString型の画像
+    var base64RoomImage: String = ""
+
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
@@ -72,6 +75,13 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         createTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
         requestTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
 
+        // ルーム生成時にデフォルトで設定される画像をString型に変換する
+        var roomImageData: NSData = NSData()
+        // 画像のクオリティを下げる
+        roomImageData = UIImage(named: "loginImage")!.jpegData(compressionQuality: 0.1)! as NSData
+        // base64Stringという形式に変換
+        base64RoomImage = roomImageData.base64EncodedString(options: .lineLength64Characters) as String
+
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -114,7 +124,9 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                     } else {
                         self.db.collection("chat-room").document("\(intRoomID)").setData([
                             // 名前をdocumentに追加
-                            "room-name": roomName
+                            "room-name": roomName,
+                            // デフォルトで画像を設定
+                            "room-image": self.base64RoomImage
                             ])
                         // 部屋にユーザーIDを登録
                         self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
@@ -128,8 +140,6 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
     // トップ画面へ遷移する関数
     func toTop() {
         let storyboard = UIStoryboard(name: "Top", bundle: nil)
-//        let nc = storyboard.instantiateInitialViewController() as! UINavigationController
-//        let vc = nc.topViewController as! WaittingViewController
         let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
 
         vc.roomID = roomID
@@ -203,7 +213,7 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
             } else {
                 // ユーザーIDをDBに追加
                 self.db.collection("chat-room").document(roomID).collection("waiting-users").document(UserDefaults.standard.string(forKey: "email")!).setData(["userID": UserDefaults.standard.string(forKey: "email")!], completion: { (_) in
-                    self.showAlert(title: "申請完了！", description: "申請が完了しました!!", image: #imageLiteral(resourceName: "津田梅子"))
+                    self.showAlert(title: "申請完了！", description: "申請が完了しました!!", image: #imageLiteral(resourceName: "ok_man"))
                 })
             }
         })

@@ -9,11 +9,14 @@
 import UIKit
 import PMAlertController
 
-class DetailsViewController: UIViewController {
+class DetailsViewController: UIViewController, UIScrollViewDelegate {
 
-    @IBOutlet weak var postedImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var postedImageScrollView: UIScrollView!
+
+    // imageView
+    var postedImageView: UIImageView!
 
     // グループID
     var roomID: String = ""
@@ -26,15 +29,66 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        postedImageView.image = image
+        // タイトルと制作者ユーザーIDを表示
         titleLabel.text = strTitle
         userLabel.text = user
 
+        // デリゲート
+        postedImageScrollView.delegate = self
+        // 最大・最小の大きさを決める
+        postedImageScrollView.maximumZoomScale = 4.0
+        postedImageScrollView.minimumZoomScale = 1.0
+
+        // imageViewを生成
+        postedImageView = UIImageView()
+        postedImageView.frame = postedImageScrollView.frame
+        postedImageScrollView.addSubview(postedImageView)
+
+        // imageViewにセグエで飛ばされてきた画像を設定
+        postedImageView.image = image
+        postedImageView.contentMode = UIView.ContentMode.scaleAspectFit
+
+        // ダブルタップ対応
+        let doubleTap = UITapGestureRecognizer(target:self,action:#selector(DetailsViewController.doubleTap(gesture:)))
+        doubleTap.numberOfTapsRequired = 2
+        postedImageView.isUserInteractionEnabled = true
+        postedImageView.addGestureRecognizer(doubleTap)
+    }
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.postedImageView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        print("end zoom")
+    }
+
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        print("start zoom")
+    }
+
+    @objc func doubleTap(gesture:UITapGestureRecognizer) -> Void {
+        if(self.postedImageScrollView.zoomScale < 3){
+            let newScale:CGFloat = self.postedImageScrollView.zoomScale*3
+            let zoomRect:CGRect = self.zoomForScale(scale:newScale, center:gesture.location(in:gesture.view))
+            self.postedImageScrollView.zoom(to:zoomRect, animated: true)
+        } else {
+            self.postedImageScrollView.setZoomScale(1.0, animated: true)
+        }
+    }
+
+    func zoomForScale(scale:CGFloat, center: CGPoint) -> CGRect{
+        var zoomRect: CGRect = CGRect()
+        zoomRect.size.height = self.postedImageScrollView.frame.size.height / scale
+        zoomRect.size.width = self.postedImageScrollView.frame.size.width  / scale
+        zoomRect.origin.x = center.x - zoomRect.size.width / 2.0
+        zoomRect.origin.y = center.y - zoomRect.size.height / 2.0
+
+        return zoomRect
     }
 
     // 保存機能
     func save(image: UIImage) {
-
         // カメラロールに保存する
         // アラートコントローラー
         let alertController = PMAlertController(title: "保存しますか？", description: nil, image: image, style: .alert)

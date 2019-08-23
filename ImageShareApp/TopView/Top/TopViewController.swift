@@ -25,10 +25,15 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // 部屋のID
     var roomID: String = ""
 
+    // roomIDのドキュメントがあるかどうか
+    var exsistDocument: Bool = false
+
     // 部屋のユーザーのIDを格納する
     var roomMenbers: [String] = []
     // 申請待ちのユーザーのIDを格納する
     var waitingMenber: [String] = []
+    // 現在のグループの情報を格納する
+    var roomInfo: [String: Any] = [:]
 
     // DB
     let db = Firestore.firestore()
@@ -39,6 +44,13 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // roomIDのドキュメントがあるかどうか
+        db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
+            if let document = document, document.exists {
+                self.exsistDocument = true
+            }
+        })
 
         // ナビゲーションバーの戻るボタンを消す
         self.navigationItem.hidesBackButton = true
@@ -79,24 +91,40 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
 
     // 部屋のメンバーと申請待ちの人のIDを取ってくる関数
-    func getUserInfo() {
-        db.collection("chat-room").document("\(roomID)").collection("users").getDocuments(completion: { (QuerySnapshot, err) in
-            if let err = err {
-                print("GroupViewController-35: \(err.localizedDescription)")
-            } else {
-                for document in QuerySnapshot!.documents {
-                    self.roomMenbers.append(document.documentID)
+    func getUserInfo() { // ドキュメントが存在していたら
+        if exsistDocument {
+            // 所属メンバー一覧を取得
+            db.collection("chat-room").document("\(roomID)").collection("users").getDocuments(completion: { (QuerySnapshot, err) in
+                if let err = err {
+                    print("GroupViewController-35: \(err.localizedDescription)")
+                } else {
+                    for document in QuerySnapshot!.documents {
+                        self.roomMenbers.append(document.documentID)
+                    }
                 }
-            }
-        })
-        db.collection("chat-room").document("\(roomID)").collection("waiting-users")
-        db.collection("chat-room").document("\(roomID)").collection("waiting-users").getDocuments(completion: { (QuerySnapshot, err) in
-            if let err = err {
-                print("GroupViewController-35: \(err.localizedDescription)")
-            } else {
-                for document in QuerySnapshot!.documents {
-                    self.waitingMenber.append(document.documentID)
+            })
+            // 申請待ちの一覧を取得
+            db.collection("chat-room").document("\(roomID)").collection("waiting-users")
+            db.collection("chat-room").document("\(roomID)").collection("waiting-users").getDocuments(completion: { (QuerySnapshot, err) in
+                if let err = err {
+                    print("GroupViewController-35: \(err.localizedDescription)")
+                } else {
+                    for document in QuerySnapshot!.documents {
+                        self.waitingMenber.append(document.documentID)
+                    }
                 }
+            })
+        }
+        // 部屋の情報を格納する
+        db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
+            if let document = document, document.exists {
+                if document.data() != nil {
+                    self.roomInfo = document.data()!
+                } else {
+                    print("ドキュメントデータが存在していません")
+                }
+            } else {
+                print("ドキュメントが存在していません")
             }
         })
     }
@@ -229,6 +257,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             // 値を渡す
             vc.roomID = self.roomID
             vc.roomMenbers = self.roomMenbers
+            vc.roomInfo = self.roomInfo
             vc.waitingMenber = self.waitingMenber
             // 遷移
             self.navigationController?.pushViewController(vc, animated: true)

@@ -152,6 +152,8 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
             // インスタンス化
             let cameraPicker = UIImagePickerController()
+            // pickerの設定
+            cameraPicker.allowsEditing = true
             // ソースタイプの代入
             cameraPicker.sourceType = sourceType
             // デリゲートの接続
@@ -163,12 +165,13 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     // 写真が選択された時に呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // 取得できた画像情報の存在確認とUIImage型へキャスト。pickedImageという定数に格納
-        if let pickedImage = info[.originalImage] as? UIImage {
-            // ①投稿画面への遷移処理
-            self.image = pickedImage
-            picker.dismiss(animated: true, completion: nil)
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.image = originalImage
         }
+
+        dismiss(animated: true, completion: nil)
     }
 
     // 保存を試みた結果を受け取る

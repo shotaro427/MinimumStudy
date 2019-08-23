@@ -14,9 +14,17 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // グループ画像
     @IBOutlet weak var groupImage: UIImageView!
+    // グループメンバー数
+    @IBOutlet weak var numberOfGroupMenber: UILabel!
+    // 投稿数
+    @IBOutlet weak var numberOfPost: UILabel!
+    // グループ名
+    @IBOutlet weak var groupName: UILabel!
 
+    // tableView
     @IBOutlet weak var groupTableView: UITableView!
-    
+
+    // button
     @IBOutlet weak var addMenber: UIButton!
 
     // DB
@@ -24,6 +32,8 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // 部屋のID
     var roomID: String = ""
+    // 部屋の情報
+    var roomInfo: [String: Any] = [:]
 
     // セクションタイトル
     let titleOfSection: [String] = ["メンバー", "申請待ち"]
@@ -48,6 +58,24 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // 値の追加
         Menbers.append(roomMenbers)
         Menbers.append(waitingMenber)
+
+        // 画像の復元
+        if let imageData = roomInfo["room-image"] as? String {
+            let dataImage = NSData(base64Encoded: imageData, options: .ignoreUnknownCharacters)
+            // UIImage型に変換
+            let decordedImage = UIImage(data: dataImage! as Data)
+            // imageViewに表示
+            groupImage.image = decordedImage
+        }
+
+        // ラベルの表示
+        // メンバー数
+        numberOfGroupMenber.text = "メンバー数: \(roomMenbers.count)"
+        // グループ名
+        if let name = roomInfo["room-name"] as? String {
+            groupName.text = "グループ名: \(name)"
+        }
+        
 
     }
 
@@ -83,7 +111,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         } else { // 申請待ちの人をタップした時
             // アラートの表示
-            let alertController = PMAlertController(title: "申請待ち", description: "\(Menbers[indexPath.section][indexPath.row])さんが申請しています。\n 申請を許可しますか？", image: #imageLiteral(resourceName: "津田梅子"), style: .alert)
+            let alertController = PMAlertController(title: "申請待ち", description: "\(Menbers[indexPath.section][indexPath.row])さんが申請しています。\n 申請を許可しますか？", image: #imageLiteral(resourceName: "正座"), style: .alert)
             let OKAction = PMAlertAction(title: "はい", style: .default, action: {
                 self.allowMenbers(waitingUserID: self.Menbers[indexPath.section][indexPath.row])
             })
@@ -115,7 +143,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
 
             // アラートの表示
-            let alertController = PMAlertController(title: "完了!", description: "申請を許可しました。", image: #imageLiteral(resourceName: "津田梅子"), style: .alert)
+            let alertController = PMAlertController(title: "完了!", description: "申請を許可しました。", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
             let okAction = PMAlertAction(title: "はい", style: .default)
             alertController.addAction(okAction)
             self.present(alertController, animated: true)

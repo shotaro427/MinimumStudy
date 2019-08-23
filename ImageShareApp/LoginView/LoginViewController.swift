@@ -11,21 +11,24 @@ import FirebaseAuth
 import FirebaseFirestore
 import PMAlertController
 import NVActivityIndicatorView
-
+import BetterSegmentedControl
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
-
+    // ログイン画面
     @IBOutlet weak var loginView: UIView!
-
     @IBOutlet weak var emailTextField: UITextField!
-
     @IBOutlet weak var passwordTextField: UITextField!
-
     @IBOutlet weak var loginButton: UIButton!
 
+    // 新規作成画面
+    @IBOutlet weak var createAccountView: UIView!
+    @IBOutlet weak var newEmailTextField: UITextField!
+    @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var createAccuntButton: UIButton!
+
+    @IBOutlet weak var segmentedViewButton: BetterSegmentedControl!
+    
 
     // 所属している部屋を格納する
     var room: [String] = []
@@ -40,6 +43,9 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // セグメントコントロール
+        segmentedViewButton.segments = LabelSegment.segments(withTitles: ["ログイン", "新規作成"])
 
         // インジケータ
         // インジケータの追加
@@ -56,10 +62,15 @@ class LoginViewController: UIViewController {
         //textFieldの下線を追加
         emailTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
         passwordTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
+        newEmailTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
+        newPasswordTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
+        
         // viewの角を丸くする
         loginView.layer.cornerRadius = 10
+        createAccountView.layer.cornerRadius = 10
         // ボタンを丸くする
         loginButton.layer.cornerRadius = 10
+        createAccuntButton.layer.cornerRadius = 10
 
 
         emailTextField.text = "aaaa@aaaa.com"
@@ -132,6 +143,14 @@ class LoginViewController: UIViewController {
         if (passwordTextField.isFirstResponder) {
             passwordTextField.resignFirstResponder()
         }
+        // キーボードが開いていたら
+        if (newEmailTextField.isFirstResponder) {
+            // 閉じる
+            newEmailTextField.resignFirstResponder()
+        }
+        if (newPasswordTextField.isFirstResponder) {
+            newPasswordTextField.resignFirstResponder()
+        }
     }
 
     // ログインボタン
@@ -171,7 +190,7 @@ class LoginViewController: UIViewController {
     @IBAction func tappedCeateAccountButton(_ sender: Any) {
 
         // textFieldの中身を確認
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
+        guard let email = newEmailTextField.text, let password = newPasswordTextField.text else {
             print("textFieldが入力されていません")
             return
         }
@@ -193,5 +212,15 @@ class LoginViewController: UIViewController {
                 }
             }
         })
+    }
+
+    // 画面切り替えボタン
+    @IBAction func segmentedViewButton(_ sender: BetterSegmentedControl) {
+        // ボタンに対応したviewを表示させる
+        if segmentedViewButton.index == 0 {
+            self.view.bringSubviewToFront(loginView)
+        } else {
+            self.view.bringSubviewToFront(createAccountView)
+        }
     }
 }
