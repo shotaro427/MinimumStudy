@@ -59,7 +59,7 @@
                                     <barButtonItem title="Item" image="マーカーのライトダウンアイコン素材3" id="ONP-b1-6gJ">
                                         <connections>
                                             <action selector="changePenButton:" destination="BYZ-38-t0r" id="mzR-aN-LkE"/>
-                                            <segue destination="gbZ-eC-YUR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="1uX-Om-DCA"/>
+                                            <segue destination="gbZ-eC-YUR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="nwY-vU-EhW"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="gEg-NI-Fr2"/>
@@ -160,11 +160,19 @@
                                             <constraint firstAttribute="width" secondItem="vq9-Bo-Ni2" secondAttribute="height" multiplier="3:1" id="CZQ-Ce-Zqs"/>
                                         </constraints>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgd-hT-qnc" customClass="AMColorPickerTableView" customModule="AMColorPicker">
+                                        <rect key="frame" x="0.0" y="0.0" width="225" height="572"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.99193829300000003" blue="0.92703398989999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="kgd-hT-qnc" firstAttribute="top" secondItem="i7l-Ao-DEe" secondAttribute="top" id="1ga-p2-8gp"/>
+                                    <constraint firstItem="kgd-hT-qnc" firstAttribute="leading" secondItem="i7l-Ao-DEe" secondAttribute="leading" id="2nC-yk-LI4"/>
                                     <constraint firstAttribute="trailing" secondItem="vq9-Bo-Ni2" secondAttribute="trailing" constant="30" id="7UB-2m-C1e"/>
                                     <constraint firstItem="vq9-Bo-Ni2" firstAttribute="leading" secondItem="i7l-Ao-DEe" secondAttribute="leading" constant="30" id="NUN-3m-swc"/>
+                                    <constraint firstAttribute="trailing" secondItem="kgd-hT-qnc" secondAttribute="trailing" id="ejN-AO-N1l"/>
+                                    <constraint firstItem="vq9-Bo-Ni2" firstAttribute="top" secondItem="kgd-hT-qnc" secondAttribute="bottom" constant="10" id="goN-0Q-xH9"/>
                                     <constraint firstAttribute="bottom" secondItem="vq9-Bo-Ni2" secondAttribute="bottom" constant="10" id="zeS-jr-x3u"/>
                                 </constraints>
                             </view>
@@ -179,12 +187,13 @@
                         <viewLayoutGuide key="safeArea" id="3sr-Nq-Km6"/>
                     </view>
                     <connections>
+                        <outlet property="editColorPicker" destination="kgd-hT-qnc" id="YsM-bJ-hf2"/>
                         <outlet property="penMenuView" destination="i7l-Ao-DEe" id="SAD-dq-oYg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hev-Rc-nam" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1640.8" y="122.78860569715144"/>
+            <point key="canvasLocation" x="1596" y="123"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PrR-ne-s9l">

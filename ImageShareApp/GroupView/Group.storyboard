@@ -112,16 +112,18 @@
                         <viewLayoutGuide key="safeArea" id="H4Z-vS-l9H"/>
                     </view>
                     <navigationItem key="navigationItem" id="Oob-Bm-m2a">
-                        <barButtonItem key="leftBarButtonItem" title="ログアウト" id="x7t-Vt-8P3">
-                            <connections>
-                                <action selector="logoutButton:" destination="Mam-lE-NWn" id="iA1-jF-H81"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="設定" id="eCl-4d-xMQ">
-                            <connections>
-                                <segue destination="j3L-2f-H3z" kind="show" id="AYa-Dv-E26"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="設定" id="eCl-4d-xMQ">
+                                <connections>
+                                    <segue destination="j3L-2f-H3z" kind="show" id="AYa-Dv-E26"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="ログアウト" id="x7t-Vt-8P3">
+                                <connections>
+                                    <action selector="logoutButton:" destination="Mam-lE-NWn" id="iA1-jF-H81"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addMenber" destination="xvc-jQ-Hdl" id="Yli-11-hIR"/>

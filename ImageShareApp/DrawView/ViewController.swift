@@ -11,8 +11,9 @@ import ACEDrawingView
 import PMAlertController
 import FirebaseFirestore
 import NVActivityIndicatorView
+import AMColorPicker
 
-class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMColorPickerDelegate {
 
     // textfield
     var textfield: UITextField!
@@ -108,20 +109,19 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
 
     /// ペンの詳細設定をする関数
-    func setDetailPen(toolTypeNumber: Int) {
+    func setDetailPen(toolTypeNumber: Int, penColor: UIColor) {
         // 消しゴムが選択された時
         if toolTypeNumber == 3 {
             drawingView.drawTool = ACEDrawingToolTypeEraser
         } else {
             drawingView.drawTool = ACEDrawingToolTypePen
-            // 蛍光ペンが選択された時
+            // 太ペンが選択された時
             if toolTypeNumber == 1 {
-                drawingView.lineColor = UIColor.yellow
-                drawingView.lineAlpha = 0.4
+                drawingView.lineColor = penColor
                 drawingView.lineWidth = 10
             } else {
-                drawingView.lineColor = UIColor.black
-                drawingView.lineAlpha = 1
+                // 細ペンが選択された時
+                drawingView.lineColor = penColor
                 drawingView.lineWidth = 5
             }
         }
@@ -242,6 +242,12 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         present(alertController, animated: true)
     }
 
+
+    func colorPicker(_ colorPicker: AMColorPicker, didSelect color: UIColor) {
+        drawingView.lineColor = color
+    }
+
+
     // クリアボタン
     @IBAction func clearButton(_ sender: Any) {
         drawingView.clear()
@@ -266,6 +272,11 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     // ペンの変更ボタン
     @IBAction func changePenButton(_ sender: Any) {
+//        // カラーピッカーの生成
+//        let colorPicker = AMColorPickerViewController()
+//        colorPicker.selectedColor = UIColor.red
+//        colorPicker.delegate = self
+//        self.present(colorPicker, animated: true)
     }
 
     // カメラボタン

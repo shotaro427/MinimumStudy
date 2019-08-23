@@ -1,0 +1,6 @@
+framework module AMColorPicker {
+  umbrella header "AMColorPicker-umbrella.h"
+
+  export *
+  module * { export * }
+}

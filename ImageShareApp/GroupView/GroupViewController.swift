@@ -43,11 +43,21 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // 申請待ちのユーザーのIDを入れる配列
     var waitingMenber: [String] = []
 
+    // 該当するドキュメントがあるかどうか
+    var exsistDocument: Bool = false
+
     // 上の２つの配列を組み合わせた2次元配列
     var Menbers: [[String]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // roomIDのドキュメントがあるかどうか
+        db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
+            if let document = document, document.exists {
+                self.exsistDocument = true
+            }
+        })
+
         // tableViewの設定
         groupTableView.delegate = self
         groupTableView.dataSource = self
@@ -124,29 +134,35 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // 申請の許可する関数
     func allowMenbers(waitingUserID: String) {
-        // waiting-usersからusersコレクションに移動
-        // usersコレクションに該当ユーザーを登録
-        db.collection("chat-room").document(roomID).collection("users").document(waitingUserID).setData(["userID": waitingUserID]) { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
-            }
-        }
-
-        // waiting-usersから該当ユーザーのIDを削除
-        db.collection("chat-room").document(roomID).collection("waiting-users").document(waitingUserID).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
+        if exsistDocument {
+            // waiting-usersからusersコレクションに移動
+            // usersコレクションに該当ユーザーを登録
+            db.collection("chat-room").document(roomID).collection("users").document(waitingUserID).setData(["userID": waitingUserID]) { err in
+                if let err = err {
+                    print("Error removing document: \(err)")
+                } else {
+                    print("Document successfully removed!")
+                }
             }
 
-            // アラートの表示
-            let alertController = PMAlertController(title: "完了!", description: "申請を許可しました。", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
-            let okAction = PMAlertAction(title: "はい", style: .default)
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true)
+            // waiting-usersから該当ユーザーのIDを削除
+            db.collection("chat-room").document(roomID).collection("waiting-users").document(waitingUserID).delete() { err in
+                if let err = err {
+                    print("Error removing document: \(err)")
+                } else {
+                    print("Document successfully removed!")
+                }
+                // アラートの表示
+                let alertController = PMAlertController(title: "完了!", description: "申請を許可しました。", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
+                let okAction = PMAlertAction(title: "はい", style: .default)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true)
+            }
+
+            // ドキュメントの総メンバー数を1つ増やす
+            db.collection("chat-room").document(roomID).updateData([
+                "menber-count": self.roomInfo["menber-count"] as! Int + 1
+            ])
         }
     }
 

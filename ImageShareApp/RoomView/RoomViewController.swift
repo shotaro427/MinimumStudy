@@ -78,7 +78,7 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         // ルーム生成時にデフォルトで設定される画像をString型に変換する
         var roomImageData: NSData = NSData()
         // 画像のクオリティを下げる
-        roomImageData = UIImage(named: "loginImage")!.jpegData(compressionQuality: 0.1)! as NSData
+        roomImageData = UIImage(named: "グループ画像")!.jpegData(compressionQuality: 0.1)! as NSData
         // base64Stringという形式に変換
         base64RoomImage = roomImageData.base64EncodedString(options: .lineLength64Characters) as String
 
@@ -110,7 +110,11 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                             if document.documentID != String(intRoomID) && !isCreatedRoom {
                                 self.db.collection("chat-room").document("\(intRoomID)").setData([
                                     // 名前をdocumentに追加
-                                    "room-name": roomName
+                                    "room-name": roomName,
+                                    // デフォルトで画像を設定
+                                    "room-image": self.base64RoomImage,
+                                    // メンバー数の項目を追加
+                                    "menber-count": 1
                                 ])
                                 // 部屋にユーザーIDを登録
                                 self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
@@ -126,7 +130,9 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                             // 名前をdocumentに追加
                             "room-name": roomName,
                             // デフォルトで画像を設定
-                            "room-image": self.base64RoomImage
+                            "room-image": self.base64RoomImage,
+                            // メンバー数の項目を追加
+                            "menber-count": 1
                             ])
                         // 部屋にユーザーIDを登録
                         self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
