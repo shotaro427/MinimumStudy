@@ -214,12 +214,15 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         })
         // アクションの追加
         alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
+            // 現在時刻の取得
+            let nowDate = self.getDate()
+
             if self.textfield.text != "" {
                 imageTitle = (self.textfield.text)!
             } else {
                 imageTitle = "無名"
             }
-            let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage]
+            let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate]
             self.db.collection("chat-room").document("\(self.roomID)").collection("message")
             self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any])
             // インジケータの描画
@@ -236,6 +239,18 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
         alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
         present(alertController, animated: true)
+    }
+
+    // 時刻をint型で格納する関数
+    func getDate() -> Int {
+        let nowDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+
+        let stringDate = formatter.string(from: nowDate)
+        let intDate = Int(stringDate)!
+
+        return intDate
     }
 
     func showAlert() {
