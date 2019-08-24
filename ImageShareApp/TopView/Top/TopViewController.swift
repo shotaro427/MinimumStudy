@@ -389,6 +389,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBAction func tappedFavoriteListButton(_ sender: Any) {
 
         getFavImage()
+        activityIndicatorView.startAnimating()
+        activityIndicatorBackgroundView.alpha = 1
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
             if let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "FavView") as? FavoriteViewController {
@@ -397,6 +399,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 vc.roomID = self.roomID
 
                 self.navigationController?.pushViewController(vc, animated: true)
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorBackgroundView.alpha = 0
             }
         })
     }
