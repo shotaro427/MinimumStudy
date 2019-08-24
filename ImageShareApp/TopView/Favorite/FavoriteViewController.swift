@@ -14,6 +14,9 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     var favPostImageID: [String] = []
     var roomID: String = ""
 
+    // dateFormatter
+    var formatter = DateFormatter()
+
     @IBOutlet weak var favCollectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -26,10 +29,23 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         favCollectionView.collectionViewLayout = layout
+    }
 
-        // リスナー
-        
+    // int型の日付をString型の日付に直す関数
+    func printDate(intDate: Int) -> String {
+        // int型のdateをString型に変換
+        let stringDate = String(intDate)
+        // yyyyMMdd型でフォーマット
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        // date型の日付を生成
+        if let nowDate = formatter.date(from: stringDate) {
 
+            // フォーマットの変換
+            formatter.dateFormat = "yyyy年MM月dd日"
+            return formatter.string(from: nowDate)
+        } else {
+            return "??"
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -64,10 +80,14 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell.postedImageView.image = decordedImage
 
             // ユーザーIDを表示
-            cell.userLabel.text = dict["userID"] as? String
+            cell.userLabel.text = "制作者: \(dict["userID"] as! String)"
 
             // タイトルを表示
             cell.titleLabel.text = dict["title"] as? String
+
+            // 日付の表示
+            let date = printDate(intDate: dict["date"] as! Int)
+            cell.postedDateLabel.text = "投稿日: \(date)"
 
             cell.layer.cornerRadius = 20
             cell.postView.layer.cornerRadius = 20

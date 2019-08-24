@@ -44,12 +44,18 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // DB
     let db = Firestore.firestore()
 
+    // 日付のフォーマッター
+    var formatter: DateFormatter = DateFormatter()
+
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // 日付のフォーマットの設定
+        formatter.dateFormat = "yyyyMMdd"
 
         // refreshControl
         let refreshControl = UIRefreshControl()
@@ -104,7 +110,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         })
 
     }
-
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -239,16 +244,37 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             cell.postedImageView.image = decordedImage
 
             // ユーザーIDを表示
-            cell.postedUserLabel.text = dict["userID"] as? String
+            cell.postedUserLabel.text = "制作者: \(dict["userID"] as! String)"
 
             // タイトルを表示
             cell.postedImageTitleLabel.text = dict["title"] as? String
+
+            // 日付を表示
+            let date = printDate(intDate: dict["date"] as! Int)
+            cell.postedDateLabel.text = "投稿日: \(date)"
 
             cell.layer.cornerRadius = 20
             cell.postedView.layer.cornerRadius = 20
         }
         
         return cell
+    }
+
+    // int型の日付をString型の日付に直す関数
+    func printDate(intDate: Int) -> String {
+        // int型のdateをString型に変換
+        let stringDate = String(intDate)
+        // yyyyMMdd型でフォーマット
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        // date型の日付を生成
+        if let nowDate = formatter.date(from: stringDate) {
+
+        // フォーマットの変換
+            formatter.dateFormat = "yyyy年MM月dd日"
+            return formatter.string(from: nowDate)
+        } else {
+            return "??"
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
