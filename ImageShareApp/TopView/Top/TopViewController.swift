@@ -199,6 +199,23 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCollectionViewCell // 表示するセルを登録(先程命名した"Cell")
 
+        // いいねボタン
+        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").addSnapshotListener( { (QuerySnapshot, err) in
+            guard let documents = QuerySnapshot?.documents else {
+                print("err: \(err!.localizedDescription)")
+                return
+            }
+            for document in documents {
+                // 全投稿の内、fav-imageにあるものと同じドキュメントがあった場合
+                if document.documentID == self.postImageID[indexPath.row] {
+                    cell.type = .highlighted
+                    cell.starButton.setImage(#imageLiteral(resourceName: "星(選択時)"), for: .normal)
+                } else {
+                    cell.type = .nomal
+                }
+            }
+        })
+
         cell.roomID = roomID
         cell.messageID = postImageID[indexPath.row]
         cell.cellInfo = postImageInfo[indexPath.row]
