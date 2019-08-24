@@ -95,6 +95,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // 情報の初期化
         postImageInfo = []
         postImageID = []
+        favPostImageInfo = []
+        favPostImageID = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード
@@ -121,6 +123,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // 初期化
         postImageInfo = []
         postImageID = []
+        favPostImageInfo = []
+        favPostImageID = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード

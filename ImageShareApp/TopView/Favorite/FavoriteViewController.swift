@@ -27,6 +27,9 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         favCollectionView.collectionViewLayout = layout
 
+        // リスナー
+        
+
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
