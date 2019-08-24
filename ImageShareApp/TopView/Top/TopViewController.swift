@@ -139,7 +139,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // メッセージコレクションを作成
         db.collection("chat-room").document(roomID).collection("message")
         // メッセージを取得
-        db.collection("chat-room").document("\(roomID)").collection("message").getDocuments() { (QuerySnapshot, err) in
+        db.collection("chat-room").document("\(roomID)").collection("message").order(by: "date", descending: true).getDocuments() { (QuerySnapshot, err) in
             if let err = err {
                 print("WaittingViewController-28: \(err.localizedDescription)")
             } else {
