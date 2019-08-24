@@ -18,9 +18,15 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var plusImageButton: UIButton!
+    // ラベルを乗せるview
+    @IBOutlet weak var postView: UIView!
 
     // 投稿された情報を保管する
     var postImageInfo: [[String: Any]] = []
+    var postImageID: [String] = []
+
+    var favPostImageInfo: [[String: Any]] = []
+    var favPostImageID: [String] = []
 
     // 部屋のID
     var roomID: String = ""
@@ -48,7 +54,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // refreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(TopViewController.refreshControlValueChanged(sender:)), for: .valueChanged)
-        topCollectionView.addSubview(refreshControl)
+//        topCollectionView.addSubview(refreshControl)
 
         // roomIDのドキュメントがあるかどうか
         db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
@@ -88,6 +94,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         // 情報の初期化
         postImageInfo = []
+        postImageID = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード
@@ -95,6 +102,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         })
 
     }
+
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -112,6 +120,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @objc func refreshControlValueChanged(sender: UIRefreshControl) {
         // 初期化
         postImageInfo = []
+        postImageID = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード
@@ -132,6 +141,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             } else {
                 for document in QuerySnapshot!.documents {
                     self.postImageInfo.append(document.data())
+                    self.postImageID.append(document.documentID)
                 }
                 self.topCollectionView.reloadData()
             }
@@ -185,6 +195,11 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCollectionViewCell // 表示するセルを登録(先程命名した"Cell")
 
+        cell.roomID = roomID
+        cell.messageID = postImageID[indexPath.row]
+        cell.cellInfo = postImageInfo[indexPath.row]
+        cell.cellID = postImageID[indexPath.row]
+
         if postImageInfo.count != 0 {
             let dict = postImageInfo[indexPath.row]
 
@@ -205,6 +220,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             cell.postedImageTitleLabel.text = dict["title"] as? String
 
             cell.layer.cornerRadius = 20
+            cell.postedView.layer.cornerRadius = 20
         }
         
         return cell
@@ -212,7 +228,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalSpace : CGFloat = 20
-        let cellSize : CGFloat = self.view.bounds.width / 2 - horizontalSpace
+        let cellSize : CGFloat = self.view.bounds.width - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
     }
 
@@ -252,6 +268,30 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         vc.roomID = roomID
 
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    // いいね機能
+    func favImage(cell: TopCollectionViewCell, indexPath: IndexPath) {
+        // 星がついている時
+        if cell.type == .highlighted {
+            // 部屋までのルート
+            if let ref: DocumentReference = db.collection("chat-room").document(roomID) {
+                if let email = UserDefaults.standard.string(forKey: "email"), let userRef: DocumentReference = ref.collection("users").document(email) {
+                    // DBにいいねを押した画像の情報を追加
+                    userRef.collection("fav-image").document(postImageID[indexPath.row]).setData(postImageInfo[indexPath.row])
+                }
+            }
+        }
+    }
+
+    // お気に入りした投稿の情報を取得する
+    func getFavImage() {
+        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").getDocuments(completion: { (QuerySnapshot, err) in
+            for document in QuerySnapshot!.documents {
+                self.favPostImageID.append(document.documentID)
+                self.favPostImageInfo.append(document.data())
+            }
+        })
     }
 
     // 保存機能
@@ -323,5 +363,20 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         vc.roomID = roomID
 
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    @IBAction func tappedFavoriteListButton(_ sender: Any) {
+
+        getFavImage()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            if let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "FavView") as? FavoriteViewController {
+                vc.favPostImageInfo = self.favPostImageInfo
+                vc.favPostImageID = self.favPostImageID
+                vc.roomID = self.roomID
+
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        })
     }
 }

@@ -10,7 +10,13 @@ import UIKit
 import FirebaseAuth
 import PMAlertController
 import FirebaseFirestore
-class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+enum buttonTwoType {
+    case change
+    case ok
+}
+
+class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     // グループ画像
     @IBOutlet weak var groupImage: UIImageView!
@@ -26,6 +32,18 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // button
     @IBOutlet weak var addMenber: UIButton!
+
+    // 変更ボタン
+    @IBOutlet weak var changeButton: UIButton!
+    // グループ名を変えるtextField
+    @IBOutlet weak var renameButton: UITextField!
+    // 画像を変えるボタン
+    @IBOutlet weak var changeImageButton: UIButton!
+    // 変更後の画像を一時的に格納する
+    var changedImage: UIImage!
+
+    // changebuttonの状態を決める
+    var  buttonType: buttonTwoType = .change
 
     // DB
     let db = Firestore.firestore()
@@ -51,6 +69,19 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 変更ボタンの外見
+        changeButton.layer.cornerRadius = 10
+        changeButton.layer.borderColor = UIColor.blue.cgColor
+        changeButton.layer.borderWidth = 2
+
+        // textFieldを見えなくする
+        renameButton.isHidden = true
+
+        // imageViewに重なっているbutton
+        changeImageButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        // ボタンを使えなくする
+        changeImageButton.isHidden = true
+
         // roomIDのドキュメントがあるかどうか
         db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
             if let document = document, document.exists {
@@ -85,8 +116,10 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let name = roomInfo["room-name"] as? String {
             groupName.text = "グループ名: \(name)"
         }
-        
-
+        // 投稿数
+        if let postCount = roomInfo["post-count"] as? Int {
+            numberOfPost.text = "総投稿数: \(postCount)"
+        }
     }
 
     // セクション数
@@ -166,6 +199,60 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 
+    // textFieldの変更をDBとプロフィールに反映させる
+    func changeGroupName() {
+        if let rename = renameButton.text, renameButton.text != "" {
+            // ラベルに反映
+            groupName.text = "グループ名: \(rename)"
+            // DBに反映
+            db.collection("chat-room").document(roomID).updateData(["room-name": rename])
+        }
+    }
+
+    // imageViewに重なっているボタンを押した時にライブラリを開く
+    // カメラ・フォトライブラリへの遷移処理
+    func cameraAction(sourceType: UIImagePickerController.SourceType) {
+        // カメラ・フォトライブラリが使用可能かチェック
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+
+            // インスタンス化
+            let cameraPicker = UIImagePickerController()
+            // pickerの設定
+            cameraPicker.allowsEditing = true
+            // ソースタイプの代入
+            cameraPicker.sourceType = sourceType
+            // デリゲートの接続
+            cameraPicker.delegate = self
+            // 画面遷移
+            self.present(cameraPicker, animated: true)
+        }
+    }
+
+    // 写真が選択された時に呼ばれる
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.changedImage = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.changedImage = originalImage
+        }
+        // 写真を反映させる
+        self.groupImage.image = self.changedImage
+        // DBに登録する
+        setImage(changedImage: changedImage, picker: picker)
+    }
+
+    // DBに変更後の画像を登録する
+    func setImage(changedImage: UIImage, picker: UIImagePickerController) {
+        // NSData型に変換
+        let changedImageData = changedImage.jpegData(compressionQuality: 0.1)! as NSData
+        // string型に変換
+        let changedImageString = changedImageData.base64EncodedString(options: .lineLength64Characters)
+        // DBに登録
+        db.collection("chat-room").document(roomID).updateData(["room-image": changedImageString], completion: { eer in
+            picker.dismiss(animated: true, completion: nil)
+        })
+    }
+
     // ログアウトボタン
     @IBAction func logoutButton(_ sender: Any) {
         // ログアウト処理
@@ -183,4 +270,29 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func addMenberButton(_ sender: Any) {
     }
 
+    // グループ設定変更ボタン
+    @IBAction func tappedChangeButton(_ sender: UIButton) {
+        if buttonType == .change {
+            // 外見
+            changeImageButton.isHidden = false
+            renameButton.isHidden = false
+            changeButton.setTitle("決定", for: .normal)
+            buttonType = .ok
+        } else {
+            // 外見
+            changeImageButton.isHidden = true
+            renameButton.isHidden = true
+            changeButton.setTitle("変更", for: .normal)
+            buttonType = .change
+
+            // 処理
+            changeGroupName()
+        }
+    }
+
+    // 写真変更ボタンを押した時の処理
+    @IBAction func tappedChangeImageButton(_ sender: Any) {
+        // pickerに遷移する
+        cameraAction(sourceType: .photoLibrary)
+    }
 }

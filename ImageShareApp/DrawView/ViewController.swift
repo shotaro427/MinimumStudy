@@ -214,7 +214,7 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         })
         // アクションの追加
         alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
-            if self.textfield.text != nil {
+            if self.textfield.text != "" {
                 imageTitle = (self.textfield.text)!
             } else {
                 imageTitle = "無名"
@@ -240,7 +240,15 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     func showAlert() {
         let alertController = PMAlertController(title: "投稿が完了しました", description: "", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
-        let alertAction = PMAlertAction(title: "はい", style: .default)
+        let alertAction = PMAlertAction(title: "はい", style: .default, action: {
+            self.db.collection("chat-room").document(self.roomID).getDocument(completion: { (document, err) in
+                if let document = document, document.exists {
+                    self.db.collection("chat-room").document(self.roomID).updateData([
+                        "post-count": document.data()!["post-count"] as! Int + 1
+                    ])
+                }
+            })
+        })
         alertController.addAction(alertAction)
         self.present(alertController, animated: true)
     }

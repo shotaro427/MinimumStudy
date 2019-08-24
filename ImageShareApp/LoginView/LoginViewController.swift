@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
     
 
     // 所属している部屋を格納する
-    var room: [String] = []
+    var roomInfo: [[String: Any]] = []
     var roomIDs: [String] = []
 
     let db = Firestore.firestore()
@@ -96,9 +96,9 @@ class LoginViewController: UIViewController {
                             for document2 in QuerySnapshot2!.documents {
                                 // IDの照合
                                 if document2.documentID == userID {
-                                    // 部屋のIDを配列に追加
-                                    let roomName = document.data()["room-name"] as! String
-                                    self.room.append(roomName)
+                                    // 部屋の情報を配列に追加
+//                                    let roomName = document.data()["room-name"] as! String
+                                    self.roomInfo.append(document.data())
                                     self.roomIDs.append(document.documentID)
                                 }
                             }
@@ -126,7 +126,7 @@ class LoginViewController: UIViewController {
         let nc = storyboard.instantiateViewController(withIdentifier: "RoomNavi") as! UINavigationController
         let vc = nc.topViewController as! SelectRoomTableViewController
 
-        vc.room = room
+        vc.roomInfo = roomInfo
         vc.roomIDs = roomIDs
 
         self.present(nc, animated: true)

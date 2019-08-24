@@ -16,7 +16,7 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var postedImageScrollView: UIScrollView!
 
     // imageView
-    var postedImageView: UIImageView!
+    @IBOutlet weak var postedImageView: UIImageView!
 
     // グループID
     var roomID: String = ""
@@ -39,15 +39,9 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         postedImageScrollView.maximumZoomScale = 4.0
         postedImageScrollView.minimumZoomScale = 1.0
 
-        // imageViewを生成
-        postedImageView = UIImageView()
-        postedImageView.frame = postedImageScrollView.frame
-        postedImageScrollView.addSubview(postedImageView)
-
         // imageViewにセグエで飛ばされてきた画像を設定
         postedImageView.image = image
-        postedImageView.contentMode = UIView.ContentMode.scaleAspectFit
-
+        
         // ダブルタップ対応
         let doubleTap = UITapGestureRecognizer(target:self,action:#selector(DetailsViewController.doubleTap(gesture:)))
         doubleTap.numberOfTapsRequired = 2

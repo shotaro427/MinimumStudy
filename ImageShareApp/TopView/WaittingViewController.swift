@@ -19,6 +19,7 @@ class WaittingViewController: UIViewController {
     var roomID: String = ""
     // 投稿された情報を保管する
     var postImageInfo: [[String: Any]] = []
+    var postImageID: [String] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -82,11 +83,12 @@ class WaittingViewController: UIViewController {
         // DB検索
         getPostInfo()
         // 次の表示画面
-        let vc = UIStoryboard(name: "Top", bundle: nil).instantiateViewController(withIdentifier: "TopView") as! TopViewController
+        let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "TopView") as! TopViewController
         // 遷移処理
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
             vc.roomID = self.roomID
             vc.postImageInfo = self.postImageInfo
+            vc.postImageID = self.postImageID
             self.navigationController?.pushViewController(vc, animated: true)
 
         })
@@ -103,6 +105,7 @@ class WaittingViewController: UIViewController {
             } else {
                 for document in QuerySnapshot!.documents {
                     self.postImageInfo.append(document.data())
+                    self.postImageID.append(document.documentID)
                 }
             }
         }

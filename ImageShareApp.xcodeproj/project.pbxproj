@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E210F937230FD50300403D6F /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E210F935230FD50300403D6F /* TableViewCell.swift */; };
+		E210F938230FD50300403D6F /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E210F936230FD50300403D6F /* TableViewCell.xib */; };
+		E210F9402311164100403D6F /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E210F93F2311164100403D6F /* FavoriteViewController.swift */; };
+		E210F94223112B5F00403D6F /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E210F94123112B5F00403D6F /* FavoriteCollectionViewCell.swift */; };
 		E2933B6C2309171E00F68A87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933B6B2309171E00F68A87 /* AppDelegate.swift */; };
 		E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933B6D2309171E00F68A87 /* ViewController.swift */; };
 		E2933B712309171E00F68A87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933B6F2309171E00F68A87 /* Main.storyboard */; };
@@ -17,7 +21,7 @@
 		E2933BAE230A8E0500F68A87 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BAD230A8E0500F68A87 /* Login.storyboard */; };
 		E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BAF230A8E1600F68A87 /* LoginViewController.swift */; };
 		E2933BB3230A9D3F00F68A87 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BB2230A9D3F00F68A87 /* TextFieldExtension.swift */; };
-		E2933BB6230B815900F68A87 /* Top.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BB5230B815900F68A87 /* Top.storyboard */; };
+		E2933BB6230B815900F68A87 /* TopLoad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BB5230B815900F68A87 /* TopLoad.storyboard */; };
 		E2933BB9230B8B9800F68A87 /* RoomView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2933BB8230B8B9800F68A87 /* RoomView.storyboard */; };
 		E2933BBB230B8C1600F68A87 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BBA230B8C1600F68A87 /* RoomViewController.swift */; };
 		E2933BBD230B9CA900F68A87 /* SelectRoomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BBC230B9CA900F68A87 /* SelectRoomTableViewController.swift */; };
@@ -35,6 +39,10 @@
 		49DAF47CDEED64D4EDF8A8F2 /* Pods_ImageShareApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageShareApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A27C4FB47410843A627483A /* Pods-ImageShareApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageShareApp.debug.xcconfig"; path = "Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AABC53F33899CC8865AA40D2 /* Pods-ImageShareApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageShareApp.release.xcconfig"; path = "Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp.release.xcconfig"; sourceTree = "<group>"; };
+		E210F935230FD50300403D6F /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		E210F936230FD50300403D6F /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		E210F93F2311164100403D6F /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		E210F94123112B5F00403D6F /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		E2933B682309171E00F68A87 /* ImageShareApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageShareApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2933B6B2309171E00F68A87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2933B6D2309171E00F68A87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,7 +55,7 @@
 		E2933BAD230A8E0500F68A87 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		E2933BAF230A8E1600F68A87 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E2933BB2230A9D3F00F68A87 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
-		E2933BB5230B815900F68A87 /* Top.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Top.storyboard; sourceTree = "<group>"; };
+		E2933BB5230B815900F68A87 /* TopLoad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TopLoad.storyboard; sourceTree = "<group>"; };
 		E2933BB8230B8B9800F68A87 /* RoomView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RoomView.storyboard; sourceTree = "<group>"; };
 		E2933BBA230B8C1600F68A87 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		E2933BBC230B9CA900F68A87 /* SelectRoomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTableViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +95,32 @@
 				AABC53F33899CC8865AA40D2 /* Pods-ImageShareApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E210F934230FD4E200403D6F /* SelectRoomCell */ = {
+			isa = PBXGroup;
+			children = (
+				E210F935230FD50300403D6F /* TableViewCell.swift */,
+				E210F936230FD50300403D6F /* TableViewCell.xib */,
+			);
+			path = SelectRoomCell;
+			sourceTree = "<group>";
+		};
+		E210F93C231114B300403D6F /* Load */ = {
+			isa = PBXGroup;
+			children = (
+				E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */,
+			);
+			path = Load;
+			sourceTree = "<group>";
+		};
+		E210F93E2311162300403D6F /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				E210F93F2311164100403D6F /* FavoriteViewController.swift */,
+				E210F94123112B5F00403D6F /* FavoriteCollectionViewCell.swift */,
+			);
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 		E2933B5F2309171E00F68A87 = {
@@ -155,6 +189,9 @@
 		E2933BB4230B813400F68A87 /* TopView */ = {
 			isa = PBXGroup;
 			children = (
+				E2933BB5230B815900F68A87 /* TopLoad.storyboard */,
+				E210F93E2311162300403D6F /* Favorite */,
+				E210F93C231114B300403D6F /* Load */,
 				E2B104E2230F70E400D383A0 /* Top */,
 				E2B104DF230F702200D383A0 /* TopDetails */,
 			);
@@ -164,6 +201,7 @@
 		E2933BB7230B8B8300F68A87 /* RoomView */ = {
 			isa = PBXGroup;
 			children = (
+				E210F934230FD4E200403D6F /* SelectRoomCell */,
 				E2933BB8230B8B9800F68A87 /* RoomView.storyboard */,
 				E2933BBC230B9CA900F68A87 /* SelectRoomTableViewController.swift */,
 				E2933BBA230B8C1600F68A87 /* RoomViewController.swift */,
@@ -192,8 +230,6 @@
 		E2B104E2230F70E400D383A0 /* Top */ = {
 			isa = PBXGroup;
 			children = (
-				E2933BB5230B815900F68A87 /* Top.storyboard */,
-				E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */,
 				E2933BC9230CD03400F68A87 /* TopViewController.swift */,
 				E2933BCB230CEE4200F68A87 /* TopCollectionViewCell.swift */,
 			);
@@ -261,9 +297,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2B104E1230F704200D383A0 /* TopDetails.storyboard in Resources */,
+				E210F938230FD50300403D6F /* TableViewCell.xib in Resources */,
 				E2933B762309171F00F68A87 /* LaunchScreen.storyboard in Resources */,
 				E2933B732309171F00F68A87 /* Assets.xcassets in Resources */,
-				E2933BB6230B815900F68A87 /* Top.storyboard in Resources */,
+				E2933BB6230B815900F68A87 /* TopLoad.storyboard in Resources */,
 				E2933B712309171E00F68A87 /* Main.storyboard in Resources */,
 				E2933BC6230BF15200F68A87 /* Group.storyboard in Resources */,
 				E2933BB9230B8B9800F68A87 /* RoomView.storyboard in Resources */,
@@ -318,6 +355,7 @@
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PMAlertController/PMAlertController.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -339,6 +377,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMAlertController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -356,15 +395,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E210F937230FD50300403D6F /* TableViewCell.swift in Sources */,
 				E2933BC8230BF1A200F68A87 /* GroupViewController.swift in Sources */,
 				E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */,
 				E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */,
+				E210F94223112B5F00403D6F /* FavoriteCollectionViewCell.swift in Sources */,
 				E2933BCA230CD03400F68A87 /* TopViewController.swift in Sources */,
 				E2933B812309420100F68A87 /* PenMenuViewController.swift in Sources */,
 				E2933BBB230B8C1600F68A87 /* RoomViewController.swift in Sources */,
 				E2933BB3230A9D3F00F68A87 /* TextFieldExtension.swift in Sources */,
 				E2933BBD230B9CA900F68A87 /* SelectRoomTableViewController.swift in Sources */,
 				E2933BCC230CEE4200F68A87 /* TopCollectionViewCell.swift in Sources */,
+				E210F9402311164100403D6F /* FavoriteViewController.swift in Sources */,
 				E2933BCE230CF7AC00F68A87 /* WaittingViewController.swift in Sources */,
 				E2933B6C2309171E00F68A87 /* AppDelegate.swift in Sources */,
 				E2B104DE230E959700D383A0 /* DetailsViewController.swift in Sources */,
