@@ -14,7 +14,7 @@ import FirebaseFirestore
 import NVActivityIndicatorView
 import AMColorPicker
 
-class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMColorPickerDelegate {
+class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMColorPickerDelegate, UIGestureRecognizerDelegate, UITextViewDelegate {
 
     // textfield
     var titleTextField: UITextField!
@@ -331,12 +331,41 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     // テキストボタン
     @IBAction func tappedAddTextButton(_ sender: Any) {
-
+        // textViewを追加
         let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
         textView.backgroundColor = UIColor.clear
         textView.center = drawingView.center
         textView.text = "テストテストテスト"
+        textView.delegate = self
+        // Pangestureを生成
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panView(sender:)))
+        textView.addGestureRecognizer(panGesture)
+
+        // drawingViewにtextViewを追加
         drawingView.addSubview(textView)
+    }
+
+    // hides text views
+    // returnキーを押した時
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+
+        if (text == "\n") {
+            //あなたのテキストフィールド
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+
+    //Pan実行時のメソッド
+    @objc func panView(sender: UIPanGestureRecognizer) {
+        //移動量を取得
+        let move:CGPoint = sender.translation(in:self.view)
+        //ドラッグした部品の座標に移動量を加算
+        sender.view!.center.x += move.x
+        sender.view!.center.y += move.y
+        //移動量を0に
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
 }
 
