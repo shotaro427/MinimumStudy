@@ -34,6 +34,9 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
     // 設定画面の中心
     var centerOfSettingView: CGPoint!
 
+    // カラーピッカーの色を保管しておく変数
+    var PenOrTextColor: UIColor = UIColor.black
+
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
@@ -337,6 +340,7 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         textView.center = drawingView.center
         textView.text = "テストテストテスト"
         textView.delegate = self
+        textView.textColor = PenOrTextColor
         // Pangestureを生成
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panView(sender:)))
         textView.addGestureRecognizer(panGesture)

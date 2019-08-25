@@ -16,7 +16,7 @@ enum buttonTwoType {
     case ok
 }
 
-class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
 
     // グループ画像
     @IBOutlet weak var groupImage: UIImageView!
@@ -69,6 +69,9 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // renameButtonのデリゲートを設定
+        renameButton.delegate = self
+
         // 変更ボタンの外見
         changeButton.layer.cornerRadius = 10
         changeButton.layer.borderColor = UIColor.blue.cgColor
@@ -261,6 +264,27 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // 遷移処理
         self.present(vc, animated: true)
 
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    // hides text views
+    // returnキーを押した時
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//
+//        if (text == "\n") {
+//            //あなたのテキストフィールド
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
     }
 
     // メンバー追加ボタン

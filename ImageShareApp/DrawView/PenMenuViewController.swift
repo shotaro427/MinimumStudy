@@ -80,6 +80,7 @@ class PenMenuViewController: UIViewController, AMColorPickerDelegate {
             let nc = self.presentingViewController as! UINavigationController
             let vc = nc.topViewController as! ViewController
             vc.setDetailPen(toolTypeNumber: tempToolType, penColor: penColor)
+            vc.PenOrTextColor = penColor
         }
      }
 
