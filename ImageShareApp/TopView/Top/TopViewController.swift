@@ -22,6 +22,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // 検索結果を入れる配列
     var resultSearch: [[String: Any]] = []
+    var resultSearchID: [String] = []
 
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var plusImageButton: UIButton!
@@ -151,9 +152,23 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // キーワードを検索
         if let keyWord = searchBar.text {
             searchTag(keyWord: keyWord)
+            // インジケータを追加
+            activityIndicatorView.startAnimating()
+            activityIndicatorBackgroundView.alpha = 1
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                self.postImageInfo = self.resultSearch
+                self.postImageID = self.resultSearchID
+                self.topCollectionView.reloadData()
+                print(self.postImageInfo)
+                // インジケータを削除
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorBackgroundView.alpha = 0
+            })
         }
         // キーボードを閉じる
         searchBar.endEditing(true)
+
     }
 
     // 受け取ったタグ名を検索する関数
@@ -169,9 +184,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 if document.data()["tag1"] as! String == keyWord || document.data()["tag2"] as! String == keyWord {
                     // 投稿情報を追加
                     self.resultSearch.append(document.data())
+                    self.resultSearchID.append(document.documentID)
                 }
             }
-            print(self.resultSearch)
         })
     }
 
@@ -183,6 +198,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         postImageID = []
         favPostImageInfo = []
         favPostImageID = []
+        resultSearchID = []
+        resultSearch = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード
@@ -210,6 +227,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         postImageID = []
         favPostImageInfo = []
         favPostImageID = []
+        resultSearchID = []
+        resultSearch = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード
