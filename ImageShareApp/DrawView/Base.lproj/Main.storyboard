@@ -62,6 +62,12 @@
                                             <segue destination="gbZ-eC-YUR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="nwY-vU-EhW"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fbM-Vl-Qef"/>
+                                    <barButtonItem title="Item" image="icons8-テキスト-24" id="FP8-dO-UKC">
+                                        <connections>
+                                            <action selector="tappedAddTextButton:" destination="BYZ-38-t0r" id="zvh-tC-FHy"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="gEg-NI-Fr2"/>
                                 </items>
                             </toolbar>
@@ -215,6 +221,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icons8-テキスト-24" width="24" height="24"/>
         <image name="シャープペンシル" width="256" height="256"/>
         <image name="マーカーのライトダウンアイコン素材3" width="16" height="16"/>
         <image name="写真アイコン4" width="32" height="32"/>

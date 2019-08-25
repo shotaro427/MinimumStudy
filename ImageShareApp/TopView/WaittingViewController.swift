@@ -89,6 +89,8 @@ class WaittingViewController: UIViewController {
             vc.roomID = self.roomID
             vc.postImageInfo = self.postImageInfo
             vc.postImageID = self.postImageID
+            vc.allPostImageInfo = self.postImageInfo
+            vc.allPostImageID = self.postImageID
             self.navigationController?.pushViewController(vc, animated: true)
 
         })

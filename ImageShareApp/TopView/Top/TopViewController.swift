@@ -33,6 +33,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var postImageInfo: [[String: Any]] = []
     var postImageID: [String] = []
 
+    var allPostImageInfo: [[String: Any]] = []
+    var allPostImageID: [String] = []
+
     var favPostImageInfo: [[String: Any]] = []
     var favPostImageID: [String] = []
 
@@ -128,6 +131,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // バツボタンを押した時の処理
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text == "" {
+            postImageInfo = allPostImageInfo
+            postImageID = allPostImageID
             // tableViewをリロード
             topCollectionView.reloadData()
         }

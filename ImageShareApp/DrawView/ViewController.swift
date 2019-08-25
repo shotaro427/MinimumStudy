@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Material
 import ACEDrawingView
 import PMAlertController
 import FirebaseFirestore
@@ -231,7 +232,7 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
             if self.titleTextField.text != "" {
                 imageTitle = (self.titleTextField.text)!
             } else {
-                imageTitle = "無名"
+                imageTitle = "無題"
             }
             // messageにtagコレクションを追加
             guard let tag1 = self.tag1TextField.text, let tag2 = self.tag2TextField.text  else {
@@ -326,6 +327,16 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
     // 画像追加ボタン
     @IBAction func addImageButton(_ sender: Any) {
         cameraAction(sourceType: .photoLibrary)
+    }
+
+    // テキストボタン
+    @IBAction func tappedAddTextButton(_ sender: Any) {
+
+        let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        textView.backgroundColor = UIColor.clear
+        textView.center = drawingView.center
+        textView.text = "テストテストテスト"
+        drawingView.addSubview(textView)
     }
 }
 

@@ -93,9 +93,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         groupTableView.delegate = self
         groupTableView.dataSource = self
 
-        // ボタンの整形
-        addMenber.layer.cornerRadius = addMenber.frame.width / 2
-
         // 値の追加
         Menbers.append(roomMenbers)
         Menbers.append(waitingMenber)
