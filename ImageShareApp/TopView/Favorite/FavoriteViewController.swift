@@ -109,6 +109,8 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell.postView.layer.cornerRadius = 20
             cell.tag1Button.layer.cornerRadius = 10
             cell.tag2Button.layer.cornerRadius = 10
+            cell.tag2Button.isEnabled = false
+            cell.tag1Button.isEnabled = false
         }
 
         return cell

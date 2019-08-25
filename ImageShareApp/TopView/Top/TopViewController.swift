@@ -11,10 +11,14 @@ import FirebaseFirestore
 import NVActivityIndicatorView
 import PMAlertController
 
-class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
     // コレクションセル
     @IBOutlet weak var postedImageView: UIImageView!
+    @IBOutlet weak var favViewButton: UIBarButtonItem!
+
+    // 検索窓
+    var searchBar: UISearchBar = UISearchBar()
 
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var plusImageButton: UIButton!
@@ -27,6 +31,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     var favPostImageInfo: [[String: Any]] = []
     var favPostImageID: [String] = []
+
+    // 押されたタグの情報を保管する
+    var tagWord: String = ""
 
     // 部屋のID
     var roomID: String = ""
@@ -53,6 +60,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // 検索窓の設定
+        setupSearchBar()
 
         // 日付のフォーマットの設定
         formatter.dateFormat = "yyyyMMdd"
@@ -92,6 +102,40 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         activityIndicatorBackgroundView.alpha = 0
         self.view.addSubview(activityIndicatorBackgroundView)
         self.view.addSubview(activityIndicatorView)
+    }
+
+    // サーチバーの設定
+    func setupSearchBar() {
+        if let navigationBarFrame = navigationController?.navigationBar.bounds {
+            let searchBar: UISearchBar = UISearchBar(frame: navigationBarFrame)
+            searchBar.delegate = self
+            searchBar.placeholder = "タグ名"
+            searchBar.tintColor = UIColor.gray
+            searchBar.keyboardType = UIKeyboardType.default
+            searchBar.showsScopeBar = true
+            searchBar.showsBookmarkButton = true
+            searchBar.setImage(#imageLiteral(resourceName: "icons8-かける-25"), for: .bookmark, state: .normal)
+            navigationItem.titleView = searchBar
+            navigationItem.titleView?.frame = searchBar.frame
+            self.searchBar = searchBar
+        }
+    }
+
+    // バツボタンを押した時の処理
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.endEditing(true)
+    }
+
+    // サーチバーの設定
+    // 編集が開始されたら、キャンセルボタンを有効にする
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
+
+    // キャンセルボタンが押されたらキャンセルボタンを無効にしてフォーカスを外す
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -271,6 +315,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             cell.postedView.layer.cornerRadius = 20
             cell.tag1Button.layer.cornerRadius = 10
             cell.tag2Button.layer.cornerRadius = 10
+            cell.tag2Button.isEnabled = false
+            cell.tag1Button.isEnabled = false
         }
         
         return cell

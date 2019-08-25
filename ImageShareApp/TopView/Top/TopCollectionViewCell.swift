@@ -30,6 +30,9 @@ class TopCollectionViewCell: UICollectionViewCell {
     var roomID: String = ""
     // 投稿ID
     var messageID: String = ""
+
+    // 押されたタグのワード
+    var tagWord: String = ""
     
     @IBOutlet weak var postedImageView: UIImageView!
     @IBOutlet weak var postedImageTitleLabel: UILabel!

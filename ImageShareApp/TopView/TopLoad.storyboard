@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--一覧-->
+        <!--Item-->
         <scene sceneID="bJX-Yl-01A">
             <objects>
                 <viewController storyboardIdentifier="TopView" id="LzU-U3-DWQ" customClass="TopViewController" customModule="ImageShareApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -179,7 +179,8 @@
                         <viewLayoutGuide key="safeArea" id="7HY-LM-WR8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="j0g-37-nbw"/>
-                    <navigationItem key="navigationItem" title="一覧" id="2tv-Sj-HyY">
+                    <navigationItem key="navigationItem" id="2tv-Sj-HyY">
+                        <nil key="title"/>
                         <rightBarButtonItems>
                             <barButtonItem title="設定" id="nFY-4J-ytX">
                                 <connections>
@@ -194,13 +195,14 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="favViewButton" destination="B56-WY-cJp" id="4zX-4w-Sga"/>
                         <outlet property="plusImageButton" destination="f0N-jR-WEE" id="J9L-OZ-D02"/>
                         <outlet property="topCollectionView" destination="HST-4N-lQ6" id="Ehc-ya-K9p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGB-k1-0pl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="451" y="209"/>
+            <point key="canvasLocation" x="450.72463768115944" y="208.92857142857142"/>
         </scene>
         <!--Favorite View Controller-->
         <scene sceneID="dE9-ev-akY">
