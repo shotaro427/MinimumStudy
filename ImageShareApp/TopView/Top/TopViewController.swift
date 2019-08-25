@@ -60,7 +60,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // refreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(TopViewController.refreshControlValueChanged(sender:)), for: .valueChanged)
-//        topCollectionView.addSubview(refreshControl)
 
         // roomIDのドキュメントがあるかどうか
         db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
@@ -97,7 +96,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        topCollectionView.reloadData()
         // 情報の初期化
         postImageInfo = []
         postImageID = []
@@ -204,7 +203,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCollectionViewCell // 表示するセルを登録(先程命名した"Cell")
         var isStar: Bool = false
-
         // いいねボタン
         db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").addSnapshotListener( { (QuerySnapshot, err) in
             guard let documents = QuerySnapshot?.documents else {
@@ -213,7 +211,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
             for document in documents {
                 // 全投稿の内、fav-imageにあるものと同じドキュメントがあった場合
-                if document.documentID == self.postImageID[indexPath.row] {
+                print("clousure: \(indexPath.row)")
+                if indexPath.row < self.postImageID.count && document.documentID == self.postImageID[indexPath.row] {
                     cell.type = .highlighted
                     cell.starButton.setImage(#imageLiteral(resourceName: "星(選択時)"), for: .normal)
                     isStar = true
@@ -224,6 +223,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 cell.starButton.setImage(#imageLiteral(resourceName: "星(普通)"), for: .normal)
             }
         })
+        print("normal: \(indexPath.row)")
 
         cell.roomID = roomID
         cell.messageID = postImageID[indexPath.row]
@@ -307,16 +307,20 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 // タイトルを表示
                 let title = dict["title"] as? String
 
+                // 投稿日を表示
+                let date = printDate(intDate: dict["date"] as! Int)
+
                 // 値を渡す
                 vc.image = decordedImage
                 vc.strTitle = title
                 vc.user = user!
-
+                vc.date = date
             } else {
                 vc.image = #imageLiteral(resourceName: "イメージ画像のアイコン素材 その3")
             }
         }
         vc.roomID = roomID
+        vc.postID = postImageID[indexPath.row]
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -337,7 +341,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // お気に入りした投稿の情報を取得する
     func getFavImage() {
-        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").getDocuments(completion: { (QuerySnapshot, err) in
+        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
             for document in QuerySnapshot!.documents {
                 self.favPostImageID.append(document.documentID)
                 self.favPostImageInfo.append(document.data())
@@ -422,7 +426,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         activityIndicatorView.startAnimating()
         activityIndicatorBackgroundView.alpha = 1
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
             if let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "FavView") as? FavoriteViewController {
                 vc.favPostImageInfo = self.favPostImageInfo
                 vc.favPostImageID = self.favPostImageID

@@ -19,19 +19,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5Y-LK-pI1">
-                                <rect key="frame" x="0.0" y="652" width="414" height="81"/>
+                                <rect key="frame" x="10" y="652" width="394" height="210"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="otl-zo-J3a">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="210"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1g-qJ-HJ7">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="43.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKQ-e8-6su">
+                                                <rect key="frame" x="0.0" y="83.5" width="394" height="43"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6V-yE-qTG">
-                                                <rect key="frame" x="0.0" y="60.5" width="414" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="166.5" width="394" height="43.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -66,13 +72,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MNA-ee-IaH" firstAttribute="bottom" secondItem="T5Y-LK-pI1" secondAttribute="bottom" constant="129" id="3Uq-xh-E77"/>
+                            <constraint firstItem="MNA-ee-IaH" firstAttribute="bottom" secondItem="T5Y-LK-pI1" secondAttribute="bottom" id="3Uq-xh-E77"/>
                             <constraint firstAttribute="bottom" secondItem="qUH-o1-w5e" secondAttribute="bottom" constant="244" id="ANu-fr-51w"/>
                             <constraint firstItem="qUH-o1-w5e" firstAttribute="leading" secondItem="MNA-ee-IaH" secondAttribute="leading" id="MSX-2g-HFt"/>
                             <constraint firstItem="T5Y-LK-pI1" firstAttribute="top" secondItem="qUH-o1-w5e" secondAttribute="bottom" id="dzK-xl-0Lq"/>
                             <constraint firstItem="qUH-o1-w5e" firstAttribute="top" secondItem="MNA-ee-IaH" secondAttribute="top" id="kVK-TE-dm2"/>
-                            <constraint firstItem="MNA-ee-IaH" firstAttribute="trailing" secondItem="T5Y-LK-pI1" secondAttribute="trailing" id="mI6-lA-OXP"/>
-                            <constraint firstItem="T5Y-LK-pI1" firstAttribute="leading" secondItem="MNA-ee-IaH" secondAttribute="leading" id="qfn-m7-Yei"/>
+                            <constraint firstItem="MNA-ee-IaH" firstAttribute="trailing" secondItem="T5Y-LK-pI1" secondAttribute="trailing" constant="10" id="mI6-lA-OXP"/>
+                            <constraint firstItem="T5Y-LK-pI1" firstAttribute="leading" secondItem="MNA-ee-IaH" secondAttribute="leading" constant="10" id="qfn-m7-Yei"/>
                             <constraint firstItem="MNA-ee-IaH" firstAttribute="trailing" secondItem="qUH-o1-w5e" secondAttribute="trailing" id="rzW-MU-F1b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MNA-ee-IaH"/>
@@ -84,6 +90,11 @@
                                     <action selector="tappedSaveButton:" destination="MYa-cs-FsB" id="k2F-vX-1X8"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="trash" id="fAe-Gr-XFq">
+                                <connections>
+                                    <action selector="tappedTrashButton:" destination="MYa-cs-FsB" id="QF7-bg-E9O"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="編集" id="tqZ-kE-fQE">
                                 <connections>
                                     <action selector="tappedEditButton:" destination="MYa-cs-FsB" id="I09-EN-Z0l"/>
@@ -93,6 +104,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="dateLabel" destination="xKQ-e8-6su" id="Bha-Q1-tem"/>
                         <outlet property="postedImageScrollView" destination="qUH-o1-w5e" id="4D6-gZ-84a"/>
                         <outlet property="postedImageView" destination="Xfj-Zr-h7S" id="oJh-d0-ODS"/>
                         <outlet property="titleLabel" destination="l1g-qJ-HJ7" id="sJF-AA-61C"/>
