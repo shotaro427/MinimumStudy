@@ -20,6 +20,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // 検索窓
     var searchBar: UISearchBar = UISearchBar()
 
+    // 検索結果を入れる配列
+    var resultSearch: [[String: Any]] = []
+
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var plusImageButton: UIButton!
     // ラベルを乗せるview
@@ -123,6 +126,10 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // バツボタンを押した時の処理
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text == "" {
+            // tableViewをリロード
+            topCollectionView.reloadData()
+        }
         searchBar.text = ""
         searchBar.endEditing(true)
     }
@@ -136,6 +143,36 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // キャンセルボタンが押されたらキャンセルボタンを無効にしてフォーカスを外す
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+
+    // 検索ボタンが押された時
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+        // キーワードを検索
+        if let keyWord = searchBar.text {
+            searchTag(keyWord: keyWord)
+        }
+        // キーボードを閉じる
+        searchBar.endEditing(true)
+    }
+
+    // 受け取ったタグ名を検索する関数
+    func searchTag(keyWord: String) {
+        // メッセージを取得
+        db.collection("chat-room").document(roomID).collection("message").getDocuments(completion: { (QuerySnapshot, err) in
+            guard let documents = QuerySnapshot?.documents else {
+                print("error: \(err!.localizedDescription)")
+                return
+            }
+            for document in documents {
+                // 検索のワードとタグ名が一致していた時
+                if document.data()["tag1"] as! String == keyWord || document.data()["tag2"] as! String == keyWord {
+                    // 投稿情報を追加
+                    self.resultSearch.append(document.data())
+                }
+            }
+            print(self.resultSearch)
+        })
     }
 
     override func viewWillAppear(_ animated: Bool) {
