@@ -30,7 +30,7 @@ class TableViewCell: UITableViewCell {
 
     func setImage() {
         // imageViewの設定
-        groupImageView.layer.cornerRadius = self.frame.height / 2
+        groupImageView.layer.cornerRadius = 45
         groupImageView.clipsToBounds = true
     }
     
