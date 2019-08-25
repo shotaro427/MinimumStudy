@@ -211,7 +211,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
             for document in documents {
                 // 全投稿の内、fav-imageにあるものと同じドキュメントがあった場合
-                print("clousure: \(indexPath.row)")
                 if indexPath.row < self.postImageID.count && document.documentID == self.postImageID[indexPath.row] {
                     cell.type = .highlighted
                     cell.starButton.setImage(#imageLiteral(resourceName: "星(選択時)"), for: .normal)
@@ -223,7 +222,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 cell.starButton.setImage(#imageLiteral(resourceName: "星(普通)"), for: .normal)
             }
         })
-        print("normal: \(indexPath.row)")
 
         cell.roomID = roomID
         cell.messageID = postImageID[indexPath.row]
@@ -253,8 +251,26 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             let date = printDate(intDate: dict["date"] as! Int)
             cell.postedDateLabel.text = "投稿日: \(date)"
 
+            // タグを表示
+            // タグの表示
+            if dict["tag1"] as? String == "" || dict["tag1"] == nil{
+                cell.tag1Button.isHidden = true
+            } else {
+                cell.tag1Button.isHidden = false
+                cell.tag1Button.setTitle(dict["tag1"] as? String, for: .normal)
+            }
+
+            if dict["tag2"] as? String == "" || dict["tag2"] == nil{
+                cell.tag2Button.isHidden = true
+            } else {
+                cell.tag2Button.isHidden = false
+                cell.tag2Button.setTitle(dict["tag2"] as? String, for: .normal)
+            }
+
             cell.layer.cornerRadius = 20
             cell.postedView.layer.cornerRadius = 20
+            cell.tag1Button.layer.cornerRadius = 10
+            cell.tag2Button.layer.cornerRadius = 10
         }
         
         return cell

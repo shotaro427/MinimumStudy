@@ -16,7 +16,9 @@ import AMColorPicker
 class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMColorPickerDelegate {
 
     // textfield
-    var textfield: UITextField!
+    var titleTextField: UITextField!
+    var tag1TextField: UITextField!
+    var tag2TextField: UITextField!
     // DB
     let db = Firestore.firestore()
     // roomID
@@ -207,28 +209,44 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         // アラートコントローラー
         let alertController = PMAlertController(title: "投稿しますか？", description: nil, image: postImage, style: .alert)
         // アラートアクション
-        // textFieldの追加
+        // textFieldの追加(タイトル)
         alertController.addTextField({ ( textfield ) in
             textfield?.placeholder = "タイトル"
-            self.textfield = textfield
+            self.titleTextField = textfield
+        })
+        // textFieldの追加(タグ)
+        alertController.addTextField({ (textfield) in
+            textfield?.placeholder = "タグ1"
+            self.tag1TextField = textfield
+        })
+        alertController.addTextField({ (textfield) in
+            textfield?.placeholder = "タグ2"
+            self.tag2TextField = textfield
         })
         // アクションの追加
         alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
             // 現在時刻の取得
             let nowDate = self.getDate()
 
-            if self.textfield.text != "" {
-                imageTitle = (self.textfield.text)!
+            if self.titleTextField.text != "" {
+                imageTitle = (self.titleTextField.text)!
             } else {
                 imageTitle = "無名"
             }
-            let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate]
+            // messageにtagコレクションを追加
+            guard let tag1 = self.tag1TextField.text, let tag2 = self.tag2TextField.text  else {
+                print("textFieldの値を取得できませんでした")
+                return
+            }
+
+            // messageに値をつける
+            let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": tag2]
             self.db.collection("chat-room").document("\(self.roomID)").collection("message")
-            self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any])
+            let messageID = self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any]).documentID
             // インジケータの描画
             self.activityIndicatorView.startAnimating()
             self.activityIndicatorBackgroundView.alpha = 1
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 // インジケータの描画
                 self.activityIndicatorView.stopAnimating()

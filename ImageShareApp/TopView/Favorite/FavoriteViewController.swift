@@ -89,8 +89,26 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             let date = printDate(intDate: dict["date"] as! Int)
             cell.postedDateLabel.text = "投稿日: \(date)"
 
+            // タグの表示
+            if dict["tag1"] as? String == "" || dict["tag1"] == nil{
+                cell.tag1Button.isHidden = true
+            } else {
+                cell.tag1Button.isHidden = false
+                cell.tag1Button.setTitle(dict["tag1"] as? String, for: .normal)
+            }
+
+            if dict["tag2"] as? String == "" || dict["tag2"] == nil{
+                cell.tag2Button.isHidden = true
+            } else {
+                cell.tag2Button.isHidden = false
+                cell.tag2Button.setTitle(dict["tag2"] as? String, for: .normal)
+            }
+
+
             cell.layer.cornerRadius = 20
             cell.postView.layer.cornerRadius = 20
+            cell.tag1Button.layer.cornerRadius = 10
+            cell.tag2Button.layer.cornerRadius = 10
         }
 
         return cell

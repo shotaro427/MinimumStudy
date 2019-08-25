@@ -37,6 +37,8 @@ class TopCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var postedView: UIView!
     @IBOutlet weak var starButton: UIButton!
     @IBOutlet weak var postedDateLabel: UILabel!
+    @IBOutlet weak var tag1Button: UIButton!
+    @IBOutlet weak var tag2Button: UIButton!
     
     // いいね機能
     func favImage() {

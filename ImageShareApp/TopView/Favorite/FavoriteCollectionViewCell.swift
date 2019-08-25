@@ -15,7 +15,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var postView: UIView!
     @IBOutlet weak var postedDateLabel: UILabel!
-    
-
+    @IBOutlet weak var tag1Button: UIButton!
+    @IBOutlet weak var tag2Button: UIButton!
 
 }
