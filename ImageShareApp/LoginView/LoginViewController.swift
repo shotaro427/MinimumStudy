@@ -28,8 +28,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var createAccuntButton: UIButton!
 
     @IBOutlet weak var segmentedViewButton: BetterSegmentedControl!
-    
-
     // 所属している部屋を格納する
     var roomInfo: [[String: Any]] = []
     var roomIDs: [String] = []

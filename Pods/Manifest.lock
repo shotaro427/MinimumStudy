@@ -1,6 +1,7 @@
 PODS:
   - ACEDrawingView (2.2.1)
   - AMColorPicker (2.0)
+  - AMScrollingNavbar (5.3.0)
   - BAFluidView (0.2.4)
   - BetterSegmentedControl (1.2.1)
   - BoringSSL-GRPC (0.0.3):
@@ -131,11 +132,12 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.7.0)
   - PMAlertController (4.0.0)
   - Protobuf (3.9.0)
-  - XLPagerTabStrip (9.0.0)
+  - Validator (3.2.1)
 
 DEPENDENCIES:
   - ACEDrawingView
   - AMColorPicker
+  - AMScrollingNavbar
   - BAFluidView
   - BetterSegmentedControl (~> 1.2)
   - Firebase
@@ -144,12 +146,13 @@ DEPENDENCIES:
   - Material (~> 3.1.0)
   - NVActivityIndicatorView
   - PMAlertController
-  - XLPagerTabStrip
+  - Validator
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ACEDrawingView
     - AMColorPicker
+    - AMScrollingNavbar
     - BAFluidView
     - BetterSegmentedControl
     - BoringSSL-GRPC
@@ -176,11 +179,12 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - PMAlertController
     - Protobuf
-    - XLPagerTabStrip
+    - Validator
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
   AMColorPicker: 94e18eaafd5be96c2aa4a24467fa9bd8b4c338b9
+  AMScrollingNavbar: 8548c0df70da8f894217a709d9b2555b9d0babbe
   BAFluidView: 8769b8c92afa37a5299c551e07126d350854df95
   BetterSegmentedControl: b27bddbdff29b6cae988678d6cd106858986cd03
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -207,8 +211,8 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
-  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
+  Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: 2a59d285035211265a2aedf897b8d89800ad5c53
+PODFILE CHECKSUM: d6405a548c45e0678575dcaff8510473d761fe19
 
 COCOAPODS: 1.6.1

@@ -16,5 +16,6 @@ target 'ImageShareApp' do
  pod "BAFluidView"
  pod 'BetterSegmentedControl', '~> 1.2'
  pod 'AMColorPicker'
- pod 'XLPagerTabStrip'
+ pod 'AMScrollingNavbar'
+ pod 'Validator'
 end

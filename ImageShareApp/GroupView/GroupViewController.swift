@@ -272,15 +272,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // hides text views
     // returnキーを押した時
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//
-//        if (text == "\n") {
-//            //あなたのテキストフィールド
-//            textView.resignFirstResponder()
-//            return false
-//        }
-//        return true
-//    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
         textField.resignFirstResponder()

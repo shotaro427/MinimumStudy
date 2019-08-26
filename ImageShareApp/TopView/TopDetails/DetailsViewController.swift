@@ -17,7 +17,9 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var postedImageScrollView: UIScrollView!
-
+    @IBOutlet weak var tag1Label: UILabel!
+    @IBOutlet weak var tag2Label: UILabel!
+    
     // imageView
     @IBOutlet weak var postedImageView: UIImageView!
 
@@ -35,6 +37,8 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     var user: String? = ""
     var date: String = ""
     var image: UIImage!
+    var tag1: String?
+    var tag2: String?
 
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
@@ -47,6 +51,8 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         titleLabel.text = "タイトル: \(String(describing: strTitle!))"
         userLabel.text = "制作者: \(String(describing: user!))"
         dateLabel.text = "投稿日: \(date)"
+        tag1Label.text = tag1
+        tag2Label.text = tag2
 
         // デリゲート
         postedImageScrollView.delegate = self

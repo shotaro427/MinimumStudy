@@ -39,6 +39,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var favPostImageInfo: [[String: Any]] = []
     var favPostImageID: [String] = []
 
+    var tagList: [String] = []
+
     // 押されたタグの情報を保管する
     var tagWord: String = ""
 
@@ -67,6 +69,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.topCollectionView.delaysContentTouches = false
 
         // 検索窓の設定
         setupSearchBar()
@@ -117,7 +121,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             let searchBar: UISearchBar = UISearchBar(frame: navigationBarFrame)
             searchBar.delegate = self
             searchBar.placeholder = "タグ名"
-            searchBar.tintColor = UIColor.gray
+            searchBar.tintColor = #colorLiteral(red: 0.06256254762, green: 0.7917881608, blue: 0.8028883338, alpha: 1)
             searchBar.keyboardType = UIKeyboardType.default
             searchBar.showsScopeBar = true
             searchBar.showsBookmarkButton = true
@@ -175,6 +179,18 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         searchBar.endEditing(true)
 
     }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("searchBar Edit Start -> searchBarTextDidBeginEditing")
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
+        print("tought")
+    }
+
+
 
     // 受け取ったタグ名を検索する関数
     func searchTag(keyWord: String) {
@@ -433,11 +449,18 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 // 投稿日を表示
                 let date = printDate(intDate: dict["date"] as! Int)
 
+                // タグを表示
+                let tag1 = dict["tag1"] as? String
+                let tag2 = dict["tag2"] as? String
+
                 // 値を渡す
                 vc.image = decordedImage
                 vc.strTitle = title
                 vc.user = user!
                 vc.date = date
+                vc.tag1 = tag1
+                vc.tag2 = tag2
+
             } else {
                 vc.image = #imageLiteral(resourceName: "イメージ画像のアイコン素材 その3")
             }
@@ -560,5 +583,20 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 self.activityIndicatorBackgroundView.alpha = 0
             }
         })
+    }
+}
+
+
+extension UICollectionView {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesBegan(touches, with: event)
+    }
+
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesMoved(touches, with: event)
+    }
+
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesEnded(touches, with: event)
     }
 }

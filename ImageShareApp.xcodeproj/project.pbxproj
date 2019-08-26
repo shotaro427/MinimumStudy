@@ -32,6 +32,7 @@
 		E2933BCE230CF7AC00F68A87 /* WaittingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */; };
 		E2B104DE230E959700D383A0 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B104DD230E959700D383A0 /* DetailsViewController.swift */; };
 		E2B104E1230F704200D383A0 /* TopDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2B104E0230F704200D383A0 /* TopDetails.storyboard */; };
+		E2BACB842312A5D700B8DF5A /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BACB832312A5D700B8DF5A /* Validate.swift */; };
 		FF7B436E961FE13A19A58309 /* Pods_ImageShareApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DAF47CDEED64D4EDF8A8F2 /* Pods_ImageShareApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		E2933BCD230CF7AC00F68A87 /* WaittingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WaittingViewController.swift; path = /Users/shotaro/Documents/SpartaCamp/ImageShareApp/ImageShareApp/TopView/WaittingViewController.swift; sourceTree = "<absolute>"; };
 		E2B104DD230E959700D383A0 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		E2B104E0230F704200D383A0 /* TopDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TopDetails.storyboard; sourceTree = "<group>"; };
+		E2BACB832312A5D700B8DF5A /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 		E2933B6A2309171E00F68A87 /* ImageShareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E2BACB822312A5BC00B8DF5A /* Validate */,
 				E2933BC4230BF11700F68A87 /* GroupView */,
 				E2933BB7230B8B8300F68A87 /* RoomView */,
 				E2933BB4230B813400F68A87 /* TopView */,
@@ -234,6 +237,14 @@
 				E2933BCB230CEE4200F68A87 /* TopCollectionViewCell.swift */,
 			);
 			path = Top;
+			sourceTree = "<group>";
+		};
+		E2BACB822312A5BC00B8DF5A /* Validate */ = {
+			isa = PBXGroup;
+			children = (
+				E2BACB832312A5D700B8DF5A /* Validate.swift */,
+			);
+			path = Validate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +356,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-ImageShareApp/Pods-ImageShareApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACEDrawingView/ACEDrawingView.framework",
 				"${BUILT_PRODUCTS_DIR}/AMColorPicker/AMColorPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
 				"${BUILT_PRODUCTS_DIR}/BAFluidView/BAFluidView.framework",
 				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
@@ -355,7 +367,7 @@
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PMAlertController/PMAlertController.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
+				"${BUILT_PRODUCTS_DIR}/Validator/Validator.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -367,6 +379,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACEDrawingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMColorPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMScrollingNavbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BAFluidView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
@@ -377,7 +390,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMAlertController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Validator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -398,6 +411,7 @@
 				E210F937230FD50300403D6F /* TableViewCell.swift in Sources */,
 				E2933BC8230BF1A200F68A87 /* GroupViewController.swift in Sources */,
 				E2933BB0230A8E1600F68A87 /* LoginViewController.swift in Sources */,
+				E2BACB842312A5D700B8DF5A /* Validate.swift in Sources */,
 				E2933B6E2309171E00F68A87 /* ViewController.swift in Sources */,
 				E210F94223112B5F00403D6F /* FavoriteCollectionViewCell.swift in Sources */,
 				E2933BCA230CD03400F68A87 /* TopViewController.swift in Sources */,
