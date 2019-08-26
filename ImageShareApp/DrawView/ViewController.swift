@@ -243,10 +243,57 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
                 return
             }
 
+            var message: NSDictionary = NSDictionary()
             // messageに値をつける
-            let message: NSDictionary = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": tag2]
+            if tag1 != tag2 {
+                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": tag2]
+
+                // タグ用のDBにタグ情報を保管
+                self.db.collection("tags").whereField("tag-name", isEqualTo: tag1).getDocuments(completion: { (QuerySnapshot, err) in
+                    // ドキュメントの個数が0 ＝　該当するタグがない場合
+                    if let documents = QuerySnapshot?.documents {
+                        if documents.count == 0 {
+                            self.db.collection("tags").addDocument(data: ["tag-name": tag1, "used-count": 1])
+                        } else { // 該当するタグがすでに存在していた場合
+                            if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
+                                self.db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
+                            }
+                        }
+                    }
+                })
+                // タグ用のDBにタグ情報を保管
+                self.db.collection("tags").whereField("tag-name", isEqualTo: tag2).getDocuments(completion: { (QuerySnapshot, err) in
+                    // ドキュメントの個数が0 ＝　該当するタグがない場合
+                    if let documents = QuerySnapshot?.documents {
+                        if documents.count == 0 {
+                            self.db.collection("tags").addDocument(data: ["tag-name": tag2, "used-count": 1])
+                        } else { // 該当するタグがすでに存在していた場合
+                            if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
+                                self.db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
+                            }
+                        }
+                    }
+                })
+            } else {
+                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1]
+
+                // タグ用のDBにタグ情報を保管
+                self.db.collection("tags").whereField("tag-name", isEqualTo: tag2).getDocuments(completion: { (QuerySnapshot, err) in
+                    // ドキュメントの個数が0 ＝　該当するタグがない場合
+                    if let documents = QuerySnapshot?.documents {
+                        if documents.count == 0 {
+                            self.db.collection("tags").addDocument(data: ["tag-name": tag2, "used-count": 1])
+                        } else { // 該当するタグがすでに存在していた場合
+                            if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
+                                self.db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
+                            }
+                        }
+                    }
+                })
+            }
             self.db.collection("chat-room").document("\(self.roomID)").collection("message")
-            let messageID = self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any]).documentID
+            self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any])
+
             // インジケータの描画
             self.activityIndicatorView.startAnimating()
             self.activityIndicatorBackgroundView.alpha = 1

@@ -19,6 +19,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // 検索窓
     var searchBar: UISearchBar = UISearchBar()
+    @IBOutlet weak var searchTableView: UITableView!
 
     // 検索結果を入れる配列
     var resultSearch: [[String: Any]] = []
@@ -39,7 +40,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var favPostImageInfo: [[String: Any]] = []
     var favPostImageID: [String] = []
 
-    var tagList: [String] = []
+    var tagsList: [String] = []
 
     // 押されたタグの情報を保管する
     var tagWord: String = ""
@@ -142,6 +143,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
         searchBar.text = ""
         searchBar.endEditing(true)
+        self.view.sendSubviewToBack(searchTableView)
     }
 
     // サーチバーの設定
@@ -181,13 +183,14 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("searchBar Edit Start -> searchBarTextDidBeginEditing")
+        self.view.bringSubviewToFront(searchTableView)
+        print(tagsList)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchBar.endEditing(true)
         searchBar.resignFirstResponder()
-        print("tought")
+        self.view.sendSubviewToBack(searchTableView)
     }
 
 
@@ -213,6 +216,20 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        // tagのリストの初期化
+        tagsList = []
+
+        // tagsコレクションのリスナーを追加
+        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
+            guard let documents = QueryDocumentSnapshot?.documents else { return }
+            for document in documents {
+                self.tagsList.append(document.data()["tag-name"] as! String)
+            }
+        })
+
+        self.view.sendSubviewToBack(searchTableView)
+
         topCollectionView.reloadData()
         // 情報の初期化
         postImageInfo = []
