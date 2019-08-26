@@ -629,6 +629,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             vc.roomMenbers = self.roomMenbers
             vc.roomInfo = self.roomInfo
             vc.waitingMenber = self.waitingMenber
+            vc.tagsInfo = self.tagsList.slice(start: 0, end: 2)
             // 遷移
             self.navigationController?.pushViewController(vc, animated: true)
         })
@@ -674,18 +675,3 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             hideKeyboardButton.isHidden = true
     }
 }
-
-//
-//extension UICollectionView {
-//    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.next?.touchesBegan(touches, with: event)
-//    }
-//
-//    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.next?.touchesMoved(touches, with: event)
-//    }
-//
-//    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.next?.touchesEnded(touches, with: event)
-//    }
-//}

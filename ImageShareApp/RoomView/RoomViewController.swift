@@ -14,17 +14,7 @@ import PMAlertController
 
 class RoomViewController: UIViewController, UIScrollViewDelegate {
 
-    // インスタンス化
-    let db = Firestore.firestore()
-
-    var roomID: String = ""
-
-    // DBに登録するためのString型の画像
-    var base64RoomImage: String = ""
-
-    // インジケータの追加
-    var activityIndicatorView: NVActivityIndicatorView!
-    var activityIndicatorBackgroundView: UIView!
+    // MARK: - storyboard上の変数
 
     //  ルーム名
     @IBOutlet weak var roomNameTextField: UITextField!
@@ -45,29 +35,33 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
     // スクロールビュー
     @IBOutlet weak var scrollView: UIScrollView!
 
+    // MARK: - 自作変数
+    // グループのIDを保管しておく変数
+    var roomID: String = ""
+
+    // DBに登録するためのString型の画像
+    var base64RoomImage: String = ""
+
+    // インジケータの追加
+    var activityIndicatorView: NVActivityIndicatorView!
+    var activityIndicatorBackgroundView: UIView!
+
+    // MARK: - 関数
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // インジケータ
-        // インジケータの追加
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
+        // インジケータの設定
+        setIndicator()
 
-        // インジケータの背景
-        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityIndicatorBackgroundView.alpha = 0
-        self.view.addSubview(activityIndicatorBackgroundView)
-        self.view.addSubview(activityIndicatorView)
-
+        // viewの設置
         createView.layer.cornerRadius = 10
         resuestView.layer.cornerRadius = 10
 
         // セグメントコントロール
         segmentedControl.segments = LabelSegment.segments(withTitles: ["新規作成", "申請"])
 
-        // ボタン
+        // ボタンの設定
         createButton.layer.cornerRadius = 10
         requestButton.layer.cornerRadius = 10
 
@@ -91,24 +85,43 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         activityIndicatorBackgroundView.alpha = 1
     }
 
-    // ルームを作成する関数
-    func createRoom() {
+    // MARK: - 自作関数
+
+    /** インジケータを設定する関数 */
+    func setIndicator() {
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+    }
+
+    /** グループを作成する関数 */
+    func createRoom(function: @escaping () -> ()) {
         // 部屋がすでに作られたかどうか
         var isCreatedRoom: Bool = false
         // textFieldから部屋の名前とユーザーIDを取得
         if let roomName = roomNameTextField.text, let userID = UserDefaults.standard.string(forKey: "email") {
             // 部屋IDを割り振り
             let intRoomID = Int.random(in: 0..<1000000)
-            // DBから部屋IDを照合
+            let roomID = String(intRoomID)
             db.collection("chat-room").getDocuments(completion: { (QuerySnapshot, err) in
-                if let err = err {
+                if let err = err { // エラー時
                     print("RoomViewController-33: \(err.localizedDescription)")
-                } else {
+                } else { // 成功時
                     // 一番最初に作られた時以外
                     if QuerySnapshot?.documents.count != 0 {
                         for document in QuerySnapshot!.documents {
                             if document.documentID != String(intRoomID) && !isCreatedRoom {
-                                self.db.collection("chat-room").document("\(intRoomID)").setData([
+                                db.collection("chat-room").document(roomID).setData([
+                                    // グループIDを追加
+                                    "roomID": roomID,
                                     // 名前をdocumentに追加
                                     "room-name": roomName,
                                     // デフォルトで画像を設定
@@ -119,16 +132,20 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                                     "post-count": 0
                                 ])
                                 // 部屋にユーザーIDを登録
-                                self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
+                                db.collection("chat-room").document(roomID).collection("users").document("\(userID)").setData(["userID": userID])
                                 isCreatedRoom = true
-                                self.roomID = String(intRoomID)
+                                self.roomID = roomID
                             } else if !isCreatedRoom {
                                 // 作り直し(roomIDが被ったため)
-                                self.createRoom()
+                                self.createRoom(function: {
+                                    self.toTop()
+                                })
                             }
                         }
                     } else {
-                        self.db.collection("chat-room").document("\(intRoomID)").setData([
+                        db.collection("chat-room").document(roomID).setData([
+                            // グループIDを追加
+                            "roomID": roomID,
                             // 名前をdocumentに追加
                             "room-name": roomName,
                             // デフォルトで画像を設定
@@ -139,10 +156,11 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
                             "post-count": 0
                             ])
                         // 部屋にユーザーIDを登録
-                        self.db.collection("chat-room").document("\(intRoomID)").collection("users").document("\(userID)").setData(["userID": userID])
+                        db.collection("chat-room").document(roomID).collection("users").document("\(userID)").setData(["userID": userID])
                         isCreatedRoom = true
                     }
                 }
+                function()
             })
         }
     }
@@ -158,6 +176,46 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
 
     }
 
+    /**
+     * アラートを表示する関数
+     * - Parameters:
+     *   - title: アラートに表示させたいタイトル
+     *   - description: アラートに表示させたい文章
+     *   - image: アラートに表示させたい画像
+     */
+    func showAlert(title: String, description: String, image: UIImage) {
+        // アラートの表示
+        let alertController = PMAlertController(title: title, description: description, image: image, style: .alert)
+        let alertAction = PMAlertAction(title: "はい", style: .default)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true)
+    }
+
+    /**
+     * 申請するユーザーのIDをDBに登録する関数
+     * - Parameters:
+     *   - roomID: ユーザーが申請したグループのID
+     */
+    func addWaitingUser(roomID: String) {
+        db.collection("chat-room").document(roomID).getDocument(completion: { (QuerySnapshot, err) in
+            if let err = err {
+                print("RoomViewController: \(err.localizedDescription)")
+                // アラートの表示
+                self.showAlert(title: "エラー", description: "グループIDが正しく入力されませんでした。\nグループIDをもう一度見直し、半角数字6桁で入力しなおしてください。", image: #imageLiteral(resourceName: "ログインエラー"))
+            } else {
+                // ユーザーのメールアドレスをユーザーIDとして取得
+                guard let userID = UserDefaults.standard.string(forKey: "email") else { return }
+                // ユーザーIDをDBに追加
+                db.collection("chat-room").document(roomID).collection("waiting-users").document(userID).setData(["userID": userID], completion: { (_) in
+                    self.showAlert(title: "申請完了！", description: "申請が完了しました!!", image: #imageLiteral(resourceName: "ok_man"))
+                })
+            }
+        })
+    }
+
+    // MARK: - アクション
+
+    // セグメント
     @IBAction func selectedSegment(_ sender: BetterSegmentedControl) {
         // ボタンに対応したviewを表示させる
         if segmentedControl.index == 0 {
@@ -176,10 +234,12 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         activityIndicatorView.startAnimating()
         activityIndicatorBackgroundView.alpha = 1
         // 部屋を作成
-        createRoom()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+        createRoom(function: {
             self.toTop()
         })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+//            self.toTop()
+//        })
     }
 
     // 申請ボタン
@@ -208,29 +268,4 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
             })
         }
     }
-
-    func showAlert(title: String, description: String, image: UIImage) {
-        // アラートの表示
-        let alertController = PMAlertController(title: title, description: description, image: image, style: .alert)
-        let alertAction = PMAlertAction(title: "はい", style: .default)
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true)
-    }
-
-    // DBに申請するユーザーのIDを登録する関数
-    func addWaitingUser(roomID: String) {
-        db.collection("chat-room").document(roomID).getDocument(completion: { (QuerySnapshot, err) in
-            if let err = err {
-                print("RoomViewController-157: \(err.localizedDescription)")
-                // アラートの表示
-                self.showAlert(title: "エラー", description: "グループIDが正しく入力されませんでした。\nグループIDをもう一度見直し、半角数字6桁で入力しなおしてください。", image: #imageLiteral(resourceName: "ログインエラー"))
-            } else {
-                // ユーザーIDをDBに追加
-                self.db.collection("chat-room").document(roomID).collection("waiting-users").document(UserDefaults.standard.string(forKey: "email")!).setData(["userID": UserDefaults.standard.string(forKey: "email")!], completion: { (_) in
-                    self.showAlert(title: "申請完了！", description: "申請が完了しました!!", image: #imageLiteral(resourceName: "ok_man"))
-                })
-            }
-        })
-    }
-    
 }

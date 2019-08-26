@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 
+// DBの作成
+let db = Firestore.firestore()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

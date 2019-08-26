@@ -45,13 +45,13 @@
                                         <rect key="frame" x="10" y="5" width="394" height="145"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QJ5-oA-uBJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="48.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="36.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zll-93-laM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="48.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="36.5"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="グループ名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zH2-Jg-x0y">
-                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="48.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="36.5"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -66,7 +66,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ho2-LB-WOB">
-                                                        <rect key="frame" x="344" y="0.0" width="50" height="48.5"/>
+                                                        <rect key="frame" x="344" y="0.0" width="50" height="36.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="XhW-Vx-QqN"/>
                                                         </constraints>
@@ -78,26 +78,70 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="グループ名:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCr-aG-YGB">
-                                                <rect key="frame" x="0.0" y="48.5" width="394" height="48"/>
+                                                <rect key="frame" x="0.0" y="36.5" width="394" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MZB-dF-Tv7">
-                                                <rect key="frame" x="0.0" y="96.5" width="394" height="48.5"/>
+                                                <rect key="frame" x="0.0" y="72.5" width="394" height="36.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="総投稿数:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b4-1b-rSu">
-                                                        <rect key="frame" x="0.0" y="0.0" width="197" height="48.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="197" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="メンバー数:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSz-4S-lVf">
-                                                        <rect key="frame" x="197" y="0.0" width="197" height="48.5"/>
+                                                        <rect key="frame" x="197" y="0.0" width="197" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HGG-fz-hAl">
+                                                <rect key="frame" x="0.0" y="109" width="394" height="36"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="よく使うタグ:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0t-QC-ecx">
+                                                        <rect key="frame" x="0.0" y="0.0" width="109" height="36"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbV-21-vLZ">
+                                                        <rect key="frame" x="114" y="0.0" width="46" height="36"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="tappedTagButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="lmN-7F-1tA"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1U-py-lrg">
+                                                        <rect key="frame" x="165" y="0.0" width="46" height="36"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="tappedTagButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="wwL-P0-jqo"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6B-ZT-Aji">
+                                                        <rect key="frame" x="216" y="0.0" width="46" height="36"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="tappedTagButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="h4P-Cd-vCF"/>
+                                                        </connections>
+                                                    </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0cB-R3-gwF">
+                                                        <rect key="frame" x="267" y="0.0" width="127" height="36"/>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -155,6 +199,9 @@
                         <outlet property="numberOfGroupMenber" destination="VSz-4S-lVf" id="t8I-Jg-3zC"/>
                         <outlet property="numberOfPost" destination="0b4-1b-rSu" id="jP8-A7-Rdv"/>
                         <outlet property="renameButton" destination="zH2-Jg-x0y" id="iGT-D8-TZD"/>
+                        <outlet property="tagButton1" destination="qbV-21-vLZ" id="oUp-N0-uhj"/>
+                        <outlet property="tagButton2" destination="M1U-py-lrg" id="Ycc-B8-KaT"/>
+                        <outlet property="tagButton3" destination="H6B-ZT-Aji" id="rLR-XQ-Mid"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DR0-xA-75x" userLabel="First Responder" sceneMemberID="firstResponder"/>

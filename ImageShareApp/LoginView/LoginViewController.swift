@@ -15,6 +15,8 @@ import BetterSegmentedControl
 
 class LoginViewController: UIViewController {
 
+    // MARK: - storyboard状の変数
+
     // ログイン画面
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
@@ -28,34 +30,29 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var createAccuntButton: UIButton!
 
     @IBOutlet weak var segmentedViewButton: BetterSegmentedControl!
+
+    // MARK: - 自作変数
+
     // 所属している部屋を格納する
     var roomInfo: [[String: Any]] = []
     var roomIDs: [String] = []
 
-    let db = Firestore.firestore()
+//    let db = Firestore.firestore()
 
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
-    
+
+    // MARK: - 自作関数
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // インジケータの設定
+        setIndicator()
+
         // セグメントコントロール
         segmentedViewButton.segments = LabelSegment.segments(withTitles: ["ログイン", "新規作成"])
-
-        // インジケータ
-        // インジケータの追加
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
-
-        // インジケータの背景
-        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityIndicatorBackgroundView.alpha = 0
-        self.view.addSubview(activityIndicatorBackgroundView)
-        self.view.addSubview(activityIndicatorView)
 
         //textFieldの下線を追加
         emailTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
@@ -75,42 +72,55 @@ class LoginViewController: UIViewController {
         passwordTextField.text = "123456"
     }
 
-    // ユーザーが所属している部屋を探す関数
+    /**
+        インジケータの設定を行う関数
+     */
+    func setIndicator(){
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+    }
+
+    /**
+    ユーザーが所属している部屋を探す関数
+    */
     func searchRoom() {
         // ユーザーid(email)を取得
-        let userID = UserDefaults.standard.string(forKey: "email")
+        guard let userID = UserDefaults.standard.string(forKey: "email") else { return }
         db.collection("chat-room").getDocuments() { (QuerySnapshot, err) in
             if let err = err { // エラー時
                 print("SelectRoomTableViewController-29: \(err.localizedDescription)")
             } else { // 成功時
                 // ドキュメントを取得
                 for document in QuerySnapshot!.documents {
-                    // ドキュメント内のuserIDとこのユーザーのuserIDと一致するかを見る
-                    self.db.collection("chat-room").document("\(document.documentID)").collection("users").getDocuments() {(QuerySnapshot2, err2) in
-                        if let err2 = err2 {
-                            print("SelectRoomTableViewController-29: \(err2.localizedDescription)")
-                        } else {
-                            // ドキュメントの取得
-                            for document2 in QuerySnapshot2!.documents {
-                                // IDの照合
-                                if document2.documentID == userID {
-                                    // 部屋の情報を配列に追加
-//                                    let roomName = document.data()["room-name"] as! String
-                                    self.roomInfo.append(document.data())
-                                    self.roomIDs.append(document.documentID)
-                                }
-                            }
+                    // ドキュメント内のuserIDと,このユーザーのuserIDと一致するかを見る
+                    db.collection("chat-room").document(document.documentID).collection("users").document(userID).getDocument(completion: { (QuerySnapshot2, err2) in
+                        if let err2 = err2 { // エラー時
+                            print("login error : \(err2.localizedDescription)")
                         }
-                    }
+                        // userIDを持つユーザーが存在していた時
+                        if QuerySnapshot2!.exists {
+                            self.roomInfo.append(document.data())
+                            self.roomIDs.append(document.documentID)
+                        }
+                    })
                 }
             }
         }
     }
 
-
-    // エラーが帰ってきた場合のアラート
+    /**
+     エラーが帰ってきた場合のアラート
+    */
     func showErrorAlert(error: Error?) {
-
         let alert = PMAlertController(title: "エラーです。", description: error?.localizedDescription, image: #imageLiteral(resourceName: "ログインエラー"), style: .alert)
         let okAction = PMAlertAction(title: "OK", style: .cancel)
         alert.addAction(okAction)
@@ -118,7 +128,9 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true)
     }
 
-    // 遷移処理
+    /**
+     グループ選択画面へ移る処理
+    */
     func toRoomView() {
         let storyboard = UIStoryboard(name: "RoomView", bundle: nil)
         let nc = storyboard.instantiateViewController(withIdentifier: "RoomNavi") as! UINavigationController
@@ -129,6 +141,8 @@ class LoginViewController: UIViewController {
 
         self.present(nc, animated: true)
     }
+
+    // MARK: - オーバーライド
 
     // キーボードを閉じる処理
     // タッチされたかを判断
@@ -151,7 +165,9 @@ class LoginViewController: UIViewController {
         }
     }
 
-    // ログインボタン
+    // MARK: - アクション
+
+    /// ログインボタン
     @IBAction func tappedLoginButton(_ sender: Any) {
         // textFieldの中身を確認
         guard let email = emailTextField.text, let password = passwordTextField.text else {
@@ -175,7 +191,7 @@ class LoginViewController: UIViewController {
                 self.activityIndicatorView.startAnimating()
                 self.activityIndicatorBackgroundView.alpha = 1
                 // ユーザーの所属部屋を検索
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.toRoomView()
                     self.activityIndicatorView.stopAnimating()
                     self.activityIndicatorBackgroundView.removeFromSuperview()
@@ -199,15 +215,8 @@ class LoginViewController: UIViewController {
                 self.showErrorAlert(error: err)
             } else {
                 // 成功した時
-                // インジケータの描画
-                self.activityIndicatorView.startAnimating()
-                self.activityIndicatorBackgroundView.alpha = 1
-                // ユーザーの所属部屋を検索
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    self.toRoomView()
-                    self.activityIndicatorView.stopAnimating()
-                    self.activityIndicatorBackgroundView.removeFromSuperview()
-                }
+                self.toRoomView()
+
             }
         })
     }

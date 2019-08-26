@@ -166,6 +166,12 @@
                                     <action selector="tappedPlusImageButton:" destination="LzU-U3-DWQ" eventType="touchUpInside" id="Bkt-Hj-Yxs"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFm-tN-7gu">
+                                <rect key="frame" x="0.0" y="-34" width="414" height="896"/>
+                                <connections>
+                                    <action selector="tappedHideKeyboardButton:" destination="LzU-U3-DWQ" eventType="touchUpInside" id="3eF-IX-FU6"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ybi-4c-nIX">
                                 <rect key="frame" x="0.0" y="88" width="414" height="181"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -183,12 +189,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFm-tN-7gu">
-                                <rect key="frame" x="0.0" y="-34" width="414" height="896"/>
-                                <connections>
-                                    <action selector="tappedHideKeyboardButton:" destination="LzU-U3-DWQ" eventType="touchUpInside" id="3eF-IX-FU6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

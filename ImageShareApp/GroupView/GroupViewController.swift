@@ -39,6 +39,11 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var renameButton: UITextField!
     // 画像を変えるボタン
     @IBOutlet weak var changeImageButton: UIButton!
+    // タグのボタン * 3
+    @IBOutlet weak var tagButton1: UIButton!
+    @IBOutlet weak var tagButton2: UIButton!
+    @IBOutlet weak var tagButton3: UIButton!
+    
     // 変更後の画像を一時的に格納する
     var changedImage: UIImage!
 
@@ -52,6 +57,8 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var roomID: String = ""
     // 部屋の情報
     var roomInfo: [String: Any] = [:]
+    // タグの情報
+    var tagsInfo: [String] = []
 
     // セクションタイトル
     let titleOfSection: [String] = ["メンバー", "申請待ち"]
@@ -69,6 +76,12 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // タグのボタンを丸くする
+        tagButton1.layer.cornerRadius = 10
+        tagButton2.layer.cornerRadius = 10
+        tagButton3.layer.cornerRadius = 10
+
         // renameButtonのデリゲートを設定
         renameButton.delegate = self
 
@@ -120,6 +133,10 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let postCount = roomInfo["post-count"] as? Int {
             numberOfPost.text = "総投稿数: \(postCount)"
         }
+        // よく使われるタグの表示
+        tagButton1.setTitle(tagsInfo[0], for: .normal)
+        tagButton2.setTitle(tagsInfo[1], for: .normal)
+        tagButton3.setTitle(tagsInfo[2], for: .normal)
     }
 
     // セクション数
@@ -307,4 +324,17 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // pickerに遷移する
         cameraAction(sourceType: .photoLibrary)
     }
+
+//    // タグボタンを押した時の処理
+//    @IBAction func tappedTagButton(_ sender: UIButton) {
+//        // 遷移先のviewControllerを作成
+//        let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "TopView") as! TopViewController
+//
+//        // searchBarにタグ名を追加
+//        vc.searchBar.text = sender.currentTitle
+//
+//        // 遷移
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
+
 }

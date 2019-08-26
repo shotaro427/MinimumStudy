@@ -25,14 +25,19 @@ class SelectRoomTableViewController: UITableViewController {
     // トップ画面へ送る情報
     var messageInfo: [String: Any] = [:]
 
+    // MARK: - 関数
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // 背景画像の設定
         self.tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "loginImage"))
 
         // セルの登録
         self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
     }
+
+    // MARK: - TableViewのdelegateメソッド
 
     // セルの高さ
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -58,6 +63,7 @@ class SelectRoomTableViewController: UITableViewController {
         cell.groupImageView.image = image
         cell.setImage()
 
+        // グループ名とメンバー数の表示
         if let groupName = roomInfo[indexPath.row]["room-name"] as? String, let menberCount = roomInfo[indexPath.row]["menber-count"] as? Int {
             cell.groupName.text = groupName
             cell.menberCount.text = "メンバー数: \(String(menberCount))"
@@ -76,6 +82,10 @@ class SelectRoomTableViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
+    // MARK: - アクション
+    /**
+        ログアウトの処理
+     */
     @IBAction func LogOutButton(_ sender: Any) {
         // ログアウト処理
         try! Auth.auth().signOut()
@@ -85,6 +95,5 @@ class SelectRoomTableViewController: UITableViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "Login")
         // 遷移処理
         self.present(vc, animated: true)
-
     }
 }

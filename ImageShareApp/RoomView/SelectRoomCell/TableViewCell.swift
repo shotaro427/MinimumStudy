@@ -28,6 +28,9 @@ class TableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    /**
+        画像の設定を行う関数
+     */
     func setImage() {
         // imageViewの設定
         groupImageView.layer.cornerRadius = 45
