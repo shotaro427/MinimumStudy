@@ -13,70 +13,73 @@ import PMAlertController
 
 class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
+    // MARK: - 紐付けのプロパティ
     // コレクションセル
     @IBOutlet weak var postedImageView: UIImageView!
+    // いいねリストに移るボタン
     @IBOutlet weak var favViewButton: UIBarButtonItem!
-
-    // 検索窓
-    var searchBar: UISearchBar = UISearchBar()
-    var searchController = UISearchController()
-    var searchResults:[String] = []
+    // 検索タグの予測一覧を出すテーブルビュー
     @IBOutlet weak var searchTableView: UITableView!
-
-    // 検索結果を入れる配列
-    var resultSearch: [[String: Any]] = []
-    var resultSearchID: [String] = []
-
+    // タイムラインのコレクションビュー
     @IBOutlet weak var topCollectionView: UICollectionView!
+    // 画像編集画面へ移るボタン
     @IBOutlet weak var plusImageButton: UIButton!
-    // ラベルを乗せるview
-    @IBOutlet weak var postView: UIView!
-
     // キーボードを隠すボタン
     @IBOutlet weak var hideKeyboardButton: UIButton!
 
-    // 投稿された情報を保管する
+    // MARK: - 自作のプロパティ
+    /// 検索窓
+    var searchBar: UISearchBar = UISearchBar()
+    var searchResults:[String] = []
+
+    /// 検索結果を入れる配列
+    var resultSearch: [[String: Any]] = []
+    var resultSearchID: [String] = []
+
+    /// 投稿された情報を保管する
     var postImageInfo: [[String: Any]] = []
     var postImageID: [String] = []
 
+    /// すべての投稿の情報を保管する
     var allPostImageInfo: [[String: Any]] = []
     var allPostImageID: [String] = []
 
+    /// いいねされた投稿の情報を保管する
     var favPostImageInfo: [[String: Any]] = []
     var favPostImageID: [String] = []
 
+    /// 今までのタグの一覧を保管する
     var tagsList: [String] = []
 
-    // 押されたタグの情報を保管する
+    /// 押されたタグの情報を保管する
     var tagWord: String = ""
 
-    // 部屋のID
+    /// 部屋のID
     var roomID: String = ""
 
-    // roomIDのドキュメントがあるかどうか
+    /// roomIDのドキュメントがあるかどうか
     var exsistDocument: Bool = false
 
-    // 部屋のユーザーのIDを格納する
+    /// 部屋のユーザーのIDを格納する
     var roomMenbers: [String] = []
-    // 申請待ちのユーザーのIDを格納する
+    /// 申請待ちのユーザーのIDを格納する
     var waitingMenber: [String] = []
-    // 現在のグループの情報を格納する
+    /// 現在のグループの情報を格納する
     var roomInfo: [String: Any] = [:]
 
-    // DB
-    let db = Firestore.firestore()
-
-    // 日付のフォーマッター
+    /// 日付のフォーマッター
     var formatter: DateFormatter = DateFormatter()
 
-    // インジケータの追加
+    /// インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
+
+    // MARK: - override
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // ボタンを隠す
+        // キーボードを隠すボタンを隠す
         hideKeyboardButton.isHidden = true
 
         // 検索窓の設定
@@ -85,7 +88,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // 日付のフォーマットの設定
         formatter.dateFormat = "yyyyMMdd"
 
-        // refreshControl
+        // refreshControlを追加する
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(TopViewController.refreshControlValueChanged(sender:)), for: .valueChanged)
 
@@ -99,140 +102,28 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // ナビゲーションバーの戻るボタンを消す
         self.navigationItem.hidesBackButton = true
 
+        // delegateとdatasourceの設定
         topCollectionView.delegate = self
         topCollectionView.dataSource = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
 
-        // レイアウトを調整
+        // コレクションビューのレイアウトを調整
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         topCollectionView.collectionViewLayout = layout
 
+        // 投稿ボタンの設定
         plusImageButton.layer.cornerRadius = plusImageButton.frame.width / 2
 
-        // インジケータ
-        // インジケータの追加
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
-
-        // インジケータの背景
-        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityIndicatorBackgroundView.alpha = 0
-        self.view.addSubview(activityIndicatorBackgroundView)
-        self.view.addSubview(activityIndicatorView)
-    }
-
-    // サーチバーの設定
-    func setupSearchBar() {
-        if let navigationBarFrame = navigationController?.navigationBar.bounds {
-            let searchBar: UISearchBar = UISearchBar(frame: navigationBarFrame)
-            searchBar.delegate = self
-            searchBar.placeholder = "タグ名"
-            searchBar.tintColor = #colorLiteral(red: 0.06256254762, green: 0.7917881608, blue: 0.8028883338, alpha: 1)
-            searchBar.keyboardType = UIKeyboardType.default
-            searchBar.showsScopeBar = true
-            searchBar.showsBookmarkButton = true
-            searchBar.setImage(#imageLiteral(resourceName: "icons8-かける-25"), for: .bookmark, state: .normal)
-            navigationItem.titleView = searchBar
-            navigationItem.titleView?.frame = searchBar.frame
-            self.searchBar = searchBar
-        }
-    }
-
-    // バツボタンを押した時の処理
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        if searchBar.text == "" {
-            postImageInfo = allPostImageInfo
-            postImageID = allPostImageID
-            // tableViewをリロード
-            topCollectionView.reloadData()
-        }
-        searchBar.text = ""
-        searchBar.endEditing(true)
-//        self.view.sendSubviewToBack(searchTableView)
-        searchTableView.isHidden = true
-        hideKeyboardButton.isHidden = true
-        self.searchTableView.reloadData()
-    }
-
-    // サーチバーの設定
-    // 編集が開始されたら、キャンセルボタンを有効にする
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        return true
-    }
-
-    // キャンセルボタンが押されたらキャンセルボタンを無効にしてフォーカスを外す
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-
-    // 検索ボタンが押された時
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        // キーワードを検索
-        if let keyWord = searchBar.text {
-            searchTag(keyWord: keyWord)
-            // インジケータを追加
-            activityIndicatorView.startAnimating()
-            activityIndicatorBackgroundView.alpha = 1
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                self.postImageInfo = self.resultSearch
-                self.postImageID = self.resultSearchID
-                self.topCollectionView.reloadData()
-                // インジケータを削除
-                self.activityIndicatorView.stopAnimating()
-                self.activityIndicatorBackgroundView.alpha = 0
-            })
-        }
-        // キーボードを閉じる
-        searchBar.endEditing(true)
-        hideKeyboardButton.isHidden = true
-
-    }
-
-    // 検索欄がタップされたら
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchTableView.isHidden = false
-//        self.view.bringSubviewToFront(searchTableView)
-        hideKeyboardButton.isHidden = false
-    }
-
-    // テキストが変更されるごとに呼ばれる
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchResults = tagsList.filter{
-            // 大文字と小文字を区別せずに検索
-            $0.lowercased().contains(searchBar.text!.lowercased())
-        }
-        self.searchTableView.reloadData()
-
-    }
-
-    // 受け取ったタグ名を検索する関数
-    func searchTag(keyWord: String) {
-        // メッセージを取得
-        db.collection("chat-room").document(roomID).collection("message").getDocuments(completion: { (QuerySnapshot, err) in
-            guard let documents = QuerySnapshot?.documents else {
-                print("error: \(err!.localizedDescription)")
-                return
-            }
-            for document in documents {
-                // 検索のワードとタグ名が一致していた時
-                if document.data()["tag1"] as! String == keyWord || document.data()["tag2"] as! String == keyWord {
-                    // 投稿情報を追加
-                    self.resultSearch.append(document.data())
-                    self.resultSearchID.append(document.documentID)
-                }
-            }
-        })
+        // インジケータの設定
+        setIndicator()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-//        self.view.sendSubviewToBack(searchTableView)
+        //        self.view.sendSubviewToBack(searchTableView)
         searchTableView.isHidden = true
         hideKeyboardButton.isHidden = true
 
@@ -293,7 +184,23 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         })
     }
 
-    // 投稿情報を取得する関数
+    // MARK: - 自作関数
+    // インジケータの設定
+    func setIndicator() {
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+    }
+
+    /// 投稿情報を取得する関数
     func getPostInfo(completion: () -> ()) {
         // メッセージコレクションを作成
         db.collection("chat-room").document(roomID).collection("message")
@@ -309,10 +216,32 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 self.topCollectionView.reloadData()
             }
         }
-
     }
 
-    // 部屋のメンバーと申請待ちの人のIDを取ってくる関数
+    /**
+     * 受け取ったタグ名を検索する関数
+     * - Parameters:
+     *   - keyWord: 検索したいキーワード
+     */
+    func searchTag(keyWord: String) {
+        // メッセージを取得
+        db.collection("chat-room").document(roomID).collection("message").getDocuments(completion: { (QuerySnapshot, err) in
+            guard let documents = QuerySnapshot?.documents else {
+                print("error: \(err!.localizedDescription)")
+                return
+            }
+            for document in documents {
+                // 検索のワードとタグ名が一致していた時
+                if document.data()["tag1"] as! String == keyWord || document.data()["tag2"] as! String == keyWord {
+                    // 投稿情報を追加
+                    self.resultSearch.append(document.data())
+                    self.resultSearchID.append(document.documentID)
+                }
+            }
+        })
+    }
+
+    /// 部屋のメンバーと申請待ちの人のIDを取ってくる関数
     func getUserInfo() { // ドキュメントが存在していたら
         if exsistDocument {
             // 所属メンバー一覧を取得
@@ -351,14 +280,187 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         })
     }
 
+    /**
+     * int型の日付をString型の日付に直す関数
+     * - Parameters:
+     *   - intData: Int型の日付
+     */
+    func printDate(intDate: Int) -> String {
+        // int型のdateをString型に変換
+        let stringDate = String(intDate)
+        // yyyyMMdd型でフォーマット
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        // date型の日付を生成
+        if let nowDate = formatter.date(from: stringDate) {
+
+            // フォーマットの変換
+            formatter.dateFormat = "yyyy年MM月dd日"
+            return formatter.string(from: nowDate)
+        } else {
+            return "??"
+        }
+    }
+
+    /**
+     * いいね機能
+     * - Parameters:
+     *   - cell: TopCollectionviewCell型のインスタンス
+     *   - indexPath: いいねされたcollectionViewのindexPath
+     */
+    func favImage(cell: TopCollectionViewCell, indexPath: IndexPath) {
+        // 星がついている時
+        if cell.type == .highlighted {
+            // 部屋までのルート
+            if let ref: DocumentReference = db.collection("chat-room").document(roomID) {
+                if let email = UserDefaults.standard.string(forKey: "email"), let userRef: DocumentReference = ref.collection("users").document(email) {
+                    // DBにいいねを押した画像の情報を追加
+                    userRef.collection("fav-image").document(postImageID[indexPath.row]).setData(postImageInfo[indexPath.row])
+                }
+            }
+        }
+    }
+
+    /// お気に入りした投稿の情報を取得する
+    func getFavImage() {
+        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
+            for document in QuerySnapshot!.documents {
+                self.favPostImageID.append(document.documentID)
+                self.favPostImageInfo.append(document.data())
+            }
+        })
+    }
+
+    /**
+     * 保存機能
+     * - Parameters:
+     *   - image: 保存したい画像
+     */
+    func save(image: UIImage) {
+
+        // カメラロールに保存する
+        // アラートコントローラー
+        let alertController = PMAlertController(title: "保存しますか？", description: nil, image: image, style: .alert)
+        // アラートアクション
+        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
+            // 「はい」を押した時だけ、画像を保存する
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
+        }))
+        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
+        self.present(alertController, animated: true)
+    }
+
+    /// 保存を試みた結果を受け取る
+    @objc func didFinishSavingImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
+
+        // 結果によって出すアラートを変更する
+        var title = "保存完了"
+        var message = "カメラロールに保存しました"
+
+        if error != nil {
+            title = "エラー"
+            message = "保存に失敗しました"
+        }
+
+        let alertController = PMAlertController(title: title, description: message, image: image, style: .alert)
+
+        alertController.addAction(PMAlertAction(title: "OK", style: .default))
+        self.present(alertController, animated: true)
+    }
+
+    // MARK: - searchBarの関数
+    /// サーチバーの設定
+    func setupSearchBar() {
+        if let navigationBarFrame = navigationController?.navigationBar.bounds {
+            let searchBar: UISearchBar = UISearchBar(frame: navigationBarFrame)
+            searchBar.delegate = self
+            searchBar.placeholder = "タグ名"
+            searchBar.tintColor = #colorLiteral(red: 0.06256254762, green: 0.7917881608, blue: 0.8028883338, alpha: 1)
+            searchBar.keyboardType = UIKeyboardType.default
+            searchBar.showsScopeBar = true
+            searchBar.showsBookmarkButton = true
+            searchBar.setImage(#imageLiteral(resourceName: "icons8-かける-25"), for: .bookmark, state: .normal)
+            navigationItem.titleView = searchBar
+            navigationItem.titleView?.frame = searchBar.frame
+            self.searchBar = searchBar
+        }
+    }
+
+    /// バツボタンを押した時の処理
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text == "" {
+            postImageInfo = allPostImageInfo
+            postImageID = allPostImageID
+            // tableViewをリロード
+            topCollectionView.reloadData()
+        }
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        searchTableView.isHidden = true
+        hideKeyboardButton.isHidden = true
+        self.searchTableView.reloadData()
+    }
+
+    // サーチバーの設定
+    /// 編集が開始されたら、キャンセルボタンを有効にする
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
+
+    /// キャンセルボタンが押されたらキャンセルボタンを無効にしてフォーカスを外す
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    /// 検索ボタンが押された時
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+        // キーワードを検索
+        if let keyWord = searchBar.text {
+            searchTag(keyWord: keyWord)
+            // インジケータを追加
+            activityIndicatorView.startAnimating()
+            activityIndicatorBackgroundView.alpha = 1
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                self.postImageInfo = self.resultSearch
+                self.postImageID = self.resultSearchID
+                self.topCollectionView.reloadData()
+                // インジケータを削除
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorBackgroundView.alpha = 0
+            })
+        }
+        // キーボードを閉じる
+        searchBar.endEditing(true)
+        hideKeyboardButton.isHidden = true
+
+    }
+
+    /// 検索欄がタップされたら
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchTableView.isHidden = false
+        hideKeyboardButton.isHidden = false
+    }
+
+    /// テキストが変更されるごとに呼ばれる
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchResults = tagsList.filter{
+            // 大文字と小文字を区別せずに検索
+            $0.lowercased().contains(searchBar.text!.lowercased())
+        }
+        self.searchTableView.reloadData()
+
+    }
+
+    // MARK: - collectionViewの関数
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return postImageInfo.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCollectionViewCell // 表示するセルを登録(先程命名した"Cell")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCollectionViewCell
         var isStar: Bool = false
-        // いいねボタン
+        // いいねされた画像を監視
         db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").addSnapshotListener( { (QuerySnapshot, err) in
             guard let documents = QuerySnapshot?.documents else {
                 print("err: \(err!.localizedDescription)")
@@ -378,6 +480,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
         })
 
+        // セルに情報を渡す
         cell.roomID = roomID
         cell.messageID = postImageID[indexPath.row]
         cell.cellInfo = postImageInfo[indexPath.row]
@@ -422,6 +525,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 cell.tag2Button.setTitle(dict["tag2"] as? String, for: .normal)
             }
 
+            // セルのボタンの設定
             cell.layer.cornerRadius = 20
             cell.postedView.layer.cornerRadius = 20
             cell.tag1Button.layer.cornerRadius = 10
@@ -431,23 +535,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
         
         return cell
-    }
-
-    // int型の日付をString型の日付に直す関数
-    func printDate(intDate: Int) -> String {
-        // int型のdateをString型に変換
-        let stringDate = String(intDate)
-        // yyyyMMdd型でフォーマット
-        formatter.dateFormat = "yyyyMMddHHmmss"
-        // date型の日付を生成
-        if let nowDate = formatter.date(from: stringDate) {
-
-        // フォーマットの変換
-            formatter.dateFormat = "yyyy年MM月dd日"
-            return formatter.string(from: nowDate)
-        } else {
-            return "??"
-        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -505,7 +592,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
-    // tableview
+    // MARK: - tableviewの関数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchBar.text != "" {
             return searchResults.count
@@ -522,22 +609,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         } else {
             cell.textLabel!.text = "\(tagsList[indexPath.row])"
         }
-//        cell.textLabel?.text = tagsList[indexPath.row]
         return cell
-    }
-
-    // いいね機能
-    func favImage(cell: TopCollectionViewCell, indexPath: IndexPath) {
-        // 星がついている時
-        if cell.type == .highlighted {
-            // 部屋までのルート
-            if let ref: DocumentReference = db.collection("chat-room").document(roomID) {
-                if let email = UserDefaults.standard.string(forKey: "email"), let userRef: DocumentReference = ref.collection("users").document(email) {
-                    // DBにいいねを押した画像の情報を追加
-                    userRef.collection("fav-image").document(postImageID[indexPath.row]).setData(postImageInfo[indexPath.row])
-                }
-            }
-        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -565,49 +637,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         hideKeyboardButton.isHidden = true
     }
 
-    // お気に入りした投稿の情報を取得する
-    func getFavImage() {
-        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
-            for document in QuerySnapshot!.documents {
-                self.favPostImageID.append(document.documentID)
-                self.favPostImageInfo.append(document.data())
-            }
-        })
-    }
-
-    // 保存機能
-    func save(image: UIImage) {
-
-        // カメラロールに保存する
-        // アラートコントローラー
-        let alertController = PMAlertController(title: "保存しますか？", description: nil, image: image, style: .alert)
-        // アラートアクション
-        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
-            // 「はい」を押した時だけ、画像を保存する
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.didFinishSavingImage(_: didFinishSavingWithError: contextInfo:)), nil)
-        }))
-        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
-        self.present(alertController, animated: true)
-    }
-
-    // 保存を試みた結果を受け取る
-    @objc func didFinishSavingImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
-
-        // 結果によって出すアラートを変更する
-        var title = "保存完了"
-        var message = "カメラロールに保存しました"
-
-        if error != nil {
-            title = "エラー"
-            message = "保存に失敗しました"
-        }
-
-        let alertController = PMAlertController(title: title, description: message, image: image, style: .alert)
-
-        alertController.addAction(PMAlertAction(title: "OK", style: .default))
-        self.present(alertController, animated: true)
-    }
-
+    // MARK: - 紐付けアクション
     // 設定ボタン
     @IBAction func tappedSettingButton(_ sender: Any) {
         // インジケータの処理
