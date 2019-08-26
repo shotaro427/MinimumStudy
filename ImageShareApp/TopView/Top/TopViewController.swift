@@ -32,6 +32,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // ラベルを乗せるview
     @IBOutlet weak var postView: UIView!
 
+    // キーボードを隠すボタン
+    @IBOutlet weak var hideKeyboardButton: UIButton!
+
     // 投稿された情報を保管する
     var postImageInfo: [[String: Any]] = []
     var postImageID: [String] = []
@@ -73,8 +76,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        self.topCollectionView.delaysContentTouches = false
+        // ボタンを隠す
+        hideKeyboardButton.isHidden = true
 
         // 検索窓の設定
         setupSearchBar()
@@ -150,6 +153,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         searchBar.endEditing(true)
 //        self.view.sendSubviewToBack(searchTableView)
         searchTableView.isHidden = true
+        hideKeyboardButton.isHidden = true
         self.searchTableView.reloadData()
     }
 
@@ -185,12 +189,15 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
         // キーボードを閉じる
         searchBar.endEditing(true)
+        hideKeyboardButton.isHidden = true
 
     }
 
     // 検索欄がタップされたら
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchTableView.isHidden = false
+//        self.view.bringSubviewToFront(searchTableView)
+        hideKeyboardButton.isHidden = false
     }
 
     // テキストが変更されるごとに呼ばれる
@@ -201,14 +208,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
         self.searchTableView.reloadData()
 
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.searchBar.endEditing(true)
-        searchBar.resignFirstResponder()
-//        self.view.sendSubviewToBack(searchTableView)
-        searchTableView.isHidden = true
-        self.searchTableView.reloadData()
     }
 
     // 受け取ったタグ名を検索する関数
@@ -235,6 +234,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
 //        self.view.sendSubviewToBack(searchTableView)
         searchTableView.isHidden = true
+        hideKeyboardButton.isHidden = true
 
         topCollectionView.reloadData()
         // 情報の初期化
@@ -562,6 +562,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // tableViewを隠す
 //        self.view.sendSubviewToBack(searchTableView)
         searchTableView.isHidden = true
+        hideKeyboardButton.isHidden = true
     }
 
     // お気に入りした投稿の情報を取得する
@@ -663,19 +664,28 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
         })
     }
-}
 
-
-extension UICollectionView {
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.next?.touchesBegan(touches, with: event)
-    }
-
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.next?.touchesMoved(touches, with: event)
-    }
-
-    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.next?.touchesEnded(touches, with: event)
+    // キーボードを隠す処理
+    @IBAction func tappedHideKeyboardButton(_ sender: Any) {
+            self.searchBar.endEditing(true)
+            searchBar.resignFirstResponder()
+            searchTableView.isHidden = true
+            self.searchTableView.reloadData()
+            hideKeyboardButton.isHidden = true
     }
 }
+
+//
+//extension UICollectionView {
+//    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.next?.touchesBegan(touches, with: event)
+//    }
+//
+//    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.next?.touchesMoved(touches, with: event)
+//    }
+//
+//    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.next?.touchesEnded(touches, with: event)
+//    }
+//}

@@ -116,4 +116,54 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         return cell
     }
 
+    // セルタップ時
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 遷移先の画面のインスタンスを生成
+        let storyboard = UIStoryboard(name: "TopDetails", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "DetailsView") as! DetailsViewController
+
+        // それぞれの値を取得
+        if favPostImageInfo.count != 0 {
+            let dict = favPostImageInfo[indexPath.row]
+
+            // 投稿画像を取得
+            // 画像情報
+            let imageInfo = dict["image"]
+            // NSData型に変換
+            let imageData = NSData(base64Encoded: imageInfo as! String, options: .ignoreUnknownCharacters)
+            // UIImage型に変換
+            if let decordedImage: UIImage = UIImage(data: imageData! as Data) {
+
+                // ユーザーIDを表示
+                let user = dict["userID"] as? String
+
+                // タイトルを表示
+                let title = dict["title"] as? String
+
+                // 投稿日を表示
+                let date = printDate(intDate: dict["date"] as! Int)
+
+                // タグを表示
+                let tag1 = dict["tag1"] as? String
+                let tag2 = dict["tag2"] as? String
+
+                // 値を渡す
+                vc.image = decordedImage
+                vc.strTitle = title
+                vc.user = user!
+                vc.date = date
+                vc.tag1 = tag1
+                vc.tag2 = tag2
+
+            } else {
+                vc.image = #imageLiteral(resourceName: "イメージ画像のアイコン素材 その3")
+            }
+        }
+        vc.roomID = roomID
+        vc.postID = favPostImageID[indexPath.row]
+
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+
 }
