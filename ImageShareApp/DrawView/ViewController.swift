@@ -41,6 +41,12 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
 
+    // 現在操作しているtextView
+    var currentTextView: UITextView = UITextView()
+
+    // キーボードを閉じるためのボタン
+    @IBOutlet weak var closeKeyBoardButton: UIButton!
+
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -48,6 +54,9 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        // ボタンを隠す
+        closeKeyBoardButton.isHidden = true
 
         // 画像の読み込み
         self.imageView.image = image
@@ -385,9 +394,11 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
         textView.backgroundColor = UIColor.clear
         textView.center = drawingView.center
-        textView.text = "テストテストテスト"
+        textView.text = "テストテスト"
         textView.delegate = self
         textView.textColor = PenOrTextColor
+        textView.isScrollEnabled = false
+        textView.sizeToFit()
         // Pangestureを生成
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panView(sender:)))
         textView.addGestureRecognizer(panGesture)
@@ -396,16 +407,32 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         drawingView.addSubview(textView)
     }
 
-    // hides text views
-    // returnキーを押した時
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    // textViewの値が変わるたびに呼ばれる
+    func textViewDidChange(_ textView: UITextView) {
+        let height = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude)).height
+//        textView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        let width = textView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: textView.frame.size.height)).width
 
-        if (text == "\n") {
-            //あなたのテキストフィールド
-            textView.resignFirstResponder()
-            return false
+        if width <= 300 {
+            textView.frame.size = CGSize(width: width, height: height)
+        } else {
+            textView.frame.size = CGSize(width: 300, height: height)
         }
-        return true
+
+    }
+
+    // textViewを編集しようとするたびに呼ばれる
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        // 操作しているtextViewを渡す
+        currentTextView = textView
+        // ボタンを表示させる
+        closeKeyBoardButton.isHidden = false
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 現在操作しているtextViewのキーボードを閉じる
+        currentTextView.resignFirstResponder()
+        currentTextView.endEditing(true)
     }
 
     //Pan実行時のメソッド
@@ -417,6 +444,14 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         sender.view!.center.y += move.y
         //移動量を0に
         sender.setTranslation(CGPoint.zero, in: self.view)
+    }
+
+    @IBAction func tappedCloseKeyboardButton(_ sender: Any) {
+        // 現在操作しているtextViewのキーボードを閉じる
+        currentTextView.endEditing(true)
+        currentTextView.resignFirstResponder()
+        // ボタンを隠す
+        closeKeyBoardButton.isHidden = true
     }
 }
 
