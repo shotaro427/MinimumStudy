@@ -78,11 +78,28 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
 
     }
 
+    // 画面が消えた時
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
+        // インジケータを消す
         activityIndicatorView.stopAnimating()
         activityIndicatorBackgroundView.alpha = 1
+    }
+
+    // タッチの処理
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // キーボードが開いていたら
+        if (createTextField.isFirstResponder) {
+            // 閉じる
+            createTextField.resignFirstResponder()
+        }
+        // キーボードが開いていたら
+        if (requestTextField.isFirstResponder) {
+            // 閉じる
+            requestTextField.resignFirstResponder()
+        }
+        
     }
 
     // MARK: - 自作関数
@@ -237,9 +254,6 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         createRoom(function: {
             self.toTop()
         })
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-//            self.toTop()
-//        })
     }
 
     // 申請ボタン
