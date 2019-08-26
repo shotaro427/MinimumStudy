@@ -19,6 +19,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // 検索窓
     var searchBar: UISearchBar = UISearchBar()
+    var searchController = UISearchController()
+    var searchResults:[String] = []
     @IBOutlet weak var searchTableView: UITableView!
 
     // 検索結果を入れる配列
@@ -146,7 +148,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
         searchBar.text = ""
         searchBar.endEditing(true)
-        self.view.sendSubviewToBack(searchTableView)
+//        self.view.sendSubviewToBack(searchTableView)
+        searchTableView.isHidden = true
+        self.searchTableView.reloadData()
     }
 
     // サーチバーの設定
@@ -174,7 +178,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 self.postImageInfo = self.resultSearch
                 self.postImageID = self.resultSearchID
                 self.topCollectionView.reloadData()
-                print(self.postImageInfo)
                 // インジケータを削除
                 self.activityIndicatorView.stopAnimating()
                 self.activityIndicatorBackgroundView.alpha = 0
@@ -185,17 +188,28 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     }
 
+    // 検索欄がタップされたら
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.view.bringSubviewToFront(searchTableView)
+        searchTableView.isHidden = false
+    }
+
+    // テキストが変更されるごとに呼ばれる
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchResults = tagsList.filter{
+            // 大文字と小文字を区別せずに検索
+            $0.lowercased().contains(searchBar.text!.lowercased())
+        }
+        self.searchTableView.reloadData()
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchBar.endEditing(true)
         searchBar.resignFirstResponder()
-        self.view.sendSubviewToBack(searchTableView)
+//        self.view.sendSubviewToBack(searchTableView)
+        searchTableView.isHidden = true
+        self.searchTableView.reloadData()
     }
-
-
 
     // 受け取ったタグ名を検索する関数
     func searchTag(keyWord: String) {
@@ -219,7 +233,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.view.sendSubviewToBack(searchTableView)
+//        self.view.sendSubviewToBack(searchTableView)
+        searchTableView.isHidden = true
 
         topCollectionView.reloadData()
         // 情報の初期化
@@ -492,14 +507,22 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     // tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("tableView: \(tagsList)")
-        return tagsList.count
+        if searchBar.text != "" {
+            return searchResults.count
+        } else {
+            return tagsList.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tagsCell", for: indexPath)
 
-        cell.textLabel?.text = tagsList[indexPath.row]
+        if searchBar.text != "" {
+            cell.textLabel!.text = "\(searchResults[indexPath.row])"
+        } else {
+            cell.textLabel!.text = "\(tagsList[indexPath.row])"
+        }
+//        cell.textLabel?.text = tagsList[indexPath.row]
         return cell
     }
 
@@ -515,6 +538,30 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 }
             }
         }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // searchBarにタグ名を追加
+        searchBar.text = tagsList[indexPath.row]
+        // 検索開始
+        searchTag(keyWord: tagsList[indexPath.row])
+        // インジケータを追加
+        activityIndicatorView.startAnimating()
+        activityIndicatorBackgroundView.alpha = 1
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.postImageInfo = self.resultSearch
+            self.postImageID = self.resultSearchID
+            self.topCollectionView.reloadData()
+            // インジケータを削除
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorBackgroundView.alpha = 0
+        })
+        // キーボードを閉じる
+        searchBar.endEditing(true)
+        // tableViewを隠す
+//        self.view.sendSubviewToBack(searchTableView)
+        searchTableView.isHidden = true
     }
 
     // お気に入りした投稿の情報を取得する
