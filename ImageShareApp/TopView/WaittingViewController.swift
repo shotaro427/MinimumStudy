@@ -20,6 +20,8 @@ class WaittingViewController: UIViewController {
     // 投稿された情報を保管する
     var postImageInfo: [[String: Any]] = []
     var postImageID: [String] = []
+    // タグの情報を保管する
+    var tagsList: [String] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -82,6 +84,7 @@ class WaittingViewController: UIViewController {
 
         // DB検索
         getPostInfo()
+        getTagInfo()
         // 次の表示画面
         let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "TopView") as! TopViewController
         // 遷移処理
@@ -91,6 +94,7 @@ class WaittingViewController: UIViewController {
             vc.postImageID = self.postImageID
             vc.allPostImageInfo = self.postImageInfo
             vc.allPostImageID = self.postImageID
+            vc.tagsList = self.tagsList
             self.navigationController?.pushViewController(vc, animated: true)
 
         })
@@ -111,6 +115,19 @@ class WaittingViewController: UIViewController {
                 }
             }
         }
+    }
 
+    func getTagInfo() {
+        // tagのリストの初期化
+        tagsList = []
+
+        // tagsコレクションのリスナーを追加
+        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
+            guard let documents = QueryDocumentSnapshot?.documents else { return }
+            for document in documents {
+                self.tagsList.append(document.data()["tag-name"] as! String)
+            }
+            print(self.tagsList)
+        })
     }
 }

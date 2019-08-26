@@ -11,7 +11,7 @@ import FirebaseFirestore
 import NVActivityIndicatorView
 import PMAlertController
 
-class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
     // コレクションセル
     @IBOutlet weak var postedImageView: UIImageView!
@@ -71,6 +71,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         self.topCollectionView.delaysContentTouches = false
 
         // 検索窓の設定
@@ -95,6 +96,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         topCollectionView.delegate = self
         topCollectionView.dataSource = self
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
 
         // レイアウトを調整
         let layout = UICollectionViewFlowLayout()
@@ -184,7 +187,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.view.bringSubviewToFront(searchTableView)
-        print(tagsList)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -217,17 +219,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // tagのリストの初期化
-        tagsList = []
-
-        // tagsコレクションのリスナーを追加
-        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
-            guard let documents = QueryDocumentSnapshot?.documents else { return }
-            for document in documents {
-                self.tagsList.append(document.data()["tag-name"] as! String)
-            }
-        })
-
         self.view.sendSubviewToBack(searchTableView)
 
         topCollectionView.reloadData()
@@ -248,6 +239,17 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+
+        // tagのリストの初期化
+        tagsList = []
+
+        // tagsコレクションのリスナーを追加
+        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
+            guard let documents = QueryDocumentSnapshot?.documents else { return }
+            for document in documents {
+                self.tagsList.append(document.data()["tag-name"] as! String)
+            }
+        })
 
         // 遷移後の初期化
         roomMenbers = []
@@ -486,6 +488,19 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         vc.postID = postImageID[indexPath.row]
 
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    // tableview
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("tableView: \(tagsList)")
+        return tagsList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tagsCell", for: indexPath)
+
+        cell.textLabel?.text = tagsList[indexPath.row]
+        return cell
     }
 
     // いいね機能
