@@ -90,7 +90,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         // 変更ボタンの外見
         changeButton.layer.cornerRadius = 10
-        changeButton.layer.borderColor = UIColor.blue.cgColor
+        changeButton.layer.borderColor = #colorLiteral(red: 0.3139560819, green: 0.6199932098, blue: 1, alpha: 1)
         changeButton.layer.borderWidth = 2
 
         // textFieldを見えなくする
@@ -325,15 +325,21 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func tappedChangeButton(_ sender: UIButton) {
         if buttonType == .change {
             // 外見
+            changeButton.setTitle("決定", for: .normal)
+            changeButton.layer.borderColor = UIColor.white.cgColor
+            changeButton.backgroundColor = #colorLiteral(red: 0.3139560819, green: 0.6199932098, blue: 1, alpha: 1)
+            changeButton.setTitleColor(.white, for: .normal)
             changeImageButton.isHidden = false
             renameButton.isHidden = false
-            changeButton.setTitle("決定", for: .normal)
             buttonType = .ok
         } else {
             // 外見
+            changeButton.setTitle("変更", for: .normal)
+            changeButton.layer.borderColor = #colorLiteral(red: 0.3139560819, green: 0.6199932098, blue: 1, alpha: 1)
+            changeButton.backgroundColor = UIColor.white
+            changeButton.setTitleColor(#colorLiteral(red: 0.3139560819, green: 0.6199932098, blue: 1, alpha: 1), for: .normal)
             changeImageButton.isHidden = true
             renameButton.isHidden = true
-            changeButton.setTitle("変更", for: .normal)
             buttonType = .change
 
             // 処理
