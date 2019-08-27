@@ -58,18 +58,16 @@ class WaittingViewController: UIViewController {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
 
         //アニメーションのViewを生成
-        let animeView = BAFluidView(frame: self.view.frame)
-        // 並みの速さを設定
-        animeView.fillDuration = 10
+        let animeView = BAFluidView(frame: self.view.frame, startElevation: 0.4)
         //波の高さを設定(0~1.0)
-        animeView.fill(to: 1.0)
+        animeView?.fill(to: 0.4)
         //波の境界線の色
-        animeView.strokeColor = .white
+        animeView?.strokeColor = .white
         //波の色
-        animeView.fillColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        animeView?.fillColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         //アニメーション開始（コメントアウトしてもアニメーションされる）
-        animeView.startAnimation()
-        self.view.addSubview(animeView)
+        animeView?.startAnimation()
+        self.view.addSubview(animeView!)
         self.view.bringSubviewToFront(titleLabel)
 
 
@@ -82,22 +80,36 @@ class WaittingViewController: UIViewController {
         let string = NSAttributedString(string: "ロード中...", attributes: stringAttributes)
         titleLabel.attributedText = string
 
-        // DB検索
-        getPostInfo()
-        getTagInfo()
+        // dispatch
+        let dispatchGroup = DispatchGroup()
+        let queue = DispatchQueue(label: "com.hogehoge.fuga", qos: .userInteractive)
+        let anotherQueue = DispatchQueue(label: "com.hogehoge.foo", qos: .userInteractive)
+
+        queue.async(group: dispatchGroup) {
+            // 処理
+            self.getPostInfo()
+            print("getPostInfo() is finished")
+        }
+        anotherQueue.async(group: dispatchGroup) {
+            // 処理
+            self.getTagInfo()
+            print("getTagsInfo() is finished")
+        }
+
         // 次の表示画面
         let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "TopView") as! TopViewController
-        // 遷移処理
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+
+        dispatchGroup.notify(queue: .main) {
+            // タスク完了後の処理(mainキューで実行)
             vc.roomID = self.roomID
             vc.postImageInfo = self.postImageInfo
             vc.postImageID = self.postImageID
             vc.allPostImageInfo = self.postImageInfo
             vc.allPostImageID = self.postImageID
             vc.tagsList = self.tagsList
+            print("start segue")
             self.navigationController?.pushViewController(vc, animated: true)
-
-        })
+        }
     }
 
     // 投稿情報を取得する関数
@@ -118,8 +130,6 @@ class WaittingViewController: UIViewController {
     }
 
     func getTagInfo() {
-        // tagのリストの初期化
-        tagsList = []
 
         // tagsコレクションのリスナーを追加
         db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
@@ -127,7 +137,6 @@ class WaittingViewController: UIViewController {
             for document in documents {
                 self.tagsList.append(document.data()["tag-name"] as! String)
             }
-            print(self.tagsList)
         })
     }
 }

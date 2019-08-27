@@ -123,7 +123,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        //        self.view.sendSubviewToBack(searchTableView)
         searchTableView.isHidden = true
         hideKeyboardButton.isHidden = true
 
@@ -135,12 +134,19 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         favPostImageID = []
         resultSearchID = []
         resultSearch = []
+        allPostImageInfo = []
+        allPostImageID = []
         // 情報の取得
         getPostInfo(completion: {
             // リロード
             topCollectionView.reloadData()
         })
-
+        tagsList = []
+        getTagInfo(completion: {
+            print("viewWillAppear: \(self.tagsList)")
+            // リロード
+            self.searchTableView.reloadData()
+        })
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -212,10 +218,23 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 for document in QuerySnapshot!.documents {
                     self.postImageInfo.append(document.data())
                     self.postImageID.append(document.documentID)
+                    self.allPostImageID.append(document.documentID)
+                    self.allPostImageInfo.append(document.data())
                 }
                 self.topCollectionView.reloadData()
             }
         }
+    }
+
+    func getTagInfo(completion: @escaping () -> ()) {
+        // tagsコレクションのリスナーを追加
+        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
+            guard let documents = QueryDocumentSnapshot?.documents else { return }
+            for document in documents {
+                self.tagsList.append(document.data()["tag-name"] as! String)
+            }
+            completion()
+        })
     }
 
     /**
@@ -223,9 +242,13 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
      * - Parameters:
      *   - keyWord: 検索したいキーワード
      */
-    func searchTag(keyWord: String) {
+    func searchTag(keyWord: String, completion: @escaping () -> ()) {
+        //情報の初期化
+        resultSearch = []
+        resultSearchID = []
+
         // メッセージを取得
-        db.collection("chat-room").document(roomID).collection("message").getDocuments(completion: { (QuerySnapshot, err) in
+        db.collection("chat-room").document(roomID).collection("message").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
             guard let documents = QuerySnapshot?.documents else {
                 print("error: \(err!.localizedDescription)")
                 return
@@ -238,6 +261,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                     self.resultSearchID.append(document.documentID)
                 }
             }
+            completion()
         })
     }
 
@@ -389,6 +413,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text == "" {
             postImageInfo = allPostImageInfo
+            print("総投稿数:\(postImageInfo.count)")
             postImageID = allPostImageID
             // tableViewをリロード
             topCollectionView.reloadData()
@@ -414,14 +439,13 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     /// 検索ボタンが押された時
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
+        // インジケータを追加
+        activityIndicatorView.startAnimating()
+        activityIndicatorBackgroundView.alpha = 1
+
         // キーワードを検索
         if let keyWord = searchBar.text {
-            searchTag(keyWord: keyWord)
-            // インジケータを追加
-            activityIndicatorView.startAnimating()
-            activityIndicatorBackgroundView.alpha = 1
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            searchTag(keyWord: keyWord, completion: {
                 self.postImageInfo = self.resultSearch
                 self.postImageID = self.resultSearchID
                 self.topCollectionView.reloadData()
@@ -613,15 +637,16 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // searchBarにタグ名を追加
-        searchBar.text = tagsList[indexPath.row]
-        // 検索開始
-        searchTag(keyWord: tagsList[indexPath.row])
         // インジケータを追加
         activityIndicatorView.startAnimating()
         activityIndicatorBackgroundView.alpha = 1
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+        print("indexPath.row of tapped cell is ->  \(indexPath.row) content is -> \(tagsList[indexPath.row])")
+        // searchBarにタグ名を追加
+        searchBar.text = tagsList[indexPath.row]
+        print("didSelectRowAt: \(tagsList)")
+        // 検索開始
+        searchTag(keyWord: tagsList[indexPath.row], completion: {
             self.postImageInfo = self.resultSearch
             self.postImageID = self.resultSearchID
             self.topCollectionView.reloadData()
@@ -629,11 +654,12 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             self.activityIndicatorView.stopAnimating()
             self.activityIndicatorBackgroundView.alpha = 0
         })
+
         // キーボードを閉じる
         searchBar.endEditing(true)
         // tableViewを隠す
-//        self.view.sendSubviewToBack(searchTableView)
         searchTableView.isHidden = true
+        // キーボードを隠すボタンを隠す
         hideKeyboardButton.isHidden = true
     }
 

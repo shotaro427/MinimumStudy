@@ -134,9 +134,16 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             numberOfPost.text = "総投稿数: \(postCount)"
         }
         // よく使われるタグの表示
-        tagButton1.setTitle(tagsInfo[0], for: .normal)
-        tagButton2.setTitle(tagsInfo[1], for: .normal)
-        tagButton3.setTitle(tagsInfo[2], for: .normal)
+        if tagsInfo.count == 3 {
+            tagButton1.setTitle(tagsInfo[0], for: .normal)
+            tagButton2.setTitle(tagsInfo[1], for: .normal)
+            tagButton3.setTitle(tagsInfo[2], for: .normal)
+        } else if tagsInfo.count == 2 {
+            tagButton1.setTitle(tagsInfo[0], for: .normal)
+            tagButton2.setTitle(tagsInfo[1], for: .normal)
+        } else if tagsInfo.count == 1 {
+            tagButton1.setTitle(tagsInfo[0], for: .normal)
+        }
     }
 
     // セクション数
@@ -325,16 +332,5 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cameraAction(sourceType: .photoLibrary)
     }
 
-//    // タグボタンを押した時の処理
-//    @IBAction func tappedTagButton(_ sender: UIButton) {
-//        // 遷移先のviewControllerを作成
-//        let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "TopView") as! TopViewController
-//
-//        // searchBarにタグ名を追加
-//        vc.searchBar.text = sender.currentTitle
-//
-//        // 遷移
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
 
 }

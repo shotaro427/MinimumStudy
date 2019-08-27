@@ -12,6 +12,7 @@ import FirebaseFirestore
 import PMAlertController
 import NVActivityIndicatorView
 import BetterSegmentedControl
+import Dispatch
 
 class LoginViewController: UIViewController {
 
@@ -92,7 +93,32 @@ class LoginViewController: UIViewController {
     /**
     ユーザーが所属している部屋を探す関数
     */
-    func searchRoom() {
+//    func searchRoom() {
+//        // ユーザーid(email)を取得
+//        guard let userID = UserDefaults.standard.string(forKey: "email") else { return }
+//        db.collection("chat-room").getDocuments() { (QuerySnapshot, err) in
+//            if let err = err { // エラー時
+//                print("SelectRoomTableViewController-29: \(err.localizedDescription)")
+//            } else { // 成功時
+//                // ドキュメントを取得
+//                for document in QuerySnapshot!.documents {
+//                    // ドキュメント内のuserIDと,このユーザーのuserIDと一致するかを見る
+//                    db.collection("chat-room").document(document.documentID).collection("users").document(userID).getDocument(completion: { (QuerySnapshot2, err2) in
+//                        print("second getDocument() Start")
+//                        if let err2 = err2 { // エラー時
+//                            print("login error : \(err2.localizedDescription)")
+//                        }
+//                        // userIDを持つユーザーが存在していた時
+//                        if QuerySnapshot2!.exists {
+//                            self.roomInfo.append(document.data())
+//                            self.roomIDs.append(document.documentID)
+//                        }
+//                    })
+//                }
+//            }
+//        }
+//    }
+    func searchRoom(function: @escaping () -> ()) {
         // ユーザーid(email)を取得
         guard let userID = UserDefaults.standard.string(forKey: "email") else { return }
         db.collection("chat-room").getDocuments() { (QuerySnapshot, err) in
@@ -103,6 +129,7 @@ class LoginViewController: UIViewController {
                 for document in QuerySnapshot!.documents {
                     // ドキュメント内のuserIDと,このユーザーのuserIDと一致するかを見る
                     db.collection("chat-room").document(document.documentID).collection("users").document(userID).getDocument(completion: { (QuerySnapshot2, err2) in
+                        print("second getDocument() Start")
                         if let err2 = err2 { // エラー時
                             print("login error : \(err2.localizedDescription)")
                         }
@@ -110,6 +137,12 @@ class LoginViewController: UIViewController {
                         if QuerySnapshot2!.exists {
                             self.roomInfo.append(document.data())
                             self.roomIDs.append(document.documentID)
+                        }
+                        // 最後のdocumentを持ってきた時
+                        if let firstDocumentID = QuerySnapshot?.documents.first?.documentID {
+                            if document.documentID == firstDocumentID {
+                                function()
+                            }
                         }
                     })
                 }
@@ -169,6 +202,11 @@ class LoginViewController: UIViewController {
 
     /// ログインボタン
     @IBAction func tappedLoginButton(_ sender: Any) {
+
+        // インジケータの描画
+        self.activityIndicatorView.startAnimating()
+        self.activityIndicatorBackgroundView.alpha = 1
+
         // textFieldの中身を確認
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             print("textFieldが入力されていません")
@@ -177,7 +215,7 @@ class LoginViewController: UIViewController {
 
         // ログインの処理
         Auth.auth().signIn(withEmail: email, password: password, completion: { (user, err) in
-
+            print("Auth end")
             if let err = err {
                 // エラーが発生した時
                 self.showErrorAlert(error: err)
@@ -186,16 +224,20 @@ class LoginViewController: UIViewController {
                 UserDefaults.standard.set(email, forKey: "email")
                 UserDefaults.standard.set(password, forKey: "password")
                 // 成功した時
-                self.searchRoom()
-                // インジケータの描画
-                self.activityIndicatorView.startAnimating()
-                self.activityIndicatorBackgroundView.alpha = 1
                 // ユーザーの所属部屋を検索
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.searchRoom(function: {
+                    print("遷移　開始")
                     self.toRoomView()
                     self.activityIndicatorView.stopAnimating()
                     self.activityIndicatorBackgroundView.removeFromSuperview()
-                }
+                })
+
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//                    print("遷移　開始")
+//                    self.toRoomView()
+//                    self.activityIndicatorView.stopAnimating()
+//                    self.activityIndicatorBackgroundView.removeFromSuperview()
+//                })
             }
         })
     }
