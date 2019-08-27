@@ -117,6 +117,7 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         return zoomRect
     }
 
+    // MARK: - 自作関数
     /**
      * 保存機能
      * - Parameters:
@@ -153,23 +154,43 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     }
 
     /// 該当の投稿をmessageコレクションから削除する機能
-    func deletePostFromMessage() {
+    func deletePostFromMessage(completion: @escaping () -> ()) {
         // messageコレクションから削除
         db.collection("chat-room").document(roomID).collection("message").document(postID).delete() { err in
             if let err = err {
                 print("投稿の削除に失敗しました: \(err.localizedDescription)")
             }
+            completion()
         }
     }
 
     /// 該当の投稿をfav-imageコレクションから削除する機能
-    func deletePostFormFavImage() {
+    func deletePostFormFavImage(completion: @escaping () -> ()) {
         // fav-imageコレクションから削除
         db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").document(postID).delete() { err in
             if let err = err {
                 print("お気に入りリストからの削除に失敗しました: \(err.localizedDescription)")
             }
+            completion()
         }
+    }
+
+    // 総投稿数を1つ減らす処理
+    func changeAllPostsCount(completion: @escaping () -> ()) {
+        db.collection("chat-room").document(roomID).getDocument(completion: { (QuerySnapshot, err) in
+            if let err = err {
+                print("@DetailsViewController -> \(err.localizedDescription)")
+            } else {
+                if let postCount = QuerySnapshot?.data()!["post-count"] as? Int {
+                    db.collection("chat-room").document(self.roomID).updateData(["post-count": postCount - 1], completion: { err2 in
+                        if let err2 = err2 {
+                            print("@DetailsViewController -> \(err2.localizedDescription)")
+                        }
+                        completion()
+                    })
+                }
+            }
+        })
     }
 
     /// アラートを表示する関数
@@ -222,18 +243,30 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
                 dispatchGroup.enter()
                 dispatchQueue.async(group: dispatchGroup, execute: {
                     print("deletePostFromMessage started")
-                    self.deletePostFromMessage()
-                    print("deletePostFromMessage finished")
-                    dispatchGroup.leave()
+                    self.deletePostFromMessage(completion: {
+                        print("deletePostFromMessage finished")
+                        dispatchGroup.leave()
+                    })
                 })
 
                 // キューにタスクを追加
                 dispatchGroup.enter()
                 dispatchQueue.async(group: dispatchGroup, execute: {
                     print("deletePostFormFavImage started")
-                    self.deletePostFormFavImage()
-                    print("deletePostFormFavImage finished")
-                    dispatchGroup.leave()
+                    self.deletePostFormFavImage(completion: {
+                        print("deletePostFormFavImage finished")
+                        dispatchGroup.leave()
+                    })
+                })
+
+                // キューにタスクを追加
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup, execute: {
+                    print("changeAllPostsCount started")
+                    self.changeAllPostsCount(completion: {
+                        print("changeAllPostsCount finished")
+                        dispatchGroup.leave()
+                    })
                 })
 
                 // すべての処理が終わった時の処理
@@ -251,11 +284,6 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
             alertController.addAction(noAction)
             present(alertController, animated: true)
 
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-//                self.showAlert()
-//                self.activityIndicatorBackgroundView.alpha = 0
-//                self.activityIndicatorView.stopAnimating()
-//            })
         } else {
             // アラートの表示
             let alertController = PMAlertController(title: "削除ができませんでした。", description: "制作者以外の方は削除することができません。", image: #imageLiteral(resourceName: "NG"), style: .alert)

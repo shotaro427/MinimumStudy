@@ -235,7 +235,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
 
     /// 部屋のメンバーと申請待ちの人のIDを取ってくる関数
-    func getUserInfo() { // ドキュメントが存在していたら
+    func getMenberInfo(completion: @escaping () -> ()) { // ドキュメントが存在していたら
         if exsistDocument {
             // 所属メンバー一覧を取得
             db.collection("chat-room").document("\(roomID)").collection("users").getDocuments(completion: { (QuerySnapshot, err) in
@@ -246,7 +246,13 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                         self.roomMenbers.append(document.documentID)
                     }
                 }
+                completion()
             })
+        }
+    }
+
+    func getWaitingMenberInfo(completion: @escaping () -> ()) {
+        if exsistDocument {
             // 申請待ちの一覧を取得
             db.collection("chat-room").document("\(roomID)").collection("waiting-users")
             db.collection("chat-room").document("\(roomID)").collection("waiting-users").getDocuments(completion: { (QuerySnapshot, err) in
@@ -257,12 +263,13 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                         self.waitingMenber.append(document.documentID)
                     }
                 }
+                completion()
             })
         }
     }
 
     /// グループの情報を取得する関数
-    func getRoomInfo() {
+    func getRoomInfo(completion: @escaping () -> ()) {
         // 部屋の情報を格納する
         db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
             if let document = document, document.exists {
@@ -274,6 +281,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             } else {
                 print("ドキュメントが存在していません")
             }
+            completion()
         })
     }
 
@@ -700,18 +708,34 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // キューの設定
         let queue = DispatchQueue(label: "queue1", attributes: .concurrent)
 
-        // 所属しているユーザーのIDを取得
+        // 所属しているユーザーの情報を取得
+        queueGroup.enter()
         queue.async(group: queueGroup, execute: {
-            print("getUserInfo() started")
-            self.getUserInfo()
-            print("getUserInfo() finished")
+            print("getMenberInfo() started")
+            self.getMenberInfo(completion: {
+                print("getUserInfo() finished")
+                queueGroup.leave()
+            })
+        })
+
+        // 申請しているユーザーの情報を取得
+        queueGroup.enter()
+        queue.async(group: queueGroup, execute: {
+            print("getWaitingMenberInfo() started")
+            self.getWaitingMenberInfo(completion: {
+                print("getWaitingMenberInfo() finished")
+                queueGroup.leave()
+            })
         })
 
         // 所属しているグループの情報を取得
+        queueGroup.enter()
         queue.async(group: queueGroup, execute: {
             print("getRoomInfo() started")
-            self.getRoomInfo()
-            print("getRoomInfo() finished")
+            self.getRoomInfo(completion: {
+                print("getRoomInfo() finished")
+                queueGroup.leave()
+            })
         })
 
         // すべての処理が終わった時に実行
@@ -723,6 +747,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             vc.roomInfo = self.roomInfo
             vc.waitingMenber = self.waitingMenber
             vc.tagsInfo = self.tagsList.slice(start: 0, end: 2)
+            print("** check roomInfo[post-count] = \(self.roomInfo["post-count"])")
             // 遷移
             self.navigationController?.pushViewController(vc, animated: true)
             // インジケータを止める

@@ -9,6 +9,7 @@
 import UIKit
 
 class FavoriteViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    
     // MARK: - 変数、定数
     // MARK: - outlet
     // いいねした投稿を表示させるコレクションビュー

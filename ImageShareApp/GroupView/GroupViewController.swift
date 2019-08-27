@@ -18,6 +18,8 @@ enum buttonTwoType {
 
 class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
 
+    // MARK: 変数、定数
+    // MARK: - 紐付けした変数
     // グループ画像
     @IBOutlet weak var groupImage: UIImageView!
     // グループメンバー数
@@ -39,19 +41,18 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var renameButton: UITextField!
     // 画像を変えるボタン
     @IBOutlet weak var changeImageButton: UIButton!
-    // タグのボタン * 3
+    // タグのボタン X 3
     @IBOutlet weak var tagButton1: UIButton!
     @IBOutlet weak var tagButton2: UIButton!
     @IBOutlet weak var tagButton3: UIButton!
+
+    // MARK: - 自作の変数、定数
     
     // 変更後の画像を一時的に格納する
     var changedImage: UIImage!
 
     // changebuttonの状態を決める
     var  buttonType: buttonTwoType = .change
-
-    // DB
-    let db = Firestore.firestore()
 
     // 部屋のID
     var roomID: String = ""
@@ -73,7 +74,9 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // 上の２つの配列を組み合わせた2次元配列
     var Menbers: [[String]] = []
-    
+
+    // MARK: - 関数
+    // MARK: - override系
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -146,7 +149,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 
-    // セクション数
+    // MARK: - tableview
 
     // セル数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -173,23 +176,28 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // タップ時のアクション
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // メンバーをタップした時の処理
-        if indexPath.section == 0 {
-
-        } else { // 申請待ちの人をタップした時
+        // 申請待ちの人をタップした時
+        if indexPath.section == 1 {
             // アラートの表示
             let alertController = PMAlertController(title: "申請待ち", description: "\(Menbers[indexPath.section][indexPath.row])さんが申請しています。\n 申請を許可しますか？", image: #imageLiteral(resourceName: "正座"), style: .alert)
             let OKAction = PMAlertAction(title: "はい", style: .default, action: {
                 self.allowMenbers(waitingUserID: self.Menbers[indexPath.section][indexPath.row])
             })
             let NOAction = PMAlertAction(title: "いいえ", style: .cancel)
+            // アクションの追加
             alertController.addAction(OKAction)
             alertController.addAction(NOAction)
+            // アラートを表示
             present(alertController, animated: true)
         }
     }
 
-    // 申請の許可する関数
+    // MARK: - 自作の関数
+    /**
+     * 申請の許可する関数
+     * - Parameters:
+     *   - waitingUserID: 申請しているユーザーのID
+     */
     func allowMenbers(waitingUserID: String) {
         if exsistDocument {
             // waiting-usersからusersコレクションに移動
@@ -201,7 +209,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     print("Document successfully removed!")
                 }
             }
-
             // waiting-usersから該当ユーザーのIDを削除
             db.collection("chat-room").document(roomID).collection("waiting-users").document(waitingUserID).delete() { err in
                 if let err = err {
@@ -223,7 +230,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 
-    // textFieldの変更をDBとプロフィールに反映させる
+    /// textFieldの変更をDBとプロフィールに反映させる
     func changeGroupName() {
         if let rename = renameButton.text, renameButton.text != "" {
             // ラベルに反映
@@ -233,8 +240,26 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 
+    /**
+     * DBに変更後の画像を登録する
+     * - Parameters:
+     *   - changedImage: 変更後のグループ画像
+     *   - picker: DBへの登録が終わった後に消すImagePicker
+     */
+    func setImage(changedImage: UIImage, picker: UIImagePickerController) {
+        // NSData型に変換
+        let changedImageData = changedImage.jpegData(compressionQuality: 0.1)! as NSData
+        // string型に変換
+        let changedImageString = changedImageData.base64EncodedString(options: .lineLength64Characters)
+        // DBに登録
+        db.collection("chat-room").document(roomID).updateData(["room-image": changedImageString], completion: { eer in
+            picker.dismiss(animated: true, completion: nil)
+        })
+    }
+
+    // MARK: - imagePicker系
     // imageViewに重なっているボタンを押した時にライブラリを開く
-    // カメラ・フォトライブラリへの遷移処理
+    /// カメラ・フォトライブラリへの遷移処理
     func cameraAction(sourceType: UIImagePickerController.SourceType) {
         // カメラ・フォトライブラリが使用可能かチェック
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
@@ -252,7 +277,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 
-    // 写真が選択された時に呼ばれる
+    /// 写真が選択された時に呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.changedImage = editedImage
@@ -265,18 +290,16 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         setImage(changedImage: changedImage, picker: picker)
     }
 
-    // DBに変更後の画像を登録する
-    func setImage(changedImage: UIImage, picker: UIImagePickerController) {
-        // NSData型に変換
-        let changedImageData = changedImage.jpegData(compressionQuality: 0.1)! as NSData
-        // string型に変換
-        let changedImageString = changedImageData.base64EncodedString(options: .lineLength64Characters)
-        // DBに登録
-        db.collection("chat-room").document(roomID).updateData(["room-image": changedImageString], completion: { eer in
-            picker.dismiss(animated: true, completion: nil)
-        })
+    // MARK: - textView系
+    // hides text views
+    /// returnキーを押した時
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
     }
 
+    // MARK: - 紐付けした関数
     // ログアウトボタン
     @IBAction func logoutButton(_ sender: Any) {
         // ログアウト処理
@@ -292,14 +315,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-    }
-
-    // hides text views
-    // returnキーを押した時
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // キーボードを閉じる
-        textField.resignFirstResponder()
-        return true
     }
 
     // メンバー追加ボタン
@@ -331,6 +346,4 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // pickerに遷移する
         cameraAction(sourceType: .photoLibrary)
     }
-
-
 }

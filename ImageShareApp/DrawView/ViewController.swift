@@ -16,40 +16,51 @@ import AMColorPicker
 
 class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AMColorPickerDelegate, UIGestureRecognizerDelegate, UITextViewDelegate {
 
-    // textfield
-    var titleTextField: UITextField!
-    var tag1TextField: UITextField!
-    var tag2TextField: UITextField!
-    // DB
-    let db = Firestore.firestore()
-    // roomID
-    var roomID: String = ""
-    // 背景画像
-    var image: UIImage!
+    // MARK: - 変数、定数
+
+    // MARK: - 紐付けした変数
     // 背景画像
     @IBOutlet weak var imageView: UIImageView!
     // キャンパス
     @IBOutlet weak var drawingView: ACEDrawingView!
+    // キーボードを閉じるためのボタン
+    @IBOutlet weak var closeKeyBoardButton: UIButton!
 
+    // MARK: - 自作の変数、定数
     // 設定画面の中心
     var centerOfSettingView: CGPoint!
-
     // カラーピッカーの色を保管しておく変数
     var PenOrTextColor: UIColor = UIColor.black
-
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
 
     // 現在操作しているtextView
     var currentTextView: UITextView = UITextView()
+    // textfield
+    var titleTextField: UITextField!
+    var tag1TextField: UITextField!
+    var tag2TextField: UITextField!
 
-    // キーボードを閉じるためのボタン
-    @IBOutlet weak var closeKeyBoardButton: UIButton!
+    // roomID
+    var roomID: String = ""
+    // 背景画像
+    var image: UIImage!
 
+    // MARK: - 関数
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    // MARK: - オーバーライド系
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // 編集画面の設定
+        drawingView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        drawingView.layer.borderWidth = 5.0
+        drawingView.layer.cornerRadius = 10
+        drawingView.lineWidth = 5
+
+        // インジケータの設定
+        setIndicator()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,32 +72,15 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         // 画像の読み込み
         self.imageView.image = image
 
-        // インジケータ
-        // インジケータの追加
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
-
-        // インジケータの背景
-        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityIndicatorBackgroundView.alpha = 0
-        self.view.addSubview(activityIndicatorBackgroundView)
-        self.view.addSubview(activityIndicatorView)
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 現在操作しているtextViewのキーボードを閉じる
+        currentTextView.resignFirstResponder()
+        currentTextView.endEditing(true)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        drawingView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        drawingView.layer.borderWidth = 5.0
-        drawingView.layer.cornerRadius = 10
-        
-        drawingView.lineWidth = 5
-    }
+    // MARK: - 自作関数
 
     /**
      * UIViewからUIImageに変換する関数
@@ -118,8 +112,27 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         return image
     }
 
+    /// インジケータをセットする関数
+    func setIndicator() {
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
 
-    /// ペンの詳細設定をする関数
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+    }
+
+    /**
+     * ペンの詳細設定をする関数
+     * - Parameters:
+     *   - toolTypeNumber: ペンのタイプ、(1 = 太ペン, 2 = 細ペン, 3 = 消しゴム)
+     *   - penColor: ペンの色
+     */
     func setDetailPen(toolTypeNumber: Int, penColor: UIColor) {
         // 消しゴムが選択された時
         if toolTypeNumber == 3 {
@@ -156,7 +169,72 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         self.present(alertController, animated: true)
     }
 
-    // カメラ・フォトライブラリへの遷移処理
+    /**
+     * 時刻をint型で返す処理
+     * - Parameters:
+     *   - None:
+     * - Returns: Int型の日付
+     */
+    func getDate() -> Int {
+        // 現在時刻を取得
+        let nowDate = Date()
+        // フォーマットを生成
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+
+        // Int型に変換
+        let stringDate = formatter.string(from: nowDate)
+        let intDate = Int(stringDate)!
+
+        return intDate
+    }
+
+    /// アラートを表示する関数
+    func showAlert() {
+        let alertController = PMAlertController(title: "投稿が完了しました", description: "", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
+        let alertAction = PMAlertAction(title: "はい", style: .default, action: {
+            db.collection("chat-room").document(self.roomID).getDocument(completion: { (document, err) in
+                if let document = document, document.exists {
+                    db.collection("chat-room").document(self.roomID).updateData([
+                        "post-count": document.data()!["post-count"] as! Int + 1
+                        ])
+                }
+            })
+        })
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true)
+    }
+
+    /**
+     * DBにタグ情報を送る関数
+     * - Parameters:
+     *   - tag: DBに登録したいタグ名
+     *   - completion: DBに登録し終わった後に実行したい処理
+     */
+    func postTagInfo(tag: String, completion: @escaping () -> ()) {
+        // tag1をタグ用のDBにタグ情報を保管
+        db.collection("tags").whereField("tag-name", isEqualTo: tag).getDocuments(completion: { (QuerySnapshot, err) in
+            // ドキュメントの個数が0 ＝　該当するタグがない場合
+            if let documents = QuerySnapshot?.documents {
+                if documents.count == 0 {
+                    db.collection("tags").addDocument(data: ["tag-name": tag, "used-count": 1])
+                } else { // 該当するタグがすでに存在していた場合
+                    if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
+                        db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
+                    }
+                }
+            }
+            completion()
+        })
+    }
+
+    // MARK: - ImagePicker
+    /// カメラ・フォトライブラリへの遷移処理
+    /**
+     * カメラ・フォトライブラリへの遷移処理
+     *  - Parameters:
+     *    - sourceType: ソースタイプ、カメラかフォトライブラリ化
+     */
     func cameraAction(sourceType: UIImagePickerController.SourceType) {
         // カメラ・フォトライブラリが使用可能かチェック
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
@@ -174,7 +252,7 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         }
     }
 
-    // 写真が選択された時に呼ばれる
+    /// 写真が選択された時に呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.image = editedImage
@@ -196,166 +274,56 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
             title = "エラー"
             message = "保存に失敗しました"
         }
-
+        // アラートの表示
         let alertController = PMAlertController(title: title, description: message, image: image, style: .alert)
 
         alertController.addAction(PMAlertAction(title: "OK", style: .default))
         self.present(alertController, animated: true)
     }
-    // 投稿ボタン
-    @IBAction func postImageButton(_ sender: Any) {
 
-        // 投稿処理
-        // 画像のタイトル
-        var imageTitle: String = ""
-        // 画像情報
-        var postImageData: NSData = NSData()
-        // viewをimageとして取得
-        let postImage = self.getImage(view)
-        // クオリティを1/10まで下げる
-        postImageData = postImage.jpegData(compressionQuality: 0.1)! as NSData
-        // base64Stringに変換
-        let base64PostImage = postImageData.base64EncodedString(options: .lineLength64Characters) as String
-        // firebaseに渡す情報(画像、タイトル、ユーザーID)
-
-        // 投稿確認
-        // アラートコントローラー
-        let alertController = PMAlertController(title: "投稿しますか？", description: nil, image: postImage, style: .alert)
-        // アラートアクション
-        // textFieldの追加(タイトル)
-        alertController.addTextField({ ( textfield ) in
-            textfield?.placeholder = "タイトル"
-            self.titleTextField = textfield
-        })
-        // textFieldの追加(タグ)
-        alertController.addTextField({ (textfield) in
-            textfield?.placeholder = "タグ1"
-            self.tag1TextField = textfield
-        })
-        alertController.addTextField({ (textfield) in
-            textfield?.placeholder = "タグ2"
-            self.tag2TextField = textfield
-        })
-        // アクションの追加
-        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
-            // 現在時刻の取得
-            let nowDate = self.getDate()
-
-            if self.titleTextField.text != "" {
-                imageTitle = (self.titleTextField.text)!
-            } else {
-                imageTitle = "無題"
-            }
-            var tag1: String = ""
-            var tag2: String = ""
-            if self.tag1TextField.text != "" {
-                tag1 = self.tag1TextField.text!
-            }
-            if self.tag2TextField.text != "" {
-                tag2 = self.tag2TextField.text!
-            }
-
-
-            var message: NSDictionary = NSDictionary()
-            // messageに値をつける
-            if tag1 != tag2 {
-                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": tag2]
-
-                // タグ用のDBにタグ情報を保管
-                self.db.collection("tags").whereField("tag-name", isEqualTo: tag1).getDocuments(completion: { (QuerySnapshot, err) in
-                    // ドキュメントの個数が0 ＝　該当するタグがない場合
-                    if let documents = QuerySnapshot?.documents {
-                        if documents.count == 0 {
-                            self.db.collection("tags").addDocument(data: ["tag-name": tag1, "used-count": 1])
-                        } else { // 該当するタグがすでに存在していた場合
-                            if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
-                                self.db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
-                            }
-                        }
-                    }
-                })
-                // タグ用のDBにタグ情報を保管
-                self.db.collection("tags").whereField("tag-name", isEqualTo: tag2).getDocuments(completion: { (QuerySnapshot, err) in
-                    // ドキュメントの個数が0 ＝　該当するタグがない場合
-                    if let documents = QuerySnapshot?.documents {
-                        if documents.count == 0 {
-                            self.db.collection("tags").addDocument(data: ["tag-name": tag2, "used-count": 1])
-                        } else { // 該当するタグがすでに存在していた場合
-                            if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
-                                self.db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
-                            }
-                        }
-                    }
-                })
-            } else {
-                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": ""]
-
-                // タグ用のDBにタグ情報を保管
-                self.db.collection("tags").whereField("tag-name", isEqualTo: tag1).getDocuments(completion: { (QuerySnapshot, err) in
-                    // ドキュメントの個数が0 ＝　該当するタグがない場合
-                    if let documents = QuerySnapshot?.documents {
-                        if documents.count == 0 {
-                            self.db.collection("tags").addDocument(data: ["tag-name": tag2, "used-count": 1])
-                        } else { // 該当するタグがすでに存在していた場合
-                            if let documentID = documents.last?.documentID, let usedCount = documents.last?.data()["used-count"] as? Int{
-                                self.db.collection("tags").document(documentID).updateData(["used-count": usedCount + 1])
-                            }
-                        }
-                    }
-                })
-            }
-            self.db.collection("chat-room").document("\(self.roomID)").collection("message")
-            self.db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any])
-
-            // インジケータの描画
-            self.activityIndicatorView.startAnimating()
-            self.activityIndicatorBackgroundView.alpha = 1
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                // インジケータの描画
-                self.activityIndicatorView.stopAnimating()
-                self.activityIndicatorBackgroundView.alpha = 0
-                self.showAlert()
-            })
-        }))
-
-        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
-        present(alertController, animated: true)
-    }
-
-    // 時刻をint型で格納する関数
-    func getDate() -> Int {
-        let nowDate = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmmss"
-
-        let stringDate = formatter.string(from: nowDate)
-        let intDate = Int(stringDate)!
-
-        return intDate
-    }
-
-    func showAlert() {
-        let alertController = PMAlertController(title: "投稿が完了しました", description: "", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
-        let alertAction = PMAlertAction(title: "はい", style: .default, action: {
-            self.db.collection("chat-room").document(self.roomID).getDocument(completion: { (document, err) in
-                if let document = document, document.exists {
-                    self.db.collection("chat-room").document(self.roomID).updateData([
-                        "post-count": document.data()!["post-count"] as! Int + 1
-                    ])
-                }
-            })
-        })
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true)
-    }
-
-
+    // MARK: - ColorPicker
+    /// 色を取得する処理
     func colorPicker(_ colorPicker: AMColorPicker, didSelect color: UIColor) {
         drawingView.lineColor = color
     }
 
+    // MARK: - textView
+    /// textViewの値が変わるたびに呼ばれる
+    func textViewDidChange(_ textView: UITextView) {
+        // 高さを取得
+        let height = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude)).height
+        // 幅を取得
+        let width = textView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: textView.frame.size.height)).width
 
+        // 幅の上限を300に設定する
+        if width <= 300 {
+            textView.frame.size = CGSize(width: width, height: height)
+        } else {
+            textView.frame.size = CGSize(width: 300, height: height)
+        }
+    }
+
+    /// textViewを編集しようとするたびに呼ばれる
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        // 操作しているtextViewを渡す
+        currentTextView = textView
+        // ボタンを表示させる
+        closeKeyBoardButton.isHidden = false
+    }
+
+    // MARK: - PanGesture
+    /// Pan実行時のメソッド
+    @objc func panView(sender: UIPanGestureRecognizer) {
+        //移動量を取得
+        let move:CGPoint = sender.translation(in:self.view)
+        //ドラッグした部品の座標に移動量を加算
+        sender.view!.center.x += move.x
+        sender.view!.center.y += move.y
+        //移動量を0に
+        sender.setTranslation(CGPoint.zero, in: self.view)
+    }
+
+    // MARK: - 紐付けアクション
     // クリアボタン
     @IBAction func clearButton(_ sender: Any) {
         drawingView.clear()
@@ -411,43 +379,129 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         drawingView.addSubview(textView)
     }
 
-    // textViewの値が変わるたびに呼ばれる
-    func textViewDidChange(_ textView: UITextView) {
-        let height = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude)).height
-//        textView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        let width = textView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: textView.frame.size.height)).width
+    // 投稿ボタン
+    @IBAction func postImageButton(_ sender: Any) {
+        // インジケータの描画
+        self.activityIndicatorView.startAnimating()
+        self.activityIndicatorBackgroundView.alpha = 1
 
-        if width <= 300 {
-            textView.frame.size = CGSize(width: width, height: height)
-        } else {
-            textView.frame.size = CGSize(width: 300, height: height)
-        }
+        // dispatch
+        // グループ
+        let dispatchGroup = DispatchGroup()
+        // 並列キューの設定
+        let dispatchQueue = DispatchQueue(label: "queue", attributes: .concurrent)
 
-    }
+        // 投稿処理
+        // 画像のタイトル
+        var imageTitle: String = ""
+        // 画像のタグ
+        var tag1: String = ""
+        var tag2: String = ""
+        // viewをimageとして取得
+        let postImage = self.getImage(view)
+        // クオリティを1/10まで下げて、NSData型として格納
+        let postImageData: NSData = postImage.jpegData(compressionQuality: 0.1)! as NSData
+        // base64Stringに変換
+        let base64PostImage = postImageData.base64EncodedString(options: .lineLength64Characters) as String
 
-    // textViewを編集しようとするたびに呼ばれる
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        // 操作しているtextViewを渡す
-        currentTextView = textView
-        // ボタンを表示させる
-        closeKeyBoardButton.isHidden = false
-    }
+        // 投稿確認
+        // アラートコントローラー
+        let alertController = PMAlertController(title: "投稿しますか？", description: nil, image: postImage, style: .alert)
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // 現在操作しているtextViewのキーボードを閉じる
-        currentTextView.resignFirstResponder()
-        currentTextView.endEditing(true)
-    }
+        // textFieldの追加(タイトル)
+        alertController.addTextField({ ( textfield ) in
+            textfield?.placeholder = "タイトル"
+            self.titleTextField = textfield
+        })
+        // textFieldの追加(タグ)
+        alertController.addTextField({ (textfield) in
+            textfield?.placeholder = "タグ1"
+            self.tag1TextField = textfield
+        })
+        alertController.addTextField({ (textfield) in
+            textfield?.placeholder = "タグ2"
+            self.tag2TextField = textfield
+        })
 
-    //Pan実行時のメソッド
-    @objc func panView(sender: UIPanGestureRecognizer) {
-        //移動量を取得
-        let move:CGPoint = sender.translation(in:self.view)
-        //ドラッグした部品の座標に移動量を加算
-        sender.view!.center.x += move.x
-        sender.view!.center.y += move.y
-        //移動量を0に
-        sender.setTranslation(CGPoint.zero, in: self.view)
+        // アラートアクション
+        // アクションの追加
+        alertController.addAction(PMAlertAction(title: "はい", style: .default, action:{
+            // 現在時刻の取得
+            let nowDate = self.getDate()
+
+            // タイトルを取得
+            if self.titleTextField.text != "" {
+                imageTitle = (self.titleTextField.text)!
+            } else {
+                imageTitle = "無題"
+            }
+            // タグを取得
+            if self.tag1TextField.text != "" {
+                tag1 = self.tag1TextField.text!
+            }
+            if self.tag2TextField.text != "" {
+                tag2 = self.tag2TextField.text!
+            }
+
+
+            var message: NSDictionary = NSDictionary()
+            // messageに値をつける
+            if tag1 != tag2 {
+                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": tag2]
+                // tag1をタグ用のDBにタグ情報を保管
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup, execute: {
+                    print("postTagInfo #1 started")
+                    self.postTagInfo(tag: tag1, completion: {
+                        print("postTagInfo #1 finished")
+                        dispatchGroup.leave()
+                    })
+                })
+                // tag2をタグ用のDBにタグ情報を保管
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup, execute: {
+                    print("postTagInfo #2 started")
+                    self.postTagInfo(tag: tag2, completion: {
+                        print("postTagInfo #2 finished")
+                        dispatchGroup.leave()
+                    })
+                })
+            } else {
+                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": ""]
+
+                // タグ用のDBにタグ情報を保管
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup, execute: {
+                    print("postTagInfo #1 started")
+                    self.postTagInfo(tag: tag1, completion: {
+                        print("postTagInfo #1 finished")
+                        dispatchGroup.leave()
+                    })
+                })
+            }
+            // 投稿情報をDBに送る
+            dispatchQueue.async(group: dispatchGroup, execute: {
+                print("post image to chat-room/message #4 started")
+                db.collection("chat-room").document("\(self.roomID)").collection("message")
+                db.collection("chat-room").document("\(self.roomID)").collection("message").addDocument(data: message as! [String: Any], completion: { err in
+                    if let err = err {
+                        print("@ViewController in postImageButton() : \(err.localizedDescription)")
+                    }
+                    print("post image to chat-room/message #4 finished")
+                })
+            })
+
+            // dispatchGroupのすべての処理が終わった時の処理
+            dispatchGroup.notify(queue: .main, execute: {
+                // インジケータを止める
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorBackgroundView.alpha = 0
+                // アラートを表示させる
+                self.showAlert()
+            })
+        }))
+        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
+        present(alertController, animated: true)
     }
 
     @IBAction func tappedCloseKeyboardButton(_ sender: Any) {
