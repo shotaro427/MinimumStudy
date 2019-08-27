@@ -13,6 +13,8 @@ import NVActivityIndicatorView
 
 class DetailsViewController: UIViewController, UIScrollViewDelegate {
 
+    // MARK: - プロパティ、変数,定数
+    // MARK: - storyboard状の変数
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -23,8 +25,7 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     // imageView
     @IBOutlet weak var postedImageView: UIImageView!
 
-    // DB
-    let db = Firestore.firestore()
+    // MARK: - 自作プロパティ
 
     // 投稿のdocumentID
     var postID: String = ""
@@ -43,7 +44,8 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
-    
+
+    // MARK: 関数
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -82,6 +84,7 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(activityIndicatorView)
     }
 
+    // MARK: - ズーム機能系の関数
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.postedImageView
     }
@@ -114,7 +117,11 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         return zoomRect
     }
 
-    // 保存機能
+    /**
+     * 保存機能
+     * - Parameters:
+     *   - image: 保存したい画像
+     */
     func save(image: UIImage) {
         // カメラロールに保存する
         // アラートコントローラー
@@ -139,29 +146,42 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
             title = "エラー"
             message = "保存に失敗しました"
         }
-
+        // アラートの作成
         let alertController = PMAlertController(title: title, description: message, image: image, style: .alert)
-
         alertController.addAction(PMAlertAction(title: "OK", style: .default))
         self.present(alertController, animated: true)
     }
 
-    // 該当の投稿を削除する機能
-    func deletePost() {
+    /// 該当の投稿をmessageコレクションから削除する機能
+    func deletePostFromMessage() {
         // messageコレクションから削除
         db.collection("chat-room").document(roomID).collection("message").document(postID).delete() { err in
             if let err = err {
                 print("投稿の削除に失敗しました: \(err.localizedDescription)")
             }
         }
+    }
 
+    /// 該当の投稿をfav-imageコレクションから削除する機能
+    func deletePostFormFavImage() {
         // fav-imageコレクションから削除
         db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").document(postID).delete() { err in
             if let err = err {
                 print("お気に入りリストからの削除に失敗しました: \(err.localizedDescription)")
             }
         }
+    }
 
+    /// アラートを表示する関数
+    func showAlert() {
+        let finishedAlert = PMAlertController(title: "完了", description: "投稿の削除が完了しました。", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
+        let yesAction = PMAlertAction(title: "はい", style: .default, action: {
+            // トップ画面に戻す
+            self.navigationController?.popViewController(animated: true)
+
+        })
+        finishedAlert.addAction(yesAction)
+        present(finishedAlert, animated: true)
     }
 
     // 保存ボタン
@@ -183,27 +203,59 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
-    // 削除ボタン
+    /// 削除ボタン
     @IBAction func tappedTrashButton(_ sender: Any) {
+        // インジケータの表示
+        activityIndicatorView.startAnimating()
+        activityIndicatorBackgroundView.alpha = 1
+
+        // dispatchの設定
+        let dispatchGroup = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: "queue", attributes: .concurrent)
+
         // 制作者とユーザーが同じだった時に削除できるようにする
         if user == UserDefaults.standard.string(forKey: "email") {
             // アラートの表示
             let alertController = PMAlertController(title: "投稿の削除", description: "この投稿を本当に削除しますか ?", image: #imageLiteral(resourceName: "ゴミ箱"), style: .alert)
             let okAction = PMAlertAction(title: "はい", style: .default, action: {
-                self.deletePost()
+                // キューにタスクを追加
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup, execute: {
+                    print("deletePostFromMessage started")
+                    self.deletePostFromMessage()
+                    print("deletePostFromMessage finished")
+                    dispatchGroup.leave()
+                })
+
+                // キューにタスクを追加
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup, execute: {
+                    print("deletePostFormFavImage started")
+                    self.deletePostFormFavImage()
+                    print("deletePostFormFavImage finished")
+                    dispatchGroup.leave()
+                })
+
+                // すべての処理が終わった時の処理
+                dispatchGroup.notify(queue: .main, execute: {
+                    print("all task finished -> next main task start")
+                    self.showAlert()
+                    self.activityIndicatorBackgroundView.alpha = 0
+                    self.activityIndicatorView.stopAnimating()
+                })
             })
             let noAction = PMAlertAction(title: "いいえ", style: .cancel)
+
+            // アラートアクションの追加
             alertController.addAction(okAction)
             alertController.addAction(noAction)
             present(alertController, animated: true)
 
-            activityIndicatorView.startAnimating()
-            activityIndicatorBackgroundView.alpha = 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                self.showAlert()
-                self.activityIndicatorBackgroundView.alpha = 0
-                self.activityIndicatorView.stopAnimating()
-            })
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+//                self.showAlert()
+//                self.activityIndicatorBackgroundView.alpha = 0
+//                self.activityIndicatorView.stopAnimating()
+//            })
         } else {
             // アラートの表示
             let alertController = PMAlertController(title: "削除ができませんでした。", description: "制作者以外の方は削除することができません。", image: #imageLiteral(resourceName: "NG"), style: .alert)
@@ -211,12 +263,5 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
             alertController.addAction(okAction)
             present(alertController, animated: true)
         }
-    }
-
-    func showAlert() {
-        let finishedAlert = PMAlertController(title: "完了", description: "投稿の削除が完了しました。", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
-        let yesAction = PMAlertAction(title: "はい", style: .default)
-        finishedAlert.addAction(yesAction)
-        present(finishedAlert, animated: true)
     }
 }

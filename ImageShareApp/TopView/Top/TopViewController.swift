@@ -687,7 +687,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // dispatchGroupの設定
         let queueGroup = DispatchGroup()
         // キューの設定
-        let queue = DispatchQueue(label: "queue1")
+        let queue = DispatchQueue(label: "queue1", attributes: .concurrent)
 
         // 所属しているユーザーのIDを取得
         queue.async(group: queueGroup, execute: {
