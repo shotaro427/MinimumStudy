@@ -9,7 +9,12 @@
 import UIKit
 
 class FavoriteViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    // MARK: - 変数、定数
+    // MARK: - outlet
+    // いいねした投稿を表示させるコレクションビュー
+    @IBOutlet weak var favCollectionView: UICollectionView!
 
+    // MARK: - 自作変数、定数
     var favPostImageInfo: [[String: Any]] = []
     var favPostImageID: [String] = []
     var roomID: String = ""
@@ -17,11 +22,11 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     // dateFormatter
     var formatter = DateFormatter()
 
-    @IBOutlet weak var favCollectionView: UICollectionView!
+    // MARK: - 関数
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // デリゲートの設定
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
 
@@ -31,7 +36,11 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         favCollectionView.collectionViewLayout = layout
     }
 
-    // int型の日付をString型の日付に直す関数
+    /**
+     * int型の日付をString型の日付に直す関数
+     * - Parameters:
+     *   - intDate: Int型の日付
+     */
     func printDate(intDate: Int) -> String {
         // int型のdateをString型に変換
         let stringDate = String(intDate)
@@ -39,7 +48,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         formatter.dateFormat = "yyyyMMddHHmmss"
         // date型の日付を生成
         if let nowDate = formatter.date(from: stringDate) {
-
             // フォーマットの変換
             formatter.dateFormat = "yyyy年MM月dd日"
             return formatter.string(from: nowDate)
@@ -48,23 +56,25 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
+    // MARK: - collectionView
+    // コレクションビューのレイアウト
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalSpace : CGFloat = 20
         let cellSize : CGFloat = self.view.bounds.width - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
     }
 
+    // セルの数
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favPostImageInfo.count
     }
 
+    // セルの設定
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavCell", for: indexPath) as! FavoriteCollectionViewCell // 表示するセルを登録(先程命名した"Cell")
 
-//        cell.roomID = roomID
-//        cell.messageID = favPostImageID[indexPath.row]
-//        cell.cellInfo = favPostImageInfo[indexPath.row]
-//        cell.cellID = favPostImageID[indexPath.row]
+        // セルのセットアップ
+        cell.setupCell()
 
         if favPostImageInfo.count != 0 {
             let dict = favPostImageInfo[indexPath.row]
@@ -103,16 +113,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
                 cell.tag2Button.isHidden = false
                 cell.tag2Button.setTitle(dict["tag2"] as? String, for: .normal)
             }
-
-
-            cell.layer.cornerRadius = 20
-            cell.postView.layer.cornerRadius = 20
-            cell.tag1Button.layer.cornerRadius = 10
-            cell.tag2Button.layer.cornerRadius = 10
-            cell.tag2Button.isEnabled = false
-            cell.tag1Button.isEnabled = false
         }
-
         return cell
     }
 
@@ -164,6 +165,4 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
-
 }

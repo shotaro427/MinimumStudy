@@ -144,6 +144,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         tagsList = []
         roomMenbers = []
         waitingMenber = []
+        print("タグの個数 @viewWillAppear in TopViewController \(self.tagsList.count)")
 
         // 投稿情報を取得する
         getPostInfo(completion: {
@@ -157,7 +158,15 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         getTagInfo(completion: {
             // リロード
             self.searchTableView.reloadData()
+            print("タグの個数 @viewWillAppear in TopViewController \(self.tagsList.count)")
         })
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // タグのリストの初期化
+        tagsList = []
     }
 
     // refreshControl
@@ -214,10 +223,12 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
      */
     func getTagInfo(completion: @escaping () -> ()) {
         // tagsコレクションのリスナーを追加
-        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
-            guard let documents = QueryDocumentSnapshot?.documents else { return }
+        db.collection("tags").order(by: "used-count", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
+            guard let documents = QuerySnapshot?.documents else { return }
             for document in documents {
-                self.tagsList.append(document.data()["tag-name"] as! String)
+                if document.data()["tag-name"] as! String != "" {
+                    self.tagsList.append(document.data()["tag-name"] as! String)
+                }
             }
             completion()
         })

@@ -246,11 +246,15 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
             } else {
                 imageTitle = "無題"
             }
-            // messageにtagコレクションを追加
-            guard let tag1 = self.tag1TextField.text, let tag2 = self.tag2TextField.text  else {
-                print("textFieldの値を取得できませんでした")
-                return
+            var tag1: String = ""
+            var tag2: String = ""
+            if self.tag1TextField.text != "" {
+                tag1 = self.tag1TextField.text!
             }
+            if self.tag2TextField.text != "" {
+                tag2 = self.tag2TextField.text!
+            }
+
 
             var message: NSDictionary = NSDictionary()
             // messageに値をつける
@@ -284,10 +288,10 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
                     }
                 })
             } else {
-                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1]
+                message = ["title": imageTitle, "userID": UserDefaults.standard.string(forKey: "email")!, "image": base64PostImage, "date": nowDate, "tag1": tag1, "tag2": ""]
 
                 // タグ用のDBにタグ情報を保管
-                self.db.collection("tags").whereField("tag-name", isEqualTo: tag2).getDocuments(completion: { (QuerySnapshot, err) in
+                self.db.collection("tags").whereField("tag-name", isEqualTo: tag1).getDocuments(completion: { (QuerySnapshot, err) in
                     // ドキュメントの個数が0 ＝　該当するタグがない場合
                     if let documents = QuerySnapshot?.documents {
                         if documents.count == 0 {
