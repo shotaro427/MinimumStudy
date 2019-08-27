@@ -123,10 +123,15 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        // インジケータを回す
+        activityIndicatorView.startAnimating()
+        activityIndicatorBackgroundView.alpha = 1
+
+        // 検索画面を消す
         searchTableView.isHidden = true
+        // キーボードを隠すためのボタンを隠す
         hideKeyboardButton.isHidden = true
 
-        topCollectionView.reloadData()
         // 情報の初期化
         postImageInfo = []
         postImageID = []
@@ -136,40 +141,23 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         resultSearch = []
         allPostImageInfo = []
         allPostImageID = []
-        // 情報の取得
-        getPostInfo(completion: {
-            // リロード
-            topCollectionView.reloadData()
-        })
         tagsList = []
-        getTagInfo(completion: {
-            print("viewWillAppear: \(self.tagsList)")
-            // リロード
-            self.searchTableView.reloadData()
-        })
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        // tagのリストの初期化
-        tagsList = []
-
-        // tagsコレクションのリスナーを追加
-        db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
-            guard let documents = QueryDocumentSnapshot?.documents else { return }
-            for document in documents {
-                self.tagsList.append(document.data()["tag-name"] as! String)
-            }
-        })
-
-        // 遷移後の初期化
         roomMenbers = []
         waitingMenber = []
 
-        // インジケータを止める
-        activityIndicatorView.stopAnimating()
-        activityIndicatorBackgroundView.alpha = 0
+        // 投稿情報を取得する
+        getPostInfo(completion: {
+            // リロード
+            self.topCollectionView.reloadData()
+            // インジケータを止める
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorBackgroundView.alpha = 0
+        })
+        // タグ情報を取得する
+        getTagInfo(completion: {
+            // リロード
+            self.searchTableView.reloadData()
+        })
     }
 
     // refreshControl
@@ -184,30 +172,22 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // 情報の取得
         getPostInfo(completion: {
             // リロード
-            topCollectionView.reloadData()
+            self.topCollectionView.reloadData()
             // refreshの終了
             sender.endRefreshing()
         })
     }
 
     // MARK: - 自作関数
-    // インジケータの設定
-    func setIndicator() {
-        // インジケータ
-        // インジケータの追加
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
 
-        // インジケータの背景
-        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityIndicatorBackgroundView.alpha = 0
-        self.view.addSubview(activityIndicatorBackgroundView)
-        self.view.addSubview(activityIndicatorView)
-    }
+    // MARK: - DB系
 
-    /// 投稿情報を取得する関数
-    func getPostInfo(completion: () -> ()) {
+    /**
+     * 投稿情報を取得する関数
+     * - Parameters:
+     *   - completion: DBから情報を取得し終わった時に呼ばれる処理
+     */
+    func getPostInfo(completion: @escaping () -> ()) {
         // メッセージコレクションを作成
         db.collection("chat-room").document(roomID).collection("message")
         // メッセージを取得
@@ -223,43 +203,21 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 }
                 self.topCollectionView.reloadData()
             }
+            completion()
         }
     }
 
+    /**
+     * タグ情報を取得する関数
+     * - Parameters:
+     *   - completion: DBから情報を取得し終わった時に呼ばれる処理
+     */
     func getTagInfo(completion: @escaping () -> ()) {
         // tagsコレクションのリスナーを追加
         db.collection("tags").order(by: "used-count", descending: true).addSnapshotListener( {(QueryDocumentSnapshot, err) in
             guard let documents = QueryDocumentSnapshot?.documents else { return }
             for document in documents {
                 self.tagsList.append(document.data()["tag-name"] as! String)
-            }
-            completion()
-        })
-    }
-
-    /**
-     * 受け取ったタグ名を検索する関数
-     * - Parameters:
-     *   - keyWord: 検索したいキーワード
-     */
-    func searchTag(keyWord: String, completion: @escaping () -> ()) {
-        //情報の初期化
-        resultSearch = []
-        resultSearchID = []
-
-        // メッセージを取得
-        db.collection("chat-room").document(roomID).collection("message").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
-            guard let documents = QuerySnapshot?.documents else {
-                print("error: \(err!.localizedDescription)")
-                return
-            }
-            for document in documents {
-                // 検索のワードとタグ名が一致していた時
-                if document.data()["tag1"] as! String == keyWord || document.data()["tag2"] as! String == keyWord {
-                    // 投稿情報を追加
-                    self.resultSearch.append(document.data())
-                    self.resultSearchID.append(document.documentID)
-                }
             }
             completion()
         })
@@ -290,6 +248,10 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 }
             })
         }
+    }
+
+    /// グループの情報を取得する関数
+    func getRoomInfo() {
         // 部屋の情報を格納する
         db.collection("chat-room").document("\(roomID)").getDocument(completion: { (document, err) in
             if let document = document, document.exists {
@@ -301,6 +263,61 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             } else {
                 print("ドキュメントが存在していません")
             }
+        })
+    }
+
+    /// お気に入りした投稿の情報を取得する
+    func getFavImage(completion: @escaping () -> ()) {
+        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
+            for document in QuerySnapshot!.documents {
+                self.favPostImageID.append(document.documentID)
+                self.favPostImageInfo.append(document.data())
+            }
+            completion()
+        })
+    }
+
+    // MARK: - その他
+    /// インジケータの設定
+    func setIndicator() {
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+    }
+
+    /**
+     * 受け取ったタグ名を検索する関数
+     * - Parameters:
+     *   - keyWord: 検索したいキーワード
+     */
+    func searchTag(keyWord: String, completion: @escaping () -> ()) {
+        //情報の初期化
+        resultSearch = []
+        resultSearchID = []
+
+        // メッセージを取得
+        db.collection("chat-room").document(roomID).collection("message").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
+            guard let documents = QuerySnapshot?.documents else {
+                print("error: \(err!.localizedDescription)")
+                return
+            }
+            for document in documents {
+                // 検索のワードとタグ名が一致していた時
+                if document.data()["tag1"] as! String == keyWord || document.data()["tag2"] as! String == keyWord {
+                    // 投稿情報を追加
+                    self.resultSearch.append(document.data())
+                    self.resultSearchID.append(document.documentID)
+                }
+            }
+            completion()
         })
     }
 
@@ -342,16 +359,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 }
             }
         }
-    }
-
-    /// お気に入りした投稿の情報を取得する
-    func getFavImage() {
-        db.collection("chat-room").document(roomID).collection("users").document(UserDefaults.standard.string(forKey: "email")!).collection("fav-image").order(by: "date", descending: true).getDocuments(completion: { (QuerySnapshot, err) in
-            for document in QuerySnapshot!.documents {
-                self.favPostImageID.append(document.documentID)
-                self.favPostImageInfo.append(document.data())
-            }
-        })
     }
 
     /**
@@ -677,9 +684,28 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // ViewControllerを取得
         let vc = nc.topViewController as! GroupViewController
 
+        // dispatchGroupの設定
+        let queueGroup = DispatchGroup()
+        // キューの設定
+        let queue = DispatchQueue(label: "queue1")
+
         // 所属しているユーザーのIDを取得
-        getUserInfo()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+        queue.async(group: queueGroup, execute: {
+            print("getUserInfo() started")
+            self.getUserInfo()
+            print("getUserInfo() finished")
+        })
+
+        // 所属しているグループの情報を取得
+        queue.async(group: queueGroup, execute: {
+            print("getRoomInfo() started")
+            self.getRoomInfo()
+            print("getRoomInfo() finished")
+        })
+
+        // すべての処理が終わった時に実行
+        queueGroup.notify(queue: .main, execute: {
+            print("all function finished")
             // 値を渡す
             vc.roomID = self.roomID
             vc.roomMenbers = self.roomMenbers
@@ -688,6 +714,9 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             vc.tagsInfo = self.tagsList.slice(start: 0, end: 2)
             // 遷移
             self.navigationController?.pushViewController(vc, animated: true)
+            // インジケータを止める
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorBackgroundView.alpha = 0
         })
     }
 
@@ -704,18 +733,21 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
 
     @IBAction func tappedFavoriteListButton(_ sender: Any) {
-
-        getFavImage()
+        // インジケータを表示させる
         activityIndicatorView.startAnimating()
         activityIndicatorBackgroundView.alpha = 1
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        // いいねした投稿を取得する
+        getFavImage(completion: {
+            // 遷移先の取得
             if let vc = UIStoryboard(name: "TopLoad", bundle: nil).instantiateViewController(withIdentifier: "FavView") as? FavoriteViewController {
+                // 情報の受け渡し
                 vc.favPostImageInfo = self.favPostImageInfo
                 vc.favPostImageID = self.favPostImageID
                 vc.roomID = self.roomID
-
+                // 遷移
                 self.navigationController?.pushViewController(vc, animated: true)
+                // インジケータを止める
                 self.activityIndicatorView.stopAnimating()
                 self.activityIndicatorBackgroundView.alpha = 0
             }

@@ -234,7 +234,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGB-k1-0pl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="450.72463768115944" y="208.92857142857142"/>
+            <point key="canvasLocation" x="384" y="209"/>
         </scene>
         <!--Favorite View Controller-->
         <scene sceneID="dE9-ev-akY">
@@ -384,12 +384,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="c1w-tP-HEE" kind="relationship" relationship="rootViewController" id="WAO-gG-IyU"/>
+                        <segue destination="LzU-U3-DWQ" kind="relationship" relationship="rootViewController" id="giv-kt-Fom"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2b-3L-NcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1307" y="209"/>
+            <point key="canvasLocation" x="-539" y="209"/>
         </scene>
         <!--Waitting View Controller-->
         <scene sceneID="6xr-mN-4Eq">
@@ -416,12 +416,11 @@
                     <navigationItem key="navigationItem" id="EtE-m5-ygS"/>
                     <connections>
                         <outlet property="titleLabel" destination="Nqf-aj-9pY" id="ECo-Rf-Gkt"/>
-                        <segue destination="LzU-U3-DWQ" kind="show" id="1ET-dr-aBx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z6y-q9-Gth" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-384" y="209"/>
+            <point key="canvasLocation" x="-404" y="-522"/>
         </scene>
     </scenes>
     <resources>

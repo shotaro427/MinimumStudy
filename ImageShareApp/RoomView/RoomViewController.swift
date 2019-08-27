@@ -185,7 +185,7 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
     // トップ画面へ遷移する関数
     func toTop() {
         let storyboard = UIStoryboard(name: "TopLoad", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "TopView") as! TopViewController
 
         vc.roomID = roomID
 

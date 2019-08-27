@@ -93,31 +93,6 @@ class LoginViewController: UIViewController {
     /**
     ユーザーが所属している部屋を探す関数
     */
-//    func searchRoom() {
-//        // ユーザーid(email)を取得
-//        guard let userID = UserDefaults.standard.string(forKey: "email") else { return }
-//        db.collection("chat-room").getDocuments() { (QuerySnapshot, err) in
-//            if let err = err { // エラー時
-//                print("SelectRoomTableViewController-29: \(err.localizedDescription)")
-//            } else { // 成功時
-//                // ドキュメントを取得
-//                for document in QuerySnapshot!.documents {
-//                    // ドキュメント内のuserIDと,このユーザーのuserIDと一致するかを見る
-//                    db.collection("chat-room").document(document.documentID).collection("users").document(userID).getDocument(completion: { (QuerySnapshot2, err2) in
-//                        print("second getDocument() Start")
-//                        if let err2 = err2 { // エラー時
-//                            print("login error : \(err2.localizedDescription)")
-//                        }
-//                        // userIDを持つユーザーが存在していた時
-//                        if QuerySnapshot2!.exists {
-//                            self.roomInfo.append(document.data())
-//                            self.roomIDs.append(document.documentID)
-//                        }
-//                    })
-//                }
-//            }
-//        }
-//    }
     func searchRoom(function: @escaping () -> ()) {
         // ユーザーid(email)を取得
         guard let userID = UserDefaults.standard.string(forKey: "email") else { return }
@@ -231,13 +206,6 @@ class LoginViewController: UIViewController {
                     self.activityIndicatorView.stopAnimating()
                     self.activityIndicatorBackgroundView.removeFromSuperview()
                 })
-
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-//                    print("遷移　開始")
-//                    self.toRoomView()
-//                    self.activityIndicatorView.stopAnimating()
-//                    self.activityIndicatorBackgroundView.removeFromSuperview()
-//                })
             }
         })
     }

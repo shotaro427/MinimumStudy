@@ -75,7 +75,7 @@ class SelectRoomTableViewController: UITableViewController {
     // セルのタップ時
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "TopLoad", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "WaittingView") as! WaittingViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "TopView") as! TopViewController
 
         vc.roomID = roomIDs[indexPath.row]
 
