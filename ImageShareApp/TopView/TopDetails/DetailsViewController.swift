@@ -256,7 +256,7 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    // 総投稿数を1つ減らす処理
+    /// 総投稿数を1つ減らす処理
     func changeAllPostsCount(completion: @escaping () -> ()) {
         db.collection("chat-room").document(roomID).getDocument(completion: { (QuerySnapshot, err) in
             if let err = err {

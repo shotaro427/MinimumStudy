@@ -115,7 +115,11 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         // 投稿ボタンの設定
         plusImageButton.layer.cornerRadius = plusImageButton.frame.width / 2
-        
+        // 影
+        plusImageButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        plusImageButton.layer.shadowColor = UIColor.black.cgColor
+        plusImageButton.layer.shadowOpacity = 0.6
+        plusImageButton.layer.shadowRadius = 4
 
         // インジケータの設定
         setIndicator()
