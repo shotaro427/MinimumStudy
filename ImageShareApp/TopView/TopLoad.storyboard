@@ -63,17 +63,23 @@
                                                                                     <rect key="frame" x="0.0" y="0.0" width="196.5" height="16"/>
                                                                                     <subviews>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iNj-Rh-yKa">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="102" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="158" height="16"/>
                                                                                             <subviews>
-                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvW-Z9-mjf">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タグ:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiZ-i9-QXt">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="46" height="16"/>
+                                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                                    <nil key="textColor"/>
+                                                                                                    <nil key="highlightedColor"/>
+                                                                                                </label>
+                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvW-Z9-mjf">
+                                                                                                    <rect key="frame" x="56" y="0.0" width="46" height="16"/>
                                                                                                     <color key="backgroundColor" red="0.36405158042907715" green="0.78002101182937622" blue="0.79608660936355591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                                     <state key="normal" title="Button">
                                                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     </state>
                                                                                                 </button>
                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPc-xK-faF">
-                                                                                                    <rect key="frame" x="56" y="0.0" width="46" height="16"/>
+                                                                                                    <rect key="frame" x="112" y="0.0" width="46" height="16"/>
                                                                                                     <color key="backgroundColor" red="0.36405158042907715" green="0.78002101182937622" blue="0.79608660936355591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                                     <state key="normal" title="Button">
                                                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,7 +127,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="XYZ-KU-9IP" secondAttribute="bottom" id="vKQ-Go-Lob"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eZg-qd-w9t">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eZg-qd-w9t">
                                                     <rect key="frame" x="10" y="6.5" width="228" height="117.5"/>
                                                 </imageView>
                                             </subviews>
@@ -283,18 +289,24 @@
                                                                     <rect key="frame" x="0.0" y="47" width="228" height="23.5"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qfr-Wf-hXx">
-                                                                            <rect key="frame" x="0.0" y="-0.5" width="102" height="30"/>
+                                                                            <rect key="frame" x="0.0" y="-0.5" width="151.5" height="30"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タグ:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGL-Cy-Kg9">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="39.5" height="30"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
                                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FPE-1x-wAw">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                                                                    <rect key="frame" x="49.5" y="0.0" width="46" height="30"/>
                                                                                     <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                     <state key="normal" title="Button">
                                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     </state>
                                                                                 </button>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d78-tD-rFB">
-                                                                                    <rect key="frame" x="56" y="0.0" width="46" height="30"/>
+                                                                                    <rect key="frame" x="105.5" y="0.0" width="46" height="30"/>
                                                                                     <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                     <state key="normal" title="Button">
                                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -322,7 +334,7 @@
                                                         <constraint firstItem="on8-Ku-AEd" firstAttribute="leading" secondItem="269-92-joI" secondAttribute="leading" id="zmo-os-kwD"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YBN-Rt-SMs">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YBN-Rt-SMs">
                                                     <rect key="frame" x="10" y="6.5" width="228" height="117.5"/>
                                                 </imageView>
                                             </subviews>

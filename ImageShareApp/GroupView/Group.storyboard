@@ -117,9 +117,6 @@
                                                         <state key="normal" title="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="tappedTagButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="lmN-7F-1tA"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1U-py-lrg">
                                                         <rect key="frame" x="165" y="0.0" width="46" height="36"/>
@@ -127,9 +124,6 @@
                                                         <state key="normal" title="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="tappedTagButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="wwL-P0-jqo"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6B-ZT-Aji">
                                                         <rect key="frame" x="216" y="0.0" width="46" height="36"/>
@@ -137,9 +131,6 @@
                                                         <state key="normal" title="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="tappedTagButton:" destination="Mam-lE-NWn" eventType="touchUpInside" id="h4P-Cd-vCF"/>
-                                                        </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0cB-R3-gwF">
                                                         <rect key="frame" x="267" y="0.0" width="127" height="36"/>

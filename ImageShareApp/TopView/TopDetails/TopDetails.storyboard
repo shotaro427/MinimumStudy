@@ -45,23 +45,36 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BaM-wa-61l">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZp-9r-gRZ">
                                                                 <rect key="frame" x="52" y="0.0" width="342" height="32.5"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocg-Ly-IJa">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="171" height="32.5"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkO-Z6-BZU">
-                                                                        <rect key="frame" x="171" y="0.0" width="171" height="32.5"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BaM-wa-61l">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="32.5"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDL-oz-t8m">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="46" height="32.5"/>
+                                                                                <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                <state key="normal" title="Button">
+                                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </state>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12Z-aW-9do">
+                                                                                <rect key="frame" x="56" y="0.0" width="46" height="32.5"/>
+                                                                                <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                <state key="normal" title="Button">
+                                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </state>
+                                                                            </button>
+                                                                        </subviews>
+                                                                    </stackView>
                                                                 </subviews>
-                                                            </stackView>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="BaM-wa-61l" firstAttribute="top" secondItem="VZp-9r-gRZ" secondAttribute="top" id="BrX-5Y-3sc"/>
+                                                                    <constraint firstItem="BaM-wa-61l" firstAttribute="leading" secondItem="VZp-9r-gRZ" secondAttribute="leading" id="N2E-ha-DjQ"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="BaM-wa-61l" secondAttribute="bottom" id="YgV-cF-nqz"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -151,8 +164,8 @@
                         <outlet property="dateLabel" destination="xKQ-e8-6su" id="Bha-Q1-tem"/>
                         <outlet property="postedImageScrollView" destination="qUH-o1-w5e" id="4D6-gZ-84a"/>
                         <outlet property="postedImageView" destination="Xfj-Zr-h7S" id="oJh-d0-ODS"/>
-                        <outlet property="tag1Label" destination="Ocg-Ly-IJa" id="dGG-L6-FpU"/>
-                        <outlet property="tag2Label" destination="qkO-Z6-BZU" id="Ta3-2h-VeR"/>
+                        <outlet property="tag1Button" destination="XDL-oz-t8m" id="hae-YC-V0w"/>
+                        <outlet property="tag2Button" destination="12Z-aW-9do" id="iRS-Cm-ssz"/>
                         <outlet property="titleLabel" destination="l1g-qJ-HJ7" id="sJF-AA-61C"/>
                         <outlet property="userLabel" destination="X6V-yE-qTG" id="ol7-1b-jLl"/>
                     </connections>

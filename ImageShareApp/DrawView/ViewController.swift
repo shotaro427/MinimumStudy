@@ -54,9 +54,6 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         super.viewDidLoad()
 
         // 編集画面の設定
-        drawingView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        drawingView.layer.borderWidth = 5.0
-        drawingView.layer.cornerRadius = 10
         drawingView.lineWidth = 5
 
         // インジケータの設定
@@ -500,7 +497,11 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
                 self.showAlert()
             })
         }))
-        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel))
+        alertController.addAction(PMAlertAction(title: "いいえ", style: .cancel, action: {
+            // インジケータを止める
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorBackgroundView.alpha = 0
+        }))
         present(alertController, animated: true)
     }
 

@@ -11,12 +11,13 @@ import FirebaseAuth
 import PMAlertController
 import FirebaseFirestore
 
-enum buttonTwoType {
-    case change
-    case ok
-}
-
 class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
+
+    // 編集か決定かの種類を決めるためのenum
+    enum buttonTwoType {
+        case change
+        case ok
+    }
 
     // MARK: 変数、定数
     // MARK: - 紐付けした変数
@@ -315,10 +316,6 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-    }
-
-    // メンバー追加ボタン
-    @IBAction func addMenberButton(_ sender: Any) {
     }
 
     // グループ設定変更ボタン

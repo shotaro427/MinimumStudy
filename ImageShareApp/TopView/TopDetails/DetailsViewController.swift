@@ -19,8 +19,8 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var postedImageScrollView: UIScrollView!
-    @IBOutlet weak var tag1Label: UILabel!
-    @IBOutlet weak var tag2Label: UILabel!
+    @IBOutlet weak var tag1Button: UIButton!
+    @IBOutlet weak var tag2Button: UIButton!
     
     // imageView
     @IBOutlet weak var postedImageView: UIImageView!
@@ -53,14 +53,17 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         titleLabel.text = "タイトル: \(String(describing: strTitle!))"
         userLabel.text = "制作者: \(String(describing: user!))"
         dateLabel.text = "投稿日: \(date)"
-        tag1Label.text = tag1
-        tag2Label.text = tag2
+        tag1Button.setTitle(tag1, for: .normal)
+        tag2Button.setTitle(tag2, for: .normal)
 
         // デリゲート
         postedImageScrollView.delegate = self
-        // 最大・最小の大きさを決める
+        // ズームの最大・最小の大きさを決める
         postedImageScrollView.maximumZoomScale = 4.0
         postedImageScrollView.minimumZoomScale = 1.0
+        // 外見の設定
+        postedImageScrollView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3309610445)
+        postedImageScrollView.layer.borderWidth = 2
 
         // imageViewにセグエで飛ばされてきた画像を設定
         postedImageView.image = image
@@ -71,17 +74,18 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         postedImageView.isUserInteractionEnabled = true
         postedImageView.addGestureRecognizer(doubleTap)
 
-        // インジケータ
-        // インジケータの追加
-        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
-        activityIndicatorView.center = self.view.center // 位置を中心に設定
+        // タグのラベルの設定
+        tag1Button.layer.cornerRadius = 10
+        tag2Button.layer.cornerRadius = 10
+        if tag1 == "" {
+            tag1Button.isHidden = true
+        }
+        if tag2 == "" {
+            tag2Button.isHidden = true
+        }
 
-        // インジケータの背景
-        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityIndicatorBackgroundView.alpha = 0
-        self.view.addSubview(activityIndicatorBackgroundView)
-        self.view.addSubview(activityIndicatorView)
+        // インジケータの設定
+        setIndicator()
     }
 
     // MARK: - ズーム機能系の関数
@@ -118,6 +122,22 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     }
 
     // MARK: - 自作関数
+
+    /// インジケータを設定する関数
+    func setIndicator() {
+        // インジケータ
+        // インジケータの追加
+        activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.orbit, color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), padding: 0)
+        activityIndicatorView.center = self.view.center // 位置を中心に設定
+
+        // インジケータの背景
+        activityIndicatorBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        activityIndicatorBackgroundView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        activityIndicatorBackgroundView.alpha = 0
+        self.view.addSubview(activityIndicatorBackgroundView)
+        self.view.addSubview(activityIndicatorView)
+    }
+
     /**
      * 保存機能
      * - Parameters:
