@@ -35,6 +35,9 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         favCollectionView.collectionViewLayout = layout
+
+        // タイトルの設定
+        self.navigationItem.title = "お気に入りリスト"
     }
 
     /**

@@ -21,11 +21,21 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var postedImageScrollView: UIScrollView!
     @IBOutlet weak var tag1Button: UIButton!
     @IBOutlet weak var tag2Button: UIButton!
-    
+    @IBOutlet weak var postImageInfoView: UIView!
+    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var tagsLabelView: UIView!
+    @IBOutlet weak var titleLabelView: UIView!
+
     // imageView
     @IBOutlet weak var postedImageView: UIImageView!
 
     // MARK: - 自作プロパティ
+
+    // ボタンの状態を表す
+    enum twoButtonState {
+        case up
+        case down
+    }
 
     // 投稿のdocumentID
     var postID: String = ""
@@ -45,9 +55,22 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     var activityIndicatorView: NVActivityIndicatorView!
     var activityIndicatorBackgroundView: UIView!
 
+    // ボタンの状態を管理
+    var state: twoButtonState = .down
+
     // MARK: 関数
+    // MARK: - override系
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // 情報が書かれているビューの設定
+        postImageInfoView.layer.cornerRadius = 10
+        // 影
+        postImageInfoView.layer.shadowOffset = CGSize(width: 0, height: -5)
+        postImageInfoView.layer.shadowColor = UIColor.black.cgColor
+        postImageInfoView.layer.shadowOpacity = 0.6
+        postImageInfoView.layer.shadowRadius = 4
 
         // タイトルと制作者ユーザーIDを表示
         titleLabel.text = "タイトル: \(String(describing: strTitle!))"
@@ -88,6 +111,20 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         setIndicator()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print("start viewDidLayoutSubviews")
+        // タグのラベルの設定
+        tag1Button.layer.cornerRadius = 10
+        tag2Button.layer.cornerRadius = 10
+        if tag1 == "" {
+            tag1Button.isHidden = true
+        }
+        if tag2 == "" {
+            tag2Button.isHidden = true
+        }
+    }
+
     // MARK: - ズーム機能系の関数
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.postedImageView
@@ -122,6 +159,30 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
     }
 
     // MARK: - 自作関数
+
+    /// ViewとScrollViewの大きさを調整する関数
+    func changeViewSize() {
+        // ボタンの状態が.downの時 = viewを下げたい時
+        if state == .down{
+            UIView.animate(withDuration: 0.5, animations: {
+                self.dateLabel.isHidden = true
+                self.userLabel.isHidden = true
+                self.tag1Button.isHidden = true
+                self.tag2Button.isHidden = true
+                self.tagLabel.isHidden = true
+                self.tagsLabelView.isHidden = true
+            })
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.dateLabel.isHidden = false
+                self.userLabel.isHidden = false
+                self.tag1Button.isHidden = false
+                self.tag2Button.isHidden = false
+                self.tagLabel.isHidden = false
+                self.tagsLabelView.isHidden = false
+            })
+        }
+    }
 
     /// インジケータを設定する関数
     func setIndicator() {
@@ -310,6 +371,26 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
             let okAction = PMAlertAction(title: "はい", style: .default)
             alertController.addAction(okAction)
             present(alertController, animated: true)
+        }
+    }
+
+    @IBAction func tappedViewDownButton(_ sender: UIButton) {
+        // ボタンが下の時
+        if state == .down {
+            print(state)
+            // viewを調整する
+            changeViewSize()
+            // ボタンの状態を上にする
+            state = .up
+            // ボタンの画像を変える
+            sender.setImage(#imageLiteral(resourceName: "icons8-上-25"), for: .normal)
+        } else { // ボタンが上の時
+            // viewを調整する
+            changeViewSize()
+            // ボタンの状態を下にする
+            state = .down
+            // ボタンの画像を変える
+            sender.setImage(#imageLiteral(resourceName: "icons8-下-25"), for: .normal)
         }
     }
 }

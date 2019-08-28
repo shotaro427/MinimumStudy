@@ -115,6 +115,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         // 投稿ボタンの設定
         plusImageButton.layer.cornerRadius = plusImageButton.frame.width / 2
+        
 
         // インジケータの設定
         setIndicator()
