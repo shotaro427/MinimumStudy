@@ -13,6 +13,7 @@ import PMAlertController
 import NVActivityIndicatorView
 import BetterSegmentedControl
 import Dispatch
+import LTMorphingLabel
 
 class LoginViewController: UIViewController {
 
@@ -31,14 +32,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var createAccuntButton: UIButton!
 
     @IBOutlet weak var segmentedViewButton: BetterSegmentedControl!
+    @IBOutlet weak var loginTitleLabel: LTMorphingLabel!
 
     // MARK: - 自作変数
 
     // 所属している部屋を格納する
     var roomInfo: [[String: Any]] = []
     var roomIDs: [String] = []
-
-//    let db = Firestore.firestore()
 
     // インジケータの追加
     var activityIndicatorView: NVActivityIndicatorView!
@@ -49,11 +49,24 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // viewに影をつける
+        loginView.layer.masksToBounds = false
+        loginView.layer.shadowColor = UIColor.black.cgColor
+        loginView.layer.shadowOffset = CGSize(width: 6, height: 6)
+        loginView.layer.shadowRadius = 2
+        loginView.layer.shadowOpacity = 0.6
+
         // インジケータの設定
         setIndicator()
 
         // セグメントコントロール
         segmentedViewButton.segments = LabelSegment.segments(withTitles: ["ログイン", "新規作成"])
+        // セグメントに影をつける
+        segmentedViewButton.layer.masksToBounds = false
+        segmentedViewButton.layer.shadowColor = UIColor.black.cgColor
+        segmentedViewButton.layer.shadowOffset = CGSize(width: 6, height: 0)
+        segmentedViewButton.layer.shadowRadius = 2
+        segmentedViewButton.layer.shadowOpacity = 0.6
 
         //textFieldの下線を追加
         emailTextField.addBorderBottom(height: 2, color: #colorLiteral(red: 0.2084727883, green: 1, blue: 0.8079068065, alpha: 1))
@@ -68,10 +81,11 @@ class LoginViewController: UIViewController {
         loginButton.layer.cornerRadius = 10
         createAccuntButton.layer.cornerRadius = 10
 
-
         emailTextField.text = "aaaa@aaaa.com"
         passwordTextField.text = "123456"
     }
+
+    // MARK: 自作関数
 
     /**
         インジケータの設定を行う関数
@@ -176,7 +190,7 @@ class LoginViewController: UIViewController {
     // MARK: - アクション
 
     /// ログインボタン
-    @IBAction func tappedLoginButton(_ sender: Any) {
+    @IBAction func tappedLoginButton(_ sender: UIButton) {
 
         // インジケータの描画
         self.activityIndicatorView.startAnimating()
@@ -211,7 +225,7 @@ class LoginViewController: UIViewController {
     }
 
     // 新規作成ボタン
-    @IBAction func tappedCeateAccountButton(_ sender: Any) {
+    @IBAction func tappedCeateAccountButton(_ sender: UIButton) {
 
         // textFieldの中身を確認
         guard let email = newEmailTextField.text, let password = newPasswordTextField.text else {

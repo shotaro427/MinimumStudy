@@ -88,17 +88,17 @@
                                                                 <rect key="frame" x="52" y="0.0" width="342" height="50"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BaM-wa-61l">
-                                                                        <rect key="frame" x="0.0" y="5" width="102" height="40"/>
+                                                                        <rect key="frame" x="5" y="10" width="102" height="30"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDL-oz-t8m">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="46" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
                                                                                 <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 <state key="normal" title="Button">
                                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12Z-aW-9do">
-                                                                                <rect key="frame" x="56" y="0.0" width="46" height="40"/>
+                                                                                <rect key="frame" x="56" y="0.0" width="46" height="30"/>
                                                                                 <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 <state key="normal" title="Button">
                                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -109,9 +109,9 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="BaM-wa-61l" firstAttribute="top" secondItem="VZp-9r-gRZ" secondAttribute="top" constant="5" id="BrX-5Y-3sc"/>
-                                                                    <constraint firstItem="BaM-wa-61l" firstAttribute="leading" secondItem="VZp-9r-gRZ" secondAttribute="leading" id="N2E-ha-DjQ"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="BaM-wa-61l" secondAttribute="bottom" constant="5" id="YgV-cF-nqz"/>
+                                                                    <constraint firstItem="BaM-wa-61l" firstAttribute="top" secondItem="VZp-9r-gRZ" secondAttribute="top" constant="10" id="BrX-5Y-3sc"/>
+                                                                    <constraint firstItem="BaM-wa-61l" firstAttribute="leading" secondItem="VZp-9r-gRZ" secondAttribute="leading" constant="5" id="N2E-ha-DjQ"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="BaM-wa-61l" secondAttribute="bottom" constant="10" id="YgV-cF-nqz"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>

@@ -555,14 +555,14 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             cell.postedImageView.image = decordedImage
 
             // ユーザーIDを表示
-            cell.postedUserLabel.text = "制作者: \(dict["userID"] as! String)"
+//            cell.postedUserLabel.text = "制作者: \(dict["userID"] as! String)"
 
             // タイトルを表示
             cell.postedImageTitleLabel.text = dict["title"] as? String
 
             // 日付を表示
-            let date = printDate(intDate: dict["date"] as! Int)
-            cell.postedDateLabel.text = "投稿日: \(date)"
+//            let date = printDate(intDate: dict["date"] as! Int)
+//            cell.postedDateLabel.text = "投稿日: \(date)"
 
             // タグを表示
             // タグの表示
@@ -579,23 +579,30 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 cell.tag2Button.isHidden = false
                 cell.tag2Button.setTitle(dict["tag2"] as? String, for: .normal)
             }
-
-            // セルのボタンの設定
-            cell.layer.cornerRadius = 20
-            cell.postedView.layer.cornerRadius = 20
-            cell.tag1Button.layer.cornerRadius = 10
-            cell.tag2Button.layer.cornerRadius = 10
-            cell.tag2Button.isEnabled = false
-            cell.tag1Button.isEnabled = false
         }
+        // せ流の設定
+        cell.setupCell()
         
         return cell
     }
 
+    // コレクションビューのレイアウト
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let horizontalSpace : CGFloat = 20
-        let cellSize : CGFloat = self.view.bounds.width - horizontalSpace
+        let horizontalSpace : CGFloat = 15
+        let cellSize : CGFloat = self.view.bounds.width / 2 - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
     // セルタップ時

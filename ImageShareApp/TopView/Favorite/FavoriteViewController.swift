@@ -27,14 +27,10 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // デリゲートの設定
         favCollectionView.delegate = self
         favCollectionView.dataSource = self
-
-        // レイアウトを調整
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        favCollectionView.collectionViewLayout = layout
 
         // タイトルの設定
         self.navigationItem.title = "お気に入りリスト"
@@ -63,9 +59,21 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - collectionView
     // コレクションビューのレイアウト
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let horizontalSpace : CGFloat = 20
-        let cellSize : CGFloat = self.view.bounds.width - horizontalSpace
+        let horizontalSpace : CGFloat = 15
+        let cellSize : CGFloat = self.view.bounds.width / 2 - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
     // セルの数
@@ -93,15 +101,8 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
             // セルに表示
             cell.postedImageView.image = decordedImage
 
-            // ユーザーIDを表示
-            cell.userLabel.text = "制作者: \(dict["userID"] as! String)"
-
             // タイトルを表示
             cell.titleLabel.text = dict["title"] as? String
-
-            // 日付の表示
-            let date = printDate(intDate: dict["date"] as! Int)
-            cell.postedDateLabel.text = "投稿日: \(date)"
 
             // タグの表示
             if dict["tag1"] as? String == "" || dict["tag1"] == nil{

@@ -51,6 +51,13 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // viewに影をつける
+        createView.layer.masksToBounds = false
+        createView.layer.shadowColor = UIColor.black.cgColor
+        createView.layer.shadowOffset = CGSize(width: 6, height: 6)
+        createView.layer.shadowRadius = 2
+        createView.layer.shadowOpacity = 0.6
+
         // インジケータの設定
         setIndicator()
 
@@ -60,6 +67,12 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
 
         // セグメントコントロール
         segmentedControl.segments = LabelSegment.segments(withTitles: ["新規作成", "申請"])
+        // 影をつける
+        segmentedControl.layer.masksToBounds = false
+        segmentedControl.layer.shadowColor = UIColor.black.cgColor
+        segmentedControl.layer.shadowOffset = CGSize(width: 6, height: 0)
+        segmentedControl.layer.shadowRadius = 2
+        segmentedControl.layer.shadowOpacity = 0.6
 
         // ボタンの設定
         createButton.layer.cornerRadius = 10

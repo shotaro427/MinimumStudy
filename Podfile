@@ -17,5 +17,5 @@ target 'ImageShareApp' do
  pod 'BetterSegmentedControl', '~> 1.2'
  pod 'AMColorPicker'
  pod 'AMScrollingNavbar'
- pod 'Validator'
+ pod 'LTMorphingLabel'
 end

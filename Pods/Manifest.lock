@@ -75,7 +75,7 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
-  - GoogleDataTransport (1.1.2)
+  - GoogleDataTransport (1.1.3)
   - GoogleDataTransportCCTSupport (1.0.2):
     - GoogleDataTransport (~> 1.1)
     - nanopb
@@ -115,6 +115,7 @@ PODS:
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.2.2)
   - leveldb-library (1.22)
+  - LTMorphingLabel (0.7.0)
   - Material (3.1.6):
     - Material/Core (= 3.1.6)
   - Material/Core (3.1.6):
@@ -132,7 +133,6 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.7.0)
   - PMAlertController (4.0.0)
   - Protobuf (3.9.0)
-  - Validator (3.2.1)
 
 DEPENDENCIES:
   - ACEDrawingView
@@ -143,10 +143,10 @@ DEPENDENCIES:
   - Firebase
   - Firebase/Auth
   - Firebase/Firestore
+  - LTMorphingLabel
   - Material (~> 3.1.0)
   - NVActivityIndicatorView
   - PMAlertController
-  - Validator
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -173,13 +173,13 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - leveldb-library
+    - LTMorphingLabel
     - Material
     - Motion
     - nanopb
     - NVActivityIndicatorView
     - PMAlertController
     - Protobuf
-    - Validator
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
@@ -198,21 +198,21 @@ SPEC CHECKSUMS:
   FirebaseFirestore: c457c22c49ccf15a0fbe95bfcbcf69b984dec285
   FirebaseInstanceID: 8b42755db950682e7de0d167bc6fb26a57b244af
   GoogleAppMeasurement: 86a82f0e1f20b8eedf8e20326530138fd71409de
-  GoogleDataTransport: 9c3d63ed82f882a9a74d4be67dd7ad01bf046102
+  GoogleDataTransport: 91e682bd60a49d3f8f69f2e909a66efaed5a1e7a
   GoogleDataTransportCCTSupport: 6b545f7149111180763dc18c6f372c963de4a310
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  LTMorphingLabel: 22147fb1ec2b0306537ccc348b36ea8617179b03
   Material: 9b30613deb1b79487eeede5e4f90cbff084311ea
   Motion: f115b33f36cc52472a25a965daa89b3859817de0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
-  Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
 
-PODFILE CHECKSUM: d6405a548c45e0678575dcaff8510473d761fe19
+PODFILE CHECKSUM: 059abb2fb1ef3cd4ea2d332eca140ec144320185
 
 COCOAPODS: 1.6.1

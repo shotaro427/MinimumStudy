@@ -27,16 +27,22 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     /// セルのセットアップ
     func setupCell() {
         // 部品の設定
-        self.postView.layer.cornerRadius = 20
         self.tag1Button.layer.cornerRadius = 10
         self.tag2Button.layer.cornerRadius = 10
         self.tag2Button.isEnabled = false
         self.tag1Button.isEnabled = false
-        self.postView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7613441781)
-        self.postView.layer.borderWidth = 2
+        self.postView.layer.cornerRadius = 15
+        self.postedImageView.layer.cornerRadius = 15
+        // 角丸の位置を設定
+        self.postedImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.postView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 
         // セル自体の設定
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.black.cgColor
+        // 影をつける
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowRadius = 2
+        self.layer.shadowOpacity = 0.6
     }
 }

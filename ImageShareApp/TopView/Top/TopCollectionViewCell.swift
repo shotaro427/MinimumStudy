@@ -46,6 +46,31 @@ class TopCollectionViewCell: UICollectionViewCell {
 
     // MARK: - 関数
     // MARK: - 自作関数
+
+    /// セルの設定
+    func setupCell() {
+        // セルのボタンの設定
+        self.tag1Button.layer.cornerRadius = 10
+        self.tag2Button.layer.cornerRadius = 10
+        self.tag2Button.isEnabled = false
+        self.tag1Button.isEnabled = false
+
+        // viewの設定
+        self.postedImageView.layer.cornerRadius = 15
+        self.postedView.layer.cornerRadius = 15
+        // 角丸の位置を設定
+        self.postedImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.postedView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+
+        // セル自体の設定
+        // 影をつける
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowRadius = 2
+        self.layer.shadowOpacity = 0.6
+    }
+
     /// いいね機能
     func favImage() {
         // 星がついている時
