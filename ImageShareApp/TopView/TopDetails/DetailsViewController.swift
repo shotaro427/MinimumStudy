@@ -358,7 +358,10 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
                     self.activityIndicatorView.stopAnimating()
                 })
             })
-            let noAction = PMAlertAction(title: "いいえ", style: .cancel)
+            let noAction = PMAlertAction(title: "いいえ", style: .cancel, action: {
+                self.activityIndicatorBackgroundView.alpha = 0
+                self.activityIndicatorView.stopAnimating()
+            })
 
             // アラートアクションの追加
             alertController.addAction(okAction)

@@ -266,6 +266,8 @@ class RoomViewController: UIViewController, UIScrollViewDelegate {
         // 部屋を作成
         createRoom(function: {
             self.toTop()
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorBackgroundView.alpha = 0
         })
     }
 
