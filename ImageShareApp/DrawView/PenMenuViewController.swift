@@ -17,14 +17,23 @@ class PenMenuViewController: UIViewController, AMColorPickerDelegate {
     // ペンの色を保管
     var penColor: UIColor = UIColor.red
 
+    // 現在選択されているボタンタグ
+    var buttonTag: Int = 1
+
     // ペンの一覧
     @IBOutlet weak var penMenuView: UIView!
     // カラーピッカー
     @IBOutlet weak var editColorPicker: AMColorPickerTableView!
-
+    
+    @IBOutlet weak var thickPenButton: IconButton!
+    @IBOutlet weak var finePenButton: IconButton!
+    @IBOutlet weak var eraserButton: IconButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
 
         editColorPicker.delegate = self
     }
@@ -92,5 +101,25 @@ class PenMenuViewController: UIViewController, AMColorPickerDelegate {
 
     @IBAction func tappedToolTypeButton(_ sender: UIButton) {
         tempToolType = sender.tag
+
+        if buttonTag != sender.tag {
+            // 細ペンが選択されたとき
+            if sender.tag == 1 {
+                thickPenButton.setImage(#imageLiteral(resourceName: "icons8-蛍光ペン-30 (2)"), for: .normal)
+                finePenButton.setImage(#imageLiteral(resourceName: "icons8-ペン-30 (1)"), for: .normal)
+                eraserButton.setImage(#imageLiteral(resourceName: "icons8-消しゴム-30"), for: .normal)
+                buttonTag = 1
+            } else if sender.tag == 2 { // 太ペンが選択されたとき
+                thickPenButton.setImage(#imageLiteral(resourceName: "icons8-蛍光ペン-30 (1)"), for: .normal)
+                finePenButton.setImage(#imageLiteral(resourceName: "icons8-ペン-30"), for: .normal)
+                eraserButton.setImage(#imageLiteral(resourceName: "icons8-消しゴム-30"), for: .normal)
+                buttonTag = 2
+            } else { // 消しゴムが選択されたとき
+                thickPenButton.setImage(#imageLiteral(resourceName: "icons8-蛍光ペン-30 (2)"), for: .normal)
+                finePenButton.setImage(#imageLiteral(resourceName: "icons8-ペン-30"), for: .normal)
+                eraserButton.setImage(#imageLiteral(resourceName: "icons8-消しゴム-30 (1)"), for: .normal)
+                buttonTag = 3
+            }
+        }
     }
 }

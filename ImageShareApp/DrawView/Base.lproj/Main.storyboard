@@ -142,32 +142,36 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-Bo-Ni2">
                                         <rect key="frame" x="30" y="745" width="188.5" height="63"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-t6-yp9" customClass="IconButton" customModule="Material">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-iu-zCu" customClass="IconButton" customModule="Material">
                                                 <rect key="frame" x="0.0" y="0.0" width="57.5" height="63"/>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="pen" image="蛍光ペン"/>
-                                                <state key="selected">
+                                                <state key="normal" image="icons8-ペン-30 (1)"/>
+                                                <state key="selected" image="icons8-ペン-50"/>
+                                                <state key="highlighted" image="icons8-ペン-50"/>
+                                                <connections>
+                                                    <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="5V5-k3-YM2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-t6-yp9" customClass="IconButton" customModule="Material">
+                                                <rect key="frame" x="65.5" y="0.0" width="57.5" height="63"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" image="icons8-蛍光ペン-30 (2)"/>
+                                                <state key="selected" image="icons8-蛍光ペン-50">
                                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <state key="highlighted" image="蛍光ペン">
+                                                <state key="highlighted" image="icons8-蛍光ペン-50">
                                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="Or3-5R-ee2"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-iu-zCu" customClass="IconButton" customModule="Material">
-                                                <rect key="frame" x="65.5" y="0.0" width="57.5" height="63"/>
-                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="line" image="シャープペンシル"/>
-                                                <connections>
-                                                    <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="5V5-k3-YM2"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55d-4j-zTb" customClass="IconButton" customModule="Material">
                                                 <rect key="frame" x="131" y="0.0" width="57.5" height="63"/>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="eraser" image="消しゴム"/>
+                                                <state key="normal" image="icons8-消しゴム-30"/>
+                                                <state key="selected" image="icons8-消しゴム-50"/>
+                                                <state key="highlighted" image="icons8-消しゴム-50"/>
                                                 <connections>
                                                     <action selector="tappedToolTypeButton:" destination="gbZ-eC-YUR" eventType="touchUpInside" id="HNj-tU-ZiE"/>
                                                 </connections>
@@ -205,7 +209,10 @@
                     </view>
                     <connections>
                         <outlet property="editColorPicker" destination="kgd-hT-qnc" id="YsM-bJ-hf2"/>
+                        <outlet property="eraserButton" destination="55d-4j-zTb" id="KEb-2D-4kK"/>
+                        <outlet property="finePenButton" destination="Zz9-iu-zCu" id="ROo-Np-2mr"/>
                         <outlet property="penMenuView" destination="i7l-Ao-DEe" id="SAD-dq-oYg"/>
+                        <outlet property="thickPenButton" destination="m9F-t6-yp9" id="Wzq-H4-o1G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hev-Rc-nam" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -233,10 +240,13 @@
     </scenes>
     <resources>
         <image name="icons8-テキスト-24" width="24" height="24"/>
-        <image name="シャープペンシル" width="256" height="256"/>
+        <image name="icons8-ペン-30 (1)" width="30" height="30"/>
+        <image name="icons8-ペン-50" width="50" height="50"/>
+        <image name="icons8-消しゴム-30" width="30" height="30"/>
+        <image name="icons8-消しゴム-50" width="50" height="50"/>
+        <image name="icons8-蛍光ペン-30 (2)" width="30" height="30"/>
+        <image name="icons8-蛍光ペン-50" width="50" height="50"/>
         <image name="マーカーのライトダウンアイコン素材3" width="16" height="16"/>
         <image name="写真アイコン4" width="32" height="32"/>
-        <image name="消しゴム" width="2733" height="2733"/>
-        <image name="蛍光ペン" width="2149" height="2770"/>
     </resources>
 </document>

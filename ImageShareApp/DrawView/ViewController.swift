@@ -137,7 +137,7 @@ class ViewController: UIViewController, ACEDrawingViewDelegate, UINavigationCont
         } else {
             drawingView.drawTool = ACEDrawingToolTypePen
             // 太ペンが選択された時
-            if toolTypeNumber == 1 {
+            if toolTypeNumber == 2 {
                 drawingView.lineColor = penColor
                 drawingView.lineWidth = 10
             } else {
