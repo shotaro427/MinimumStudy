@@ -743,7 +743,7 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             vc.roomInfo = self.roomInfo
             vc.waitingMenber = self.waitingMenber
             vc.tagsInfo = self.tagsList.slice(start: 0, end: 2)
-            print("** check roomInfo[post-count] = \(self.roomInfo["post-count"])")
+            print("** check roomInfo[post-count] = \(String(describing: self.roomInfo["post-count"]))")
             // 遷移
             self.navigationController?.pushViewController(vc, animated: true)
             // インジケータを止める
