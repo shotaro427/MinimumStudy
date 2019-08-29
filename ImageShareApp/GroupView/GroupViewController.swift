@@ -219,7 +219,9 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
                 // アラートの表示
                 let alertController = PMAlertController(title: "完了!", description: "申請を許可しました。", image: #imageLiteral(resourceName: "ok_man"), style: .alert)
-                let okAction = PMAlertAction(title: "はい", style: .default)
+                let okAction = PMAlertAction(title: "はい", style: .default, action: {
+                    self.groupTableView.reloadData()
+                })
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true)
             }

@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginImage" translatesAutoresizingMaskIntoConstraints="NO" id="xEP-TU-qpD">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HST-4N-lQ6">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" red="0.0" green="0.043338892890000001" blue="1" alpha="0.1545376712" colorSpace="custom" customColorSpace="displayP3"/>
@@ -111,17 +114,24 @@
                                                                                 </view>
                                                                             </subviews>
                                                                         </stackView>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gE4-ML-vnu">
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rPs-Zu-QTU" customClass="WCLShineButton" customModule="WCLShineButton">
                                                                             <rect key="frame" x="197" y="0.0" width="41" height="41"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" secondItem="gE4-ML-vnu" secondAttribute="height" multiplier="1:1" id="dBw-Xu-sPl"/>
+                                                                                <constraint firstAttribute="width" secondItem="rPs-Zu-QTU" secondAttribute="height" multiplier="1:1" id="mw9-ON-Ram"/>
                                                                             </constraints>
-                                                                            <state key="normal" title="Button" image="星(普通)"/>
-                                                                            <state key="highlighted" image="星(選択時)"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                                    <color key="value" red="0.80598894779871144" green="0.80209528138422492" blue="0.80988261421319796" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                                                                    <color key="value" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
                                                                             <connections>
-                                                                                <action selector="tappedStarButton:" destination="CCA-9r-i88" eventType="touchUpInside" id="EwQ-T5-sHO"/>
+                                                                                <action selector="tappedStarButton:" destination="CCA-9r-i88" eventType="valueChanged" id="meQ-ei-BuW"/>
                                                                             </connections>
-                                                                        </button>
+                                                                        </view>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
@@ -151,7 +161,7 @@
                                             <outlet property="postedImageTitleLabel" destination="RJg-fg-G7v" id="z9o-es-cmo"/>
                                             <outlet property="postedImageView" destination="eZg-qd-w9t" id="ASo-15-bsx"/>
                                             <outlet property="postedView" destination="dO7-Yy-m0r" id="tAy-pc-lbk"/>
-                                            <outlet property="starButton" destination="gE4-ML-vnu" id="zdh-kL-JFx"/>
+                                            <outlet property="starButton" destination="rPs-Zu-QTU" id="5kH-by-wdH"/>
                                             <outlet property="tag1Button" destination="dvW-Z9-mjf" id="HAD-jC-dge"/>
                                             <outlet property="tag2Button" destination="xPc-xK-faF" id="oEu-kA-Mum"/>
                                         </connections>
@@ -205,14 +215,18 @@
                             <constraint firstItem="7HY-LM-WR8" firstAttribute="trailing" secondItem="HST-4N-lQ6" secondAttribute="trailing" id="8dU-TU-9tp"/>
                             <constraint firstItem="HST-4N-lQ6" firstAttribute="top" secondItem="7HY-LM-WR8" secondAttribute="top" id="B1l-c7-vhU"/>
                             <constraint firstItem="HST-4N-lQ6" firstAttribute="leading" secondItem="7HY-LM-WR8" secondAttribute="leading" id="D6n-tF-aTP"/>
+                            <constraint firstItem="7HY-LM-WR8" firstAttribute="bottom" secondItem="xEP-TU-qpD" secondAttribute="bottom" id="KlO-Po-H3i"/>
                             <constraint firstItem="zFm-tN-7gu" firstAttribute="height" secondItem="Kpt-Wu-aJb" secondAttribute="height" id="RNQ-s6-sbQ"/>
                             <constraint firstItem="zFm-tN-7gu" firstAttribute="leading" secondItem="ybi-4c-nIX" secondAttribute="leading" id="Rax-yB-DXc"/>
+                            <constraint firstItem="xEP-TU-qpD" firstAttribute="leading" secondItem="7HY-LM-WR8" secondAttribute="leading" id="Tnk-nh-E7U"/>
                             <constraint firstItem="ybi-4c-nIX" firstAttribute="trailing" secondItem="HST-4N-lQ6" secondAttribute="trailing" id="URH-NL-UCI"/>
                             <constraint firstItem="ybi-4c-nIX" firstAttribute="top" secondItem="7HY-LM-WR8" secondAttribute="top" id="URh-vd-Lya"/>
                             <constraint firstItem="7HY-LM-WR8" firstAttribute="bottom" secondItem="HST-4N-lQ6" secondAttribute="bottom" id="bdd-KG-3wR"/>
+                            <constraint firstItem="xEP-TU-qpD" firstAttribute="top" secondItem="7HY-LM-WR8" secondAttribute="top" id="biJ-9g-xzF"/>
                             <constraint firstItem="zFm-tN-7gu" firstAttribute="leading" secondItem="HST-4N-lQ6" secondAttribute="leading" id="eUH-8w-UO3"/>
                             <constraint firstItem="zFm-tN-7gu" firstAttribute="bottom" secondItem="HST-4N-lQ6" secondAttribute="bottom" id="jlO-cf-M2E"/>
                             <constraint firstItem="7HY-LM-WR8" firstAttribute="trailing" secondItem="f0N-jR-WEE" secondAttribute="trailing" constant="20" id="rhQ-S3-9EH"/>
+                            <constraint firstItem="7HY-LM-WR8" firstAttribute="trailing" secondItem="xEP-TU-qpD" secondAttribute="trailing" id="tow-vp-Qcq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7HY-LM-WR8"/>
                     </view>
@@ -252,9 +266,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginImage" translatesAutoresizingMaskIntoConstraints="NO" id="rhE-rh-9mK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qz4-wM-MjP">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" red="0.0" green="0.043338892894836611" blue="1" alpha="0.15453767123287671" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bek-i3-C2A">
                                     <size key="itemSize" width="248" height="235"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -304,7 +320,7 @@
                                                                                             <subviews>
                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d78-tD-rFB">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="46" height="31"/>
-                                                                                                    <color key="backgroundColor" red="0.36405158040000002" green="0.78002101180000005" blue="0.79608660939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                                    <color key="backgroundColor" red="0.36405158042907715" green="0.78002101182937622" blue="0.79608660936355591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                                     <state key="normal" title="Button">
                                                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     </state>
@@ -384,10 +400,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dVb-s4-icN" firstAttribute="bottom" secondItem="rhE-rh-9mK" secondAttribute="bottom" id="1xl-Kh-07Z"/>
+                            <constraint firstItem="rhE-rh-9mK" firstAttribute="top" secondItem="dVb-s4-icN" secondAttribute="top" id="44k-i2-Bxz"/>
                             <constraint firstItem="Qz4-wM-MjP" firstAttribute="trailing" secondItem="dVb-s4-icN" secondAttribute="trailing" id="CNG-05-c72"/>
                             <constraint firstItem="dVb-s4-icN" firstAttribute="top" secondItem="Qz4-wM-MjP" secondAttribute="top" id="KNa-Mq-e1q"/>
                             <constraint firstItem="dVb-s4-icN" firstAttribute="bottom" secondItem="Qz4-wM-MjP" secondAttribute="bottom" id="NXb-lK-7QK"/>
                             <constraint firstItem="Qz4-wM-MjP" firstAttribute="leading" secondItem="dVb-s4-icN" secondAttribute="leading" id="fqf-xT-cgu"/>
+                            <constraint firstItem="dVb-s4-icN" firstAttribute="trailing" secondItem="rhE-rh-9mK" secondAttribute="trailing" id="tyb-bL-QgV"/>
+                            <constraint firstItem="rhE-rh-9mK" firstAttribute="leading" secondItem="dVb-s4-icN" secondAttribute="leading" id="zSR-Vt-aRi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dVb-s4-icN"/>
                     </view>
@@ -452,8 +472,7 @@
     </scenes>
     <resources>
         <image name="icons8-プラス記号-30" width="30" height="30"/>
-        <image name="星(普通)" width="40" height="40"/>
-        <image name="星(選択時)" width="40" height="40"/>
+        <image name="loginImage" width="750" height="1000"/>
         <image name="検索" width="25" height="25"/>
     </resources>
 </document>

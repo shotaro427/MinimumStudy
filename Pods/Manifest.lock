@@ -133,6 +133,7 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.7.0)
   - PMAlertController (4.0.0)
   - Protobuf (3.9.0)
+  - WCLShineButton (1.0.8)
 
 DEPENDENCIES:
   - ACEDrawingView
@@ -147,6 +148,7 @@ DEPENDENCIES:
   - Material (~> 3.1.0)
   - NVActivityIndicatorView
   - PMAlertController
+  - WCLShineButton
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -180,6 +182,7 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - PMAlertController
     - Protobuf
+    - WCLShineButton
 
 SPEC CHECKSUMS:
   ACEDrawingView: fa6e8461682a54db3ac65151474fc77ef7e54fd2
@@ -212,7 +215,8 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
+  WCLShineButton: 315ee9b0024b1cc56dba34fb6a8878937eb8d0b1
 
-PODFILE CHECKSUM: 059abb2fb1ef3cd4ea2d332eca140ec144320185
+PODFILE CHECKSUM: 8c20002041aefafb0a4bca57d1a92e45214972c5
 
 COCOAPODS: 1.6.1

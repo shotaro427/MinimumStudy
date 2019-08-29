@@ -10,6 +10,7 @@ import UIKit
 import FirebaseFirestore
 import NVActivityIndicatorView
 import PMAlertController
+import WCLShineButton
 
 class TopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -367,25 +368,6 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
 
     /**
-     * いいね機能
-     * - Parameters:
-     *   - cell: TopCollectionviewCell型のインスタンス
-     *   - indexPath: いいねされたcollectionViewのindexPath
-     */
-    func favImage(cell: TopCollectionViewCell, indexPath: IndexPath) {
-        // 星がついている時
-        if cell.type == .highlighted {
-            // 部屋までのルート
-            if let ref: DocumentReference = db.collection("chat-room").document(roomID) {
-                if let email = UserDefaults.standard.string(forKey: "email"), let userRef: DocumentReference = ref.collection("users").document(email) {
-                    // DBにいいねを押した画像の情報を追加
-                    userRef.collection("fav-image").document(postImageID[indexPath.row]).setData(postImageInfo[indexPath.row])
-                }
-            }
-        }
-    }
-
-    /**
      * 保存機能
      * - Parameters:
      *   - image: 保存したい画像
@@ -524,14 +506,12 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
             for document in documents {
                 // 全投稿の内、fav-imageにあるものと同じドキュメントがあった場合
                 if indexPath.row < self.postImageID.count && document.documentID == self.postImageID[indexPath.row] {
-                    cell.type = .highlighted
-                    cell.starButton.setImage(#imageLiteral(resourceName: "星(選択時)"), for: .normal)
+                    cell.starButton.isSelected = true
                     isStar = true
                 }
             }
             if !isStar {
-                cell.type = .nomal
-                cell.starButton.setImage(#imageLiteral(resourceName: "星(普通)"), for: .normal)
+                cell.starButton.isSelected = false
             }
         })
 

@@ -28,6 +28,8 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        favCollectionView.backgroundColor = UIColor.clear
+
         // デリゲートの設定
         favCollectionView.delegate = self
         favCollectionView.dataSource = self

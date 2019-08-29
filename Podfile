@@ -18,4 +18,5 @@ target 'ImageShareApp' do
  pod 'AMColorPicker'
  pod 'AMScrollingNavbar'
  pod 'LTMorphingLabel'
+ pod 'WCLShineButton'
 end

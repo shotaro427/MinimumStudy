@@ -128,6 +128,7 @@ class LoginViewController: UIViewController {
                             self.roomIDs.append(document.documentID)
                         }
                         // 最後のdocumentを持ってきた時
+
                         if let firstDocumentID = QuerySnapshot?.documents.first?.documentID {
                             if document.documentID == firstDocumentID {
                                 function()
@@ -144,7 +145,10 @@ class LoginViewController: UIViewController {
     */
     func showErrorAlert(error: Error?) {
         let alert = PMAlertController(title: "エラーです。", description: error?.localizedDescription, image: #imageLiteral(resourceName: "ログインエラー"), style: .alert)
-        let okAction = PMAlertAction(title: "OK", style: .cancel)
+        let okAction = PMAlertAction(title: "OK", style: .cancel, action: {
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorBackgroundView.removeFromSuperview()
+        })
         alert.addAction(okAction)
         // 表示
         self.present(alert, animated: true)

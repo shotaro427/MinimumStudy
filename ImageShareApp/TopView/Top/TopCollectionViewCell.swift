@@ -8,11 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
-
-enum buttonType  {
-    case nomal
-    case highlighted
-}
+import WCLShineButton
 
 class TopCollectionViewCell: UICollectionViewCell {
 
@@ -23,7 +19,7 @@ class TopCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var postedImageTitleLabel: UILabel!
     @IBOutlet weak var postedUserLabel: UILabel!
     @IBOutlet weak var postedView: UIView!
-    @IBOutlet weak var starButton: UIButton!
+    @IBOutlet weak var starButton: WCLShineButton!
     @IBOutlet weak var postedDateLabel: UILabel!
     @IBOutlet weak var tag1Button: UIButton!
     @IBOutlet weak var tag2Button: UIButton!
@@ -34,8 +30,6 @@ class TopCollectionViewCell: UICollectionViewCell {
     /// セルのID
     var cellID: String = ""
 
-    /// ボタンタイプ
-    var type: buttonType = .nomal
     /// roomID
     var roomID: String = ""
     /// 投稿ID
@@ -69,6 +63,12 @@ class TopCollectionViewCell: UICollectionViewCell {
         self.layer.shadowOffset = CGSize(width: 3, height: 3)
         self.layer.shadowRadius = 2
         self.layer.shadowOpacity = 0.6
+
+        // いいね!ボタンの設定
+        var param4 = WCLShineParams()
+        param4.bigShineColor = UIColor.yellow
+        starButton.params = param4
+        starButton.image = .defaultAndSelect(#imageLiteral(resourceName: "icons8-星-24 (1)"), #imageLiteral(resourceName: "icons8-星-24"))
     }
 
     /// いいね機能
@@ -96,15 +96,13 @@ class TopCollectionViewCell: UICollectionViewCell {
 
     // MARK: - 紐付けした関数
     /// いいねボタンを押した時の処理
-    @IBAction func tappedStarButton(_ sender: UIButton) {
-        if type == .nomal {
-            starButton.setImage(#imageLiteral(resourceName: "星(選択時)"), for: .normal)
+    @IBAction func tappedStarButton(_ sender: WCLShineButton) {
+        if sender.isSelected {
+            print("starButton is selected")
             favImage()
-             type = .highlighted
         } else {
-            starButton.setImage(#imageLiteral(resourceName: "星(普通)"), for: .normal)
+            print("starButton is unselected")
             deleteFavImage()
-            type = .nomal
         }
     }
 }
