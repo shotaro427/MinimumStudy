@@ -82,6 +82,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         // キーボードを隠すボタンを隠す
         hideKeyboardButton.isHidden = true
+        // コレクションビューの背景を透明にする
+        topCollectionView.backgroundColor = UIColor.clear
 
         // 検索窓の設定
         setupSearchBar()
@@ -116,6 +118,8 @@ class TopViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         // 投稿ボタンの設定
         plusImageButton.layer.cornerRadius = plusImageButton.frame.width / 2
+        plusImageButton.layer.borderColor = UIColor.white.cgColor
+        plusImageButton.layer.borderWidth = 2
         // 影
         plusImageButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         plusImageButton.layer.shadowColor = UIColor.black.cgColor
